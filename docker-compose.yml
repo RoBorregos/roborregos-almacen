@@ -1,0 +1,14 @@
+version: '3.3'
+
+services:
+  frontend-web:
+    image: roborregos/frontend-almacen:1.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/usr/src
+    ports:
+      - 3000:3000
+    tty: true
+    command: bash -c "yarn && yarn start"
