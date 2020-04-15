@@ -6,9 +6,11 @@ class Login extends Component{
     render(){
         
         return(
-
-            <ValidLogin membersData = { membersData.members }/>
-
+            <div>
+                <ValidLogin membersData = { membersData.members }/>
+                <p></p>
+                <ValidLogin/>
+            </div>
         );
     }
 }
