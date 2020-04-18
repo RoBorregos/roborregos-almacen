@@ -26,6 +26,6 @@ In your terminal, run:
 ```
 
 To close:
-	```bash
+	```
 		ctrl + c
 	```
