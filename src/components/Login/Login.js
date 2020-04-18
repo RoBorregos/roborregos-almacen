@@ -4,12 +4,10 @@ import membersData from 'data/members.json';
 
 class Login extends Component{
     render(){
-        
+
         return(
             <div>
                 <ValidLogin membersData = { membersData.members }/>
-                <p></p>
-                <ValidLogin/>
             </div>
         );
     }
