@@ -10,15 +10,15 @@ class App extends Component {
 
     return (
       <Router>
-        <div className= "app-containet">
+        <div className= "app-container">
 
           <Route
-            exact path= '/'
-            component={ () => <Login /> }
+            path= '/'
+            component={ () => <Warehouse/> }
           />
           <Route
-            path= '/warehouse'
-            component={ () => <Warehouse/> }
+            exact path= '/warehouse'
+            component={ () => <Login /> }
           />
         </div>
       </Router>

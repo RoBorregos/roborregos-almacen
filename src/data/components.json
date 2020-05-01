@@ -1,0 +1,16 @@
+{
+    "components": [
+        {
+           "id": "arduino_one",
+            "stock": 1
+        },
+        {
+            "id": "RaspBerry_Pi",
+            "stock": 1
+        },
+        {
+            "id": "Capacitor",
+            "stock": 1
+        }
+    ]
+}
