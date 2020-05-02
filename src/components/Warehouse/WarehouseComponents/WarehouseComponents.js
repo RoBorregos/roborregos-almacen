@@ -11,19 +11,19 @@ class WarehouseComponents extends Component {
     render() {
         return(
             <div className= "WareHouseComponent_container">
-                <Container>
-                    <Row>
-                        { this.components.map((component,index) => (
-                            <Col>
-                                <SingleComponent
-                                key = { index }
-                                component =  { component }
-                                />
-                            </Col>
-                        )) }
-                    </Row>
+                <Container fluid = "md">
+                    <Col lg= { true }>
+                        <Row className= 'justify-content-sm-left' >
+                            { this.components.map((component,index) => (
+                                <Col sm='4' md='2' key={ index } className='component-col'>
+                                    <SingleComponent
+                                    component =  { component }
+                                    />
+                                </Col>
+                            )) }
+                        </Row>
+                    </Col>
                 </Container>
-
             </div>
         );
     }

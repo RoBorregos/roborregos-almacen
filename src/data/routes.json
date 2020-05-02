@@ -1,0 +1,15 @@
+{
+    "routes": [
+        {
+          "path": "/profile",
+          "legend": "Profile",
+          "component": "Profile"
+        },
+        {
+          "path": "/",
+          "legend": "Warehouse",
+          "component": "Warehouse"
+        }
+    ]
+  }
+  

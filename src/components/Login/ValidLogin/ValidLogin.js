@@ -23,7 +23,9 @@ class ValidLogin extends Component{
 
   validateMember(event) {
     this.membersData.map((member, index) => {
-      if(member.studentID === this.state.value) return true;
+      if(member.studentID === this.state.value) {
+        return true;
+      }
     });
     return false;
     event.preventDefault();

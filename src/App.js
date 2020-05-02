@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import Login from "./components/Login/Login.js";
+import Profile from "./components/Profile/Profile.js";
 import Warehouse from "./components/Warehouse/Warehouse.js";
+import NavBar from "./components/NavBar/NavBar.js";
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import routesData from 'data/routes.json';
 import './App.css';
 
 class App extends Component {
@@ -11,14 +14,16 @@ class App extends Component {
     return (
       <Router>
         <div className= "app-container">
+        
+          <NavBar routes={ routesData.routes } />
 
           <Route
-            path= '/'
-            component={ () => <Warehouse/> }
+            exact path= '/'
+            component={ () => <Warehouse /> }
           />
           <Route
-            exact path= '/warehouse'
-            component={ () => <Login /> }
+            exact path= '/profile'
+            component={ () => <Profile /> }
           />
         </div>
       </Router>

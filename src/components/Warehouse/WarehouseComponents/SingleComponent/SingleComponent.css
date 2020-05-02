@@ -1,0 +1,11 @@
+.singlecomponent_container{
+    height: 300px;
+    width: 100px;
+
+    font-size: 10px; /*Fix to fit dinamically*/
+}
+
+.single_component{
+   height: 100px;
+   width: 100px;
+}
