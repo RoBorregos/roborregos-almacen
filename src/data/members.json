@@ -4,13 +4,15 @@
            "id": 1,
            "name": "Ricardo Chapa Romero",
            "studentID":"A00123456",
-           "mail": "ricardochaparomero@gmail.com"
+           "mail": "ricardochaparomero@gmail.com",
+           "password": "123456789"
         },
         {
             "id": 2,
             "name": "Alexis Zugasti",
             "studentID":"A00789101",
-            "mail": "aZugasti@gmail.com"
+            "mail": "aZugasti@gmail.com",
+            "password": "987654321"
          }
     ]
 

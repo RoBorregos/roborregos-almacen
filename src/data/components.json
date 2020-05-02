@@ -1,0 +1,52 @@
+{
+    "components": [
+        {
+            "id": "RaspBerry_Pi",
+            "name": "Raspberry Pi 3",
+            "img_path": "raspberry_pi.jpg",
+            "stock": 1
+        },
+        {
+            "id": "arduino_one",
+            "name": "Arduino One",
+            "img_path": "arduino_one.jpg",
+             "stock": 1
+        },
+        {
+            "id": "Capacitor",
+            "name": "Capacitor 10 microF",
+            "img_path": "capacitor.jpg",
+            "stock": 1
+        },
+        {
+            "id": "arduino_one",
+            "name": "Arduino One",
+            "img_path": "arduino_one.jpg",
+             "stock": 1
+         },
+         {
+             "id": "RaspBerry_Pi",
+             "name": "Raspberry Pi 3",
+             "img_path": "raspberry_pi.jpg",
+             "stock": 1
+         },
+         {
+             "id": "Capacitor",
+             "name": "Capacitor 10 microF",
+             "img_path": "capacitor.jpg",
+             "stock": 1
+         },
+         {
+             "id": "RaspBerry_Pi",
+             "name": "Raspberry Pi 3",
+             "img_path": "raspberry_pi.jpg",
+             "stock": 1
+         },
+         {
+             "id": "Capacitor",
+             "name": "Capacitor 10 microF",
+             "img_path": "capacitor.jpg",
+             "stock": 1
+         }
+    ]
+}
