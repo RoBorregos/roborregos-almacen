@@ -23,12 +23,19 @@ tryRequire(img_path) {
     render() {
         return (
             <div className = "singlecomponent_container">
+              <div className = "single_component_back">
                 <img
-                    className = "single_component"
+                    className = "single_component_image"
                     src={ this.tryRequire(this.component.img_path) }
                     alt={ this.component.id }
                 />
-                <p>{ this.component.name }</p>
+                <p 
+                className = "text-center"
+                style = { { fontFamily: "Arial", fontSize:"1.3vw" } }
+                >
+                  { this.component.name }
+                </p>
+              </div>
             </div>
         );
     }
