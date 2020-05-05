@@ -1,52 +1,42 @@
 {
-    "components": [
-        {
-            "id": "RaspBerry_Pi",
-            "name": "Raspberry Pi 3",
-            "img_path": "raspberry_pi.jpg",
-            "stock": 1
-        },
-        {
-            "id": "arduino_one",
-            "name": "Arduino One",
-            "img_path": "arduino_one.jpg",
-             "stock": 1
-        },
-        {
-            "id": "Capacitor",
-            "name": "Capacitor 10 microF",
-            "img_path": "capacitor.jpg",
-            "stock": 1
-        },
-        {
-            "id": "arduino_one",
-            "name": "Arduino One",
-            "img_path": "arduino_one.jpg",
-             "stock": 1
-         },
-         {
-             "id": "RaspBerry_Pi",
-             "name": "Raspberry Pi 3",
-             "img_path": "raspberry_pi.jpg",
-             "stock": 1
-         },
-         {
-             "id": "Capacitor",
-             "name": "Capacitor 10 microF",
-             "img_path": "capacitor.jpg",
-             "stock": 1
-         },
-         {
-             "id": "RaspBerry_Pi",
-             "name": "Raspberry Pi 3",
-             "img_path": "raspberry_pi.jpg",
-             "stock": 1
-         },
-         {
-             "id": "Capacitor",
-             "name": "Capacitor 10 microF",
-             "img_path": "capacitor.jpg",
-             "stock": 1
-         }
-    ]
+    "components": {
+            "microcontrollers": [
+                {
+                    "id": "RaspBerry_Pi",
+                    "name": "Raspberry Pi 3",
+                    "img_path": "raspberry_pi.jpg",
+                    "stock": 1
+                },
+                {
+                    "id": "arduino_one",
+                    "name": "Arduino One",
+                    "img_path": "arduino_one.jpg",
+                    "stock": 1
+                }
+            ],
+            "circuit component": [
+                {
+                    "id": "Capacitor",
+                    "name": "Capacitor 10 microF",
+                    "img_path": "capacitor.jpg",
+                    "stock": 1
+                }
+            ],
+            "sensors": [
+                {
+                    "id": "ir_seeker",
+                    "name": "Lego IR Seeker",
+                    "img_path": "ir_seeker.jpg",
+                    "stock": 1
+                }
+            ],
+            "motors": [
+                {
+                    "id": "yello_dc_motor",
+                    "name": "Yellow Motor",
+                    "img_path": "yellow_dc_motor.jpg",
+                    "stock": 1
+                }
+            ]
+        }
 }

@@ -18,19 +18,29 @@ class WarehouseComponents extends Component {
     }
 
     resolveFilter(section) {
-        let values = ["All","Circuit Component","Sensors","Motors","Microcontrollers"];
-        if(section == "All") {
-            return(this.components.map((component,index) => (
-                <Col sm='4' md='3' key={ index } className='component-col'>
-                    <SingleComponent
-                    component =  { component }
-                    />
-                </Col>
-            )));
-        }
-        else{
+        let values = ["circuit component","sensors","motors","microcontrollers"];
+        if(section === "All") {
             return(
-                <h1>Hello World</h1>
+                values.map((element,index) => (
+                   this.components[element].map((component, i) => (
+                        <Col sm='4' md='3' key={ i } className='component-col'>
+                            <SingleComponent
+                                component =  { component }
+                            />
+                        </Col>
+                    ))
+                ))
+            );
+        }
+        else {
+            return(
+                this.components[section.toLowerCase()].map((component, i) => (
+                    <Col sm='4' md='3' key={ i } className='component-col'>
+                        <SingleComponent
+                            component =  { component }
+                        />
+                    </Col>
+                ))
             );
         }
     }
@@ -40,13 +50,12 @@ class WarehouseComponents extends Component {
     }
 
     render() {
-        
         return(
             <div className= "WareHouseComponent_container">
                 <Container fluid = "md">
                     <Col lg= { true }>
                         <label className = "search_filter_label" htmlFor = "search_filter">Filter by component type: </label>
-                        <select className= "search_filter" onChange = { this.handleChange } > 
+                        <select className= "search_filter" onChange = { this.handleChange } value = { this.state.value }> 
                             <option value = "All">All</option>
                             <option value = "Circuit Component">Circuit Component</option>
                             <option value = "Sensors">Sensors</option>
@@ -55,9 +64,9 @@ class WarehouseComponents extends Component {
                         </select>
                         <br/>
                         <br/>
-                            <Row className= 'justify-content-sm-center' >
-                                { this.resolveFilter(this.state.value) }
-                            </Row>
+                        <Row className= 'justify-content-sm-left'>
+                            { this.resolveFilter(this.state.value) }
+                        </Row>
                     </Col>
                 </Container>
             </div>
