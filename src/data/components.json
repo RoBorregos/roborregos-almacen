@@ -14,7 +14,7 @@
                     "stock": 1
                 }
             ],
-            "circuit component": [
+            "component": [
                 {
                     "id": "Capacitor",
                     "name": "Capacitor 10 microF",

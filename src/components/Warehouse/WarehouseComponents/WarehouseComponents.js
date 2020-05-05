@@ -18,7 +18,7 @@ class WarehouseComponents extends Component {
     }
 
     resolveFilter(section) {
-        let values = ["circuit component","sensors","motors","microcontrollers"];
+        let values = ["component","sensors","motors","microcontrollers"];
         if(section === "All") {
             return(
                 values.map((element,index) => (
@@ -26,6 +26,7 @@ class WarehouseComponents extends Component {
                         <Col sm='4' md='3' key={ i } className='component-col'>
                             <SingleComponent
                                 component =  { component }
+                                section = { element }
                             />
                         </Col>
                     ))
@@ -34,10 +35,11 @@ class WarehouseComponents extends Component {
         }
         else {
             return(
-                this.components[section.toLowerCase()].map((component, i) => (
+                this.components[section].map((component, i) => (
                     <Col sm='4' md='3' key={ i } className='component-col'>
                         <SingleComponent
                             component =  { component }
+                            section = { section }
                         />
                     </Col>
                 ))
@@ -56,11 +58,11 @@ class WarehouseComponents extends Component {
                     <Col lg= { true }>
                         <label className = "search_filter_label" htmlFor = "search_filter">Filter by component type: </label>
                         <select className= "search_filter" onChange = { this.handleChange } value = { this.state.value }> 
-                            <option value = "All">All</option>
-                            <option value = "Circuit Component">Circuit Component</option>
-                            <option value = "Sensors">Sensors</option>
-                            <option value = "Motors">Motors</option>
-                            <option value = "Microcontrollers">Microcontrollers</option>
+                            <option value = "All"> All </option>
+                            <option value = "component"> Circuit Component </option>
+                            <option value = "sensors"> Sensors </option>
+                            <option value = "motors"> Motors </option>
+                            <option value = "microcontrollers"> Microcontrollers </option>
                         </select>
                         <br/>
                         <br/>

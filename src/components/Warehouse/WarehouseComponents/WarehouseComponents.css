@@ -1,4 +1,11 @@
+
 .search_filter_label{
     color: white;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+.search_filter{
+        position: absolute; 
+        background: linear-gradient( 45deg, rgba(46, 204, 113, 1) 1%, rgba(28, 131, 172, 0.849) 100%);
+        padding: 8px 15px;
 }

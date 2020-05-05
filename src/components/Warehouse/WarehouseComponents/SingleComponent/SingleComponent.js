@@ -4,26 +4,29 @@ import './SingleComponent.css';
 
 
 class SingleComponent extends Component{
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.tryRequire = this.tryRequire.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
 
     this.component = props.component;
+    this.section = props.section;
     this.props = props;
+
   }
 
   tryRequire(img_path) {
     try {
-        return require('images/' + img_path);
+        return require('images/' + this.section + '/' + img_path);
     } catch (err) {
         return placeholder;
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.component = this.props.component;
+    this.section = this.props.section;
   }
 
   render() {
