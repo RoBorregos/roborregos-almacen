@@ -37,6 +37,7 @@
 }
 
 .single_component_modal .modal-footer {
+    justify-content: center;
     border-top: 0 none;
 }
  
