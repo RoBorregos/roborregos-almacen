@@ -38,25 +38,25 @@ class SingleComponent extends Component{
     this.section = this.props.section;
   }
 
-  handleShow(){
+  handleShow() {
     this.setState({ show: true })
   }
 
-  handleClose(){
+  handleClose() {
     this.setState({ show: false })
   }
 
   render() {
     this.componentDidMount(); 
-    return (
+    return(
       <div className = "singlecomponent_container" onClick = { this.handleShow }>
-        <div onClick={e => e.stopPropagation()}>
+        <div onClick={ e => e.stopPropagation() }>
           <Modal 
             className = "single_component_modal" 
             show = { this.state.show } 
             onHide = { this.handleClose}
           >
-            <ModalHeader closeButton> <h1> { this.component.name } </h1> </ModalHeader>
+            <ModalHeader closeButton><h1>{ this.component.name }</h1></ModalHeader>
             <ModalBody>
               <SingleComponentModal 
                 component = { this.component }
