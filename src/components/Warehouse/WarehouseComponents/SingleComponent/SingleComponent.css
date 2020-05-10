@@ -4,6 +4,7 @@
 
     font-size: 10px; /*Fix to fit dinamically*/
 }
+
 .single_component_back{
     background: linear-gradient( 45deg, rgba(46, 204, 113, 1) 1%, rgba(28, 131, 172, 0.849) 100%), url(../../../../images/github_pattern.svg) top left/auto repeat fixed;
     height: max-content;
@@ -12,7 +13,31 @@
     border-radius: 12px;
 }
 
+.single_component_back:hover{
+    transform: scale(1.01);
+    box-shadow: 0 6px 4px black;
+}
+
+.single_component_back:active{
+    transform: scale(1.05);
+}
+
 .single_component_image{
    height: 200px;
    width: 200px;
 }
+ .single_component_modal .modal-content{
+    background: linear-gradient( 45deg, rgba(46, 204, 113, 1) 1%, rgba(28, 131, 172, 1) 100%);
+ }
+ .single_component_modal .modal-header {
+    border-bottom: 0 none;
+}
+.single_component_modal .modal-header .close{
+    outline: none;
+}
+
+.single_component_modal .modal-footer {
+    justify-content: center;
+    border-top: 0 none;
+}
+ 

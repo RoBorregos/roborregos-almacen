@@ -1,0 +1,30 @@
+.singleComponentModal_container{
+    color: black;
+   
+}
+.component_data{
+    align-items: center;
+}
+.input-group-field{
+    border-radius: 8px;
+    text-align: center;
+    flex-grow: 0.9;
+    box-shadow: 0 0 3px #7b4397;    
+    background-image: 
+    linear-gradient(#7b4397  , #dc2430),
+    linear-gradient(#7b4397, #dc2430);
+}
+.minus_button{ 
+    border-radius: 50%;
+    padding: 0.25em 0.8em;
+    margin-inline-end: auto;
+}
+.plus_button{ 
+    border-radius: 50%;
+    padding: 0.25em 0.8em;
+    margin-inline-start: auto;
+}
+.reserve_button{
+    margin-top: 50px;
+    align-self: center;
+}

@@ -15,15 +15,15 @@ class App extends Component {
       <Router>
         <div className= "app-container">
         
-          <NavBar routes={ routesData.routes } />
+          <NavBar routes= { routesData.routes } />
 
           <Route
             exact path= '/'
-            component={ () => <Warehouse /> }
+            component= { () => <Warehouse /> }
           />
           <Route
             exact path= '/profile'
-            component={ () => <Profile /> }
+            component= { () => <Profile /> }
           />
         </div>
       </Router>

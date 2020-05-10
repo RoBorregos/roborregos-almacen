@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
+import { Modal, ModalFooter, ModalBody, Button} from 'react-bootstrap';
+import ModalHeader from 'react-bootstrap/ModalHeader';
+import SingleComponentModal from './SingleComponentModal/SingleComponentModal.js';
 import placeholder from 'images/placeholder-rectangle.png';
 import './SingleComponent.css';
+
 
 
 class SingleComponent extends Component{
@@ -9,11 +13,16 @@ class SingleComponent extends Component{
 
     this.tryRequire = this.tryRequire.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
+    this.handleShow = this.handleShow.bind(this);
+    this.handleClose = this.handleClose.bind(this);
 
     this.component = props.component;
     this.section = props.section;
     this.props = props;
 
+    this.state = {
+      show: false
+    }
   }
 
   tryRequire(img_path) {
@@ -29,10 +38,33 @@ class SingleComponent extends Component{
     this.section = this.props.section;
   }
 
+  handleShow() {
+    this.setState({ show: true })
+  }
+
+  handleClose() {
+    this.setState({ show: false })
+  }
+
   render() {
     this.componentDidMount(); 
-    return (
-      <div className = "singlecomponent_container">
+    return(
+      <div className = "singlecomponent_container" onClick = { this.handleShow }>
+        <div onClick={ e => e.stopPropagation() }>
+          <Modal 
+            className = "single_component_modal" 
+            show = { this.state.show } 
+            onHide = { this.handleClose}
+          >
+            <ModalHeader closeButton><h1>{ this.component.name }</h1></ModalHeader>
+            <ModalBody>
+              <SingleComponentModal 
+                component = { this.component }
+                section = { this.section }
+              />
+            </ModalBody>
+          </Modal>
+        </div>
         <div className = "single_component_back">
           <img
               className = "single_component_image"
