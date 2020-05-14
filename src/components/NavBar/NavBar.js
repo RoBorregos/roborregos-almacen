@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import logo from 'images/white_logo.png';
+import shopCart from 'images/shopping-cart.png'
 import './NavBar.css';
 
 class NavBar extends Component {
@@ -54,7 +55,9 @@ class NavBar extends Component {
             className='d-inline-block align-top'
             alt='logo'
           />
+
         </Navbar.Brand>
+
         <Navbar.Toggle aria-controls='responsive-navbar-nav' expanded ='false'/>
         <Navbar.Collapse id='responsive-navbar-nav'>
           <Nav className='mr-auto'>
@@ -65,7 +68,7 @@ class NavBar extends Component {
                 className={ this.getClassName(route.path) }
                 as={ Link }
                 to={ route.path }
-                onClick={ this.handleNavbarClick.bind(this, route.path) }
+                onClick={ this.handleNavbarClick.bind(this, '/') }
               >
                 <div className='navbar-btn-legend'>
                   { route.legend }
@@ -74,8 +77,22 @@ class NavBar extends Component {
             )}
 
           </Nav>
+        
         </Navbar.Collapse>
+
+        <Navbar.Brand
+        as={ Link }
+        to='/'
+        onClick={ this.handleNavbarClick.bind(this, '/') }
+        >
+          <img
+                id = 'navbar-cart'
+                src = { shopCart }
+                alt = 'shopCart'
+          />
+        </Navbar.Brand>
       </Navbar>
+
     );
   }
 
