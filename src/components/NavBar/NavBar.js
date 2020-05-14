@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { Modal, ModalFooter, ModalBody, Button} from 'react-bootstrap';
+import ModalHeader from 'react-bootstrap/ModalHeader';
 import logo from 'images/white_logo.png';
 import shopCart from 'images/shopping-cart.png'
 import './NavBar.css';
@@ -21,7 +23,19 @@ class NavBar extends Component {
       : complete_path.substring(0, second_slash_index);
     this.state = {
       active_button: current_path
-    };
+      ,show: false
+    }
+
+    this.handleShow = this.handleShow.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+  }
+
+  handleShow() {
+    this.setState({ show: true })
+  }
+
+  handleClose() {
+    this.setState({ show: false })
   }
 
   handleNavbarClick(index) {
@@ -80,17 +94,27 @@ class NavBar extends Component {
         
         </Navbar.Collapse>
 
-        <Navbar.Brand
-        as={ Link }
-        to='/'
-        onClick={ this.handleNavbarClick.bind(this, '/') }
-        >
-          <img
-                id = 'navbar-cart'
-                src = { shopCart }
-                alt = 'shopCart'
-          />
-        </Navbar.Brand>
+        <Nav.Link>
+          <div onClick={ this.handleShow }>
+            <img
+            id = 'navbar-cart'
+            src = { shopCart }
+            alt = 'shopCart'
+            />
+            <div onClick={ e => e.stopPropagation() }>
+              <Modal 
+              show = { this.state.show } 
+              onHide = { this.handleClose}
+            >
+              <ModalHeader closeButton><h1>CHECKOUT SELECTION</h1></ModalHeader>
+              <ModalBody>
+                <h1>AQUI VA LA INFO DE LOS COMPONENTES</h1>
+              </ModalBody>
+            </Modal>
+            </div>
+          </div>
+        </Nav.Link>
+
       </Navbar>
 
     );

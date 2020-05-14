@@ -5,8 +5,6 @@ import SingleComponentModal from './SingleComponentModal/SingleComponentModal.js
 import placeholder from 'images/placeholder-rectangle.png';
 import './SingleComponent.css';
 
-
-
 class SingleComponent extends Component{
   constructor(props) {
     super(props);
