@@ -12,6 +12,14 @@
     width: 35px;
     height: 35px;
   }
+
+  #app-navbar #navbar-cart {
+    margin-right: 5px;
+    margin-bottom: 2px;
+    align-content: center;
+    width: 35px;
+    height: 35px;
+  }
   
   #app-navbar #responsive-navbar {
     height: 100%;
