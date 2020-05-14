@@ -6,7 +6,7 @@
           "component": "Profile"
         },
         {
-          "path": "/",
+          "path": "/warehouse",
           "legend": "Warehouse",
           "component": "Warehouse"
         }
