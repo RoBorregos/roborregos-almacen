@@ -103,11 +103,11 @@ class NavBar extends Component {
             alt = 'shopCart'
             />
             <div onClick={ e => e.stopPropagation() }>
-              <Modal className = 'sel-cart'
+              <Modal
               show = { this.state.show } 
               onHide = { this.handleClose}
             >
-              <ModalHeader closeButton><h3>Checkout selection</h3></ModalHeader>
+              <ModalHeader className = 'cart-head' closeButton><h3>Checkout selection</h3></ModalHeader>
               <ModalBody>
                 <SelectionCart
                 SelectionCart = {this.SelectionCart}
