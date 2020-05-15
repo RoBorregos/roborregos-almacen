@@ -70,4 +70,9 @@
   #app-navbar .navbar-nav .navbar-btn.active .navbar-btn-legend {
     color: rgb(0, 225, 250);
   }
+
+
+.modal-content{
+    background: linear-gradient( 45deg, rgba(46, 204, 113, 1) 1%, rgba(28, 131, 172, 1) 100%);
+ }
   

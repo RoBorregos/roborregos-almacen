@@ -47,7 +47,7 @@ class SingleComponent extends Component{
   render() {
     this.componentDidMount(); 
     return(
-      <div className = "singlecomponent_container" onClick = { this.handleShow }>
+      < div className = "singlecomponent_container" onClick = { this.handleShow }>
         <div onClick={ e => e.stopPropagation() }>
           <Modal 
             className = "single_component_modal" 
