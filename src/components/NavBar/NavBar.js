@@ -109,9 +109,7 @@ class NavBar extends Component {
             >
               <ModalHeader className = 'cart-head' closeButton><h3>Checkout selection</h3></ModalHeader>
               <ModalBody>
-                <SelectionCart
-                SelectionCart = {this.SelectionCart}
-                />
+                <SelectionCart/>
               </ModalBody>
             </Modal>
             </div>

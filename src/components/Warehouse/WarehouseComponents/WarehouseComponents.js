@@ -48,7 +48,7 @@ class WarehouseComponents extends Component {
         }
 
         handleChange(e) {
-            this.setState({value: e.target.value});
+            this.setState({ value: e.target.value });
         }
 
         render() {
