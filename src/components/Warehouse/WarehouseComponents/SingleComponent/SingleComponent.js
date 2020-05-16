@@ -5,8 +5,6 @@ import SingleComponentModal from './SingleComponentModal/SingleComponentModal.js
 import placeholder from 'images/placeholder-rectangle.png';
 import './SingleComponent.css';
 
-
-
 class SingleComponent extends Component{
   constructor(props) {
     super(props);
@@ -49,7 +47,7 @@ class SingleComponent extends Component{
   render() {
     this.componentDidMount(); 
     return(
-      <div className = "singlecomponent_container" onClick = { this.handleShow }>
+      < div className = "singlecomponent_container" onClick = { this.handleShow }>
         <div onClick={ e => e.stopPropagation() }>
           <Modal 
             className = "single_component_modal" 

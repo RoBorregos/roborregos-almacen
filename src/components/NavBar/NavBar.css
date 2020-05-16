@@ -12,6 +12,14 @@
     width: 35px;
     height: 35px;
   }
+
+  #app-navbar #navbar-cart {
+    margin-right: 5px;
+    margin-bottom: 2px;
+    align-content: center;
+    width: 35px;
+    height: 35px;
+  }
   
   #app-navbar #responsive-navbar {
     height: 100%;
@@ -62,4 +70,16 @@
   #app-navbar .navbar-nav .navbar-btn.active .navbar-btn-legend {
     color: rgb(0, 225, 250);
   }
+
+.modal-content{
+    background: linear-gradient( 45deg, rgba(46, 204, 113, 1) 1%, rgba(28, 131, 172, 1) 100%);
+ }
+
+.cart-head {
+  border-color: transparent;
+}
+
+
+
+ 
   
