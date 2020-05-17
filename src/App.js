@@ -43,19 +43,19 @@ class App extends Component {
         <Router>
           <div className="app-container">
 
-            <NavBar routes={routesData.routes} />
+            <NavBar routes={ routesData.routes } />
 
             <Route
               exact path='/'
-              component={() => <Warehouse />}
+              component={ () => <Warehouse /> }
             />
             <Route
               exact path='/profile'
-              component={() => <Profile />}
+              component={ () => <Profile /> }
             />
             <Route
               exact path='/selectionCart'
-              component={() => <SelectionCart />}
+              component={ () => <SelectionCart /> }
             />
           </div>
         </Router>
@@ -63,7 +63,7 @@ class App extends Component {
     }
     else {
       return (
-        <Login callBackFromParent={this.handleState} />
+        <Login callBackFromParent={ this.handleState } />
       );
     }
   }

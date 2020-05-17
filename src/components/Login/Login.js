@@ -31,7 +31,7 @@ class Login extends Component {
 
         if (cookieArr[0].length == 0) {
             let users = membersData.members;
-            for(let i=0; i<users.length; i++){
+            for(let i=0; i<users.length; i++) {
                 if(users[i].memberID == this.state.userID && users[i].password == this.state.userPassword) {
                     document.cookie = ("username=" +  this.state.userID + "; max-age=" + 60 / 2);
                     this.props.callBackFromParent(this.state.login);
@@ -51,7 +51,7 @@ class Login extends Component {
                 <Row className='justify-content-sm-center'>
                     <img
                         className="login_roborregos_image"
-                        src={RoBorregosLogo}
+                        src={ RoBorregosLogo }
                         alt="RoBorregos Logo"
                     />
                 </Row>
@@ -60,7 +60,7 @@ class Login extends Component {
                             className="login_input_ID" 
                             type="text" 
                             placeholder = "A01234567"
-                            onChange={this.handleUserID} 
+                            onChange={ this.handleUserID } 
                         />
                 </Row>
                 <Row className='justify-content-sm-center'>
@@ -68,7 +68,7 @@ class Login extends Component {
                             className="login_input_Password" 
                             type="password" 
                             placeholder = "Password"
-                            onChange={this.handleUserPassword} 
+                            onChange={ this.handleUserPassword } 
                         />
                 </Row>
                 <Row className='justify-content-sm-center'>
@@ -77,10 +77,10 @@ class Login extends Component {
                         type="submit"
                         variant="outline-light"
                         className="login_button"
-                        onClick={this.handleLogin}
+                        onClick={ this.handleLogin }
                     >
                         Login
-                        </Button>
+                    </Button>
                 </Row>
             </div>
         );
