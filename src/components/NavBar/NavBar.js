@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { Modal, ModalFooter, ModalBody, Button} from 'react-bootstrap';
+import { Modal, ModalFooter, ModalBody, Button } from 'react-bootstrap';
 import SelectionCart from '../SelectionCart/SelectionCart.js'
 import ModalHeader from 'react-bootstrap/ModalHeader';
 import logo from 'images/white_logo.png';
-import shopCart from 'images/shopping-cart.png'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import './NavBar.css';
 
 class NavBar extends Component {
@@ -24,7 +25,7 @@ class NavBar extends Component {
       : complete_path.substring(0, second_slash_index);
     this.state = {
       active_button: current_path
-      ,show: false
+      , show: false
     }
 
     this.handleShow = this.handleShow.bind(this);
@@ -60,33 +61,34 @@ class NavBar extends Component {
         id='app-navbar'
       >
         <Navbar.Brand
-          as={ Link }
+          as={Link}
           to='/'
-          onClick={ this.handleNavbarClick.bind(this, '/') }
+          onClick={this.handleNavbarClick.bind(this, '/')}
         >
           <img
             id='navbar-logo'
-            src={ logo }
+            src={logo}
             className='d-inline-block align-top'
             alt='logo'
           />
 
         </Navbar.Brand>
 
-        <Navbar.Toggle aria-controls='responsive-navbar-nav' expanded ='false'/>
+        <Navbar.Toggle aria-controls='responsive-navbar-nav' expanded='false' />
+        
         <Navbar.Collapse id='responsive-navbar-nav'>
           <Nav className='mr-auto'>
 
             {this.routes.map((route, index) =>
               <Nav.Link
-                key={ index }
-                className={ this.getClassName(route.path) }
-                as={ Link }
-                to={ route.path }
-                onClick={ this.handleNavbarClick.bind(this, '/') }
+                key={index}
+                className={this.getClassName(route.path)}
+                as={Link}
+                to={route.path}
+                onClick={this.handleNavbarClick.bind(this, '/')}
               >
                 <div className='navbar-btn-legend'>
-                  { route.legend }
+                  {route.legend}
                 </div>
               </Nav.Link>
             )}
@@ -94,24 +96,22 @@ class NavBar extends Component {
           </Nav>
         
         </Navbar.Collapse>
-
-        <Nav.Link>
-          <div onClick={ this.handleShow }>
-            <img
-            id = 'navbar-cart'
-            src = { shopCart }
-            alt = 'shopCart'
-            />
-            <div onClick={ e => e.stopPropagation() }>
+        
+        <Nav.Link className='shopping-cart'>
+          <div onClick={this.handleShow}>
+            <div className='shoping-cart-icon'>
+              <FontAwesomeIcon icon={faShoppingCart} className='mr-2' />
+            </div>
+            <div onClick={e => e.stopPropagation()}>
               <Modal
-              show = { this.state.show } 
-              onHide = { this.handleClose}
-            >
-              <ModalHeader className = 'cart-head' closeButton><h3>Checkout selection</h3></ModalHeader>
-              <ModalBody>
-                <SelectionCart/>
-              </ModalBody>
-            </Modal>
+                show={this.state.show}
+                onHide={this.handleClose}
+              >
+                <ModalHeader className='cart-head' closeButton><h3>Checkout selection</h3></ModalHeader>
+                <ModalBody>
+                  <SelectionCart />
+                </ModalBody>
+              </Modal>
             </div>
           </div>
         </Nav.Link>

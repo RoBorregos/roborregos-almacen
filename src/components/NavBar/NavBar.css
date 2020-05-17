@@ -79,7 +79,17 @@
   border-color: transparent;
 }
 
+.shoping-cart-icon{
+  font-size: 30px;
+  color: white;
+}
 
+.shopping-cart{
+  position: absolute;
+  right: 10px;
+}
 
- 
-  
+.navbar-toggler{
+  position: absolute;
+  right: 70px;
+}
