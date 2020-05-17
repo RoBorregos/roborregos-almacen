@@ -51,11 +51,9 @@ class SingleComponentModal extends Component {
                 break;
             }
         }
-        console.log(componentData);
     }
 
     render() {
-        console.log(componentData);
         return(
             <div className = "singleComponentModal_container" onClick={ e => e.stopPropagation() }>
                 <Row className = "justify-content-sm-center ">

@@ -1,0 +1,44 @@
+html,body { height:100%; }
+
+.login_container{
+        margin-top: 8%;
+        justify-content: center;
+}
+
+.login_roborregos_image{
+    margin-left: auto;
+    margin-right: auto;
+
+    width: 300px;
+    height: 300px;
+}
+.login_button{
+    margin-top: 40px;
+}
+
+.login_input_ID:focus{
+    outline: none;
+}
+.login_input_Password{
+    outline: none;
+}
+
+.login_input_ID{
+    margin-top: 40px;
+	position:relative;
+	font-size: 1.5em;
+	background: white;
+	padding: 8px 15px;
+	display: inline-block;
+    border-radius: 9999em;
+}
+.login_input_Password{
+    margin-top: 20px;
+    color:black;
+	position:relative;
+	font-size: 1.5em;
+	background: white;
+	padding: 8px 15px;
+	display: inline-block;
+    border-radius: 9999em;
+}
