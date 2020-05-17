@@ -24,15 +24,26 @@ class App extends Component {
     }
   }
 
-  handleState(loginStatus) {
-    if (loginStatus == true) this.setState({ login: true });
-    else this.setState({ login: false });
+  handleState(loginStatus, userName, userMail, userID) {
+
+    if (loginStatus == true) this.setState({ login: true, userName: userName, userMail: userMail, userID: userID });
+    else this.setState({ login: false, userName: "", userMail: "", userID: "" });
   }
 
   resolveCookies() {
     if (this.state.login != true) {
-      let cookieArr = document.cookie.split(";");
-      if (cookieArr[0].length != 0) { this.handleState(true); }
+      let cookieArr = document.cookie.split(",");
+      let key = cookieArr[0].substring(0, cookieArr[0].indexOf('='));
+
+      if (key === "username") {
+        this.handleState(
+          true,
+          cookieArr[0].substring(cookieArr[0].indexOf('=') + 1),
+          cookieArr[1].substring(cookieArr[1].indexOf('=') + 1),
+          cookieArr[2].substring(cookieArr[2].indexOf('=') + 1)
+        );
+        return;
+      }
     }
   }
 
@@ -43,19 +54,19 @@ class App extends Component {
         <Router>
           <div className="app-container">
 
-            <NavBar routes={ routesData.routes } />
+            <NavBar routes={routesData.routes} />
 
             <Route
               exact path='/'
-              component={ () => <Warehouse /> }
+              component={() => <Warehouse />}
             />
             <Route
               exact path='/profile'
-              component={ () => <Profile /> }
+              component={() => <Profile />}
             />
             <Route
               exact path='/selectionCart'
-              component={ () => <SelectionCart /> }
+              component={() => <SelectionCart />}
             />
           </div>
         </Router>
@@ -63,7 +74,7 @@ class App extends Component {
     }
     else {
       return (
-        <Login callBackFromParent={ this.handleState } />
+        <Login callBackFromParent={this.handleState} />
       );
     }
   }
