@@ -85,7 +85,7 @@ class NavBar extends Component {
                 className={this.getClassName(route.path)}
                 as={Link}
                 to={route.path}
-                onClick={this.handleNavbarClick.bind(this, '/')}
+                onClick={this.handleNavbarClick.bind(this, route.path)}
               >
                 <div className='navbar-btn-legend'>
                   {route.legend}
