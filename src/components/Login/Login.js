@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Button } from 'react-bootstrap';
+import { Col, Row, Button } from 'react-bootstrap';
 import RoBorregosLogo from '../../images/white_logo.png';
 import membersData from '../../data/members.json';
 import './Login.css';
@@ -53,7 +53,7 @@ class Login extends Component {
     }
     render() {
         return (
-            <div className="login_container">
+            <Col className="login_container">
                 <Row className='justify-content-sm-center'>
                     <img
                         className="login_roborregos_image"
@@ -88,7 +88,7 @@ class Login extends Component {
                         Login
                     </Button>
                 </Row>
-            </div>
+            </Col>
         );
     }
 }
