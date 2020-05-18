@@ -7,12 +7,12 @@ import './Login.css';
 class Login extends Component {
     constructor(props) {
         super(props);
+        this.onSuccess=props.onLogin;
         this.handleLogin = this.handleLogin.bind(this);
         this.handleUserID = this.handleUserID.bind(this);
         this.handleUserPassword = this.handleUserPassword.bind(this);
 
         this.state = {
-            login: true,
             userID: "",
             userPassword: ""
         }
@@ -27,29 +27,14 @@ class Login extends Component {
     }
 
     handleLogin() {
-        let cookieArr = document.cookie.split(",");
-        for (let i = 0; i < cookieArr.length; i++) {
-
-            let key = cookieArr[i].substring(0, cookieArr[i].indexOf('='));
-            if (key[0] === "username") {
-                this.props.callBackFromParent(true, key[1], key[3], key[5]);
-                return;
-            }
-        }
         let users = membersData.members;
         for (let i = 0; i < users.length; i++) {
             if (users[i].memberID == this.state.userID && users[i].password == this.state.userPassword) {
-                document.cookie = (
-                    "username=" + users[i].name +
-                    ", usermail=" + users[i].mail +
-                    ", userID=" + this.state.userID +
-                    "; max-age=" + 60 / 2
-                );
-                this.props.callBackFromParent(this.state.login, users[i].name, users[i].mail, users[i].memberID);
+                this.onSuccess(this.state.userID);
                 return;
             }
-            alert("Username or Password Invalid");
         }
+        alert("Username or Password Invalid");
     }
     render() {
         return (

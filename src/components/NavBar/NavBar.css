@@ -86,10 +86,21 @@
 
 .shopping-cart{
   position: absolute;
+  right: 60px;
+}
+
+.sign-out{
+  position: absolute;
   right: 10px;
+  font-size: 30px;
+  color: white;
+}
+
+.sign-out:hover{
+  color: white;
 }
 
 .navbar-toggler{
   position: absolute;
-  right: 70px;
+  right: 110px;
 }
