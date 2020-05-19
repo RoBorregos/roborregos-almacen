@@ -7,8 +7,9 @@ Developed by RoBorregos' members and colaborators, in order to administrate gene
 
 | Name | Email | Github | Role |
 | ---- | ----- | ------ | ---- |
-| Ricardo Chapa Romero | [ricardochaparomero@gmail.com](mailto:ricardochaparomero@gmail.com) | [@RicardoChapaRomero](https://github.com/RicardoChapaRomero) | Developer |
+| Ricardo Chapa Romero | [ricardochaparomero@gmail.com](mailto:ricardochaparomero@gmail.com) | [@RicardoChapaRomero](https://github.com/RicardoChapaRomero) | PM & Developer |
 | Clara Gutiérrez Jaime | [claragtzjaime@gmail.com](mailto:claragtzjaime@gmail.com) | [@ClaraGtz](https://github.com/ClaraGtz) | Designer & Developer |
+| José Alfonso Cisneros	 | [joseacisnerosm@gmail.com](mailto:joseacisnerosm@gmail.com) | [@Josecisneros001](https://github.com/@Josecisneros001) | Developer |
 
 
 ### Setup
