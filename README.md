@@ -1,3 +1,18 @@
+# RoBorregos Web
+
+Front-end web app for the official RoBorregos' Warehouse.
+Developed by RoBorregos' members and colaborators, in order to administrate general information about the teams hardware resources.
+
+### Development team
+
+| Name | Email | Github | Role |
+| ---- | ----- | ------ | ---- |
+| Ricardo Chapa Romero | [ricardochaparomero@gmail.com](mailto:ricardochaparomero@gmail.com) | [@RicardoChapaRomero](https://github.com/RicardoChapaRomero) | Developer |
+| Clara Gutiérrez Jaime | [claragtzjaime@gmail.com](mailto:claragtzjaime@gmail.com) | [@ClaraGtz](https://github.com/ClaraGtz) | Designer & Developer |
+
+
+### Setup
+
 1. Clone the project repository on your local machine.
 
 	SSH:
