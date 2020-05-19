@@ -6,7 +6,7 @@ import SelectionCart from '../SelectionCart/SelectionCart.js'
 import ModalHeader from 'react-bootstrap/ModalHeader';
 import logo from 'images/white_logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingCart, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import './NavBar.css';
 
 class NavBar extends Component {
@@ -14,8 +14,8 @@ class NavBar extends Component {
     super(props);
 
     this.handleNavbarClick = this.handleNavbarClick.bind(this);
-
     this.routes = props.routes;
+    this.onLogout = props.onLogout;
 
     const complete_path = window.location.pathname;
     const first_slash_index = complete_path.indexOf('/');
@@ -75,7 +75,7 @@ class NavBar extends Component {
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls='responsive-navbar-nav' expanded='false' />
-        
+
         <Navbar.Collapse id='responsive-navbar-nav'>
           <Nav className='mr-auto'>
 
@@ -94,9 +94,9 @@ class NavBar extends Component {
             )}
 
           </Nav>
-        
+
         </Navbar.Collapse>
-        
+
         <Nav.Link className='shopping-cart'>
           <div onClick={this.handleShow}>
             <div className='shoping-cart-icon'>
@@ -114,6 +114,10 @@ class NavBar extends Component {
               </Modal>
             </div>
           </div>
+        </Nav.Link>
+
+        <Nav.Link className='sign-out' onClick={this.onLogout}>
+          <FontAwesomeIcon icon={faSignOutAlt} className='mr-2' />
         </Nav.Link>
 
       </Navbar>
