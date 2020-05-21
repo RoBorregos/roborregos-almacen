@@ -38,29 +38,29 @@ class App extends Component {
     window.onbeforeunload = () => { window.scrollTo(0, 0); }
     
     if(this.state.userID !== cookie.load('userId')){
-      this.setState({userID:cookie.load('userId')});
+      this.setState({ userID:cookie.load('userId') });
     }
 
     if (!this.state.userID)
-      return <Login onLogin={this.onLogin} />;
+      return <Login onLogin={ this.onLogin } />;
 
     return (
       <Router>
         <div className="app-container">
 
-          <NavBar onLogout={this.onLogout} routes={routesData.routes} />
+          <NavBar onLogout={ this.onLogout } routes={ routesData.routes } />
 
           <Route
             exact path='/'
-            component={() => <Warehouse />}
+            component={ () => <Warehouse /> }
           />
           <Route
             exact path='/profile'
-            component={() => <Profile />}
+            component={ () => <Profile /> }
           />
           <Route
             exact path='/selectionCart'
-            component={() => <SelectionCart />}
+            component={ () => <SelectionCart /> }
           />
         </div>
       </Router>
