@@ -15,7 +15,7 @@ class SelectionCart extends Component {
         this.components = props.components;
 
         this.state = {
-            verifyChange: false,
+            handleChange: false,
         }
     }
 
@@ -41,7 +41,7 @@ class SelectionCart extends Component {
             default:
                 break;
         }
-        this.setState({ verifyChange: !this.state.verifyChange });
+        this.setState({ handleChange: !this.state.handleChange });
     }
 
 

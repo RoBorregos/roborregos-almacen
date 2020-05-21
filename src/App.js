@@ -15,10 +15,10 @@ class App extends Component {
     
     this.onLogin = this.onLogin.bind(this);
     this.onLogout = this.onLogout.bind(this);
-
-    this.state ={
+    
+    this.state = {
       userID: ""
-    }
+    };
     
   }
 
@@ -37,12 +37,12 @@ class App extends Component {
     
     window.onbeforeunload = () => { window.scrollTo(0, 0); }
     
-    if(this.state.userID != cookie.load('userId')){
+    if(this.state.userID !== cookie.load('userId')){
       this.setState({userID:cookie.load('userId')});
     }
 
     if (!this.state.userID)
-    return <Login onLogin={this.onLogin} />;
+      return <Login onLogin={this.onLogin} />;
 
     return (
       <Router>

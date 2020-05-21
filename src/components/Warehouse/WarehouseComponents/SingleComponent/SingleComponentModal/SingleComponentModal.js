@@ -88,7 +88,7 @@ class SingleComponentModal extends Component {
                             <p>
                                 Already in Cart : {this.getAlreadyInCart()}
                             </p>
-                            <p>How many you want to reserve?</p>
+                            <p>How many you want to add?</p>
                             <div className="inline_section d-flex justify-content-center">
                                 <Button
                                     className="minus_button"

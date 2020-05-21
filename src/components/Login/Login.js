@@ -29,7 +29,7 @@ class Login extends Component {
     handleLogin() {
         let users = membersData.members;
         for (let i = 0; i < users.length; i++) {
-            if (users[i].memberID == this.state.userID && users[i].password == this.state.userPassword) {
+            if (users[i].memberID === this.state.userID && users[i].password === this.state.userPassword) {
                 this.onSuccess(this.state.userID);
                 return;
             }
