@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { Modal, ModalFooter, ModalBody, Button } from 'react-bootstrap';
+import { Modal, ModalBody } from 'react-bootstrap';
 import SelectionCart from '../SelectionCart/SelectionCart.js'
 import ModalHeader from 'react-bootstrap/ModalHeader';
 import logo from 'images/white_logo.png';
