@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import SingleComponent from './SingleComponent/SingleComponent.js';
+import { connect } from 'react-redux';
 import './WarehouseComponents.css';
 
 class WarehouseComponents extends Component {
     constructor(props) {
         super(props);
-
-        this.components = props.components;
 
         this.resolveFilter = this.resolveFilter.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -18,32 +17,40 @@ class WarehouseComponents extends Component {
     }
 
     resolveFilter(section) {
-        let values = ["component", "sensors", "motors", "microcontrollers"];
         if (section === "All") {
-            return (
-                values.map((element, index) => (
-                    this.components[element].map((component, i) => (
-                        <Col xs='12'  sm='6' md='4' lg='4' key={i} className='component-col'>
+            let res=[];
+            for(let section_ in this.props.components){
+                for(let component in this.props.components[section_]){
+                    this.props.components[section_][component]["id"]=component;
+                    res.push(
+                        <Col xs='12'  sm='6' md='4' lg='3' key={component} className='component-col'>
                             <SingleComponent
-                                component={component}
-                                section={element}
+                                component={this.props.components[section_][component]}
+                                section={section_}
                             />
-                        </Col>
-                    ))
-                ))
-            );
+                        </Col>   
+                    );
+                }
+            }
+            return res;
         }
         else {
-            return (
-                this.components[section].map((component, i) => (
-                    <Col xs='6'  sm='4' md='3' lg='3' key={i} className='component-col'>
+            let res=[];
+            if(!this.props.components.hasOwnProperty(section)){
+                return res;
+            }
+            for(let component in this.props.components[section]){
+                this.props.components[section][component]["id"]=component;
+                res.push(
+                    <Col xs='12'  sm='6' md='4' lg='3' key={component} className='component-col'>
                         <SingleComponent
-                            component={component}
+                            component={this.props.components[section][component]}
                             section={section}
                         />
-                    </Col>
-                ))
-            );
+                    </Col>  
+                );
+            }
+            return res;
         }
     }
 
@@ -73,4 +80,11 @@ class WarehouseComponents extends Component {
         );
     }
 }
-export default WarehouseComponents;
+
+
+const mapStateToProps = (state)=>{
+    return {
+        components: state.components
+    }
+}
+export default connect(mapStateToProps,null)(WarehouseComponents);
