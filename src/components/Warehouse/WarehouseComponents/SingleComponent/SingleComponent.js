@@ -57,7 +57,7 @@ class SingleComponent extends Component{
             <ModalHeader closeButton><h1>{ this.component.name }</h1></ModalHeader>
             <ModalBody>
               <SingleComponentModal 
-                handleClose = { this.handleClose}
+                handleClose = { this.handleClose }
                 component = { this.component }
                 section = { this.section }
               />

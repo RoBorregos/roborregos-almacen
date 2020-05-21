@@ -12,6 +12,7 @@ class SelectionCart extends Component {
         this.getItems = this.getItems.bind(this);
         this.tryRequire = this.tryRequire.bind(this);
         this.handleAction = this.handleAction.bind(this);
+        this.handleClose = this.props.handleClose;
         this.components = props.components;
 
         this.state = {
@@ -31,15 +32,20 @@ class SelectionCart extends Component {
         switch (action) {
             case types.ADD_QUANTITY:
                 this.props.addQuantity(component);
-                break;
+            break;
             case types.SUB_QUANTITY:
                 this.props.subtractQuantity(component);
-                break;
+            break;
             case types.REMOVE_COMPONENT:
                 this.props.removeItem(component);
-                break;
+            break;
+            case types.CLEAR_CART:
+                this.props.clearCart();
+                this.handleClose();
+                return;
             default:
-                break;
+
+            break;
         }
         this.setState({ handleChange: !this.state.handleChange });
     }
@@ -61,26 +67,26 @@ class SelectionCart extends Component {
                 continue;
             }
             res.push(
-                <Row key={component} className='justify-content-center'>
+                <Row key={ component } className='justify-content-center'>
                     <Col xs='3'>
-                        <img className='component-img' alt={item.name} src={this.tryRequire(section_, item.img_path)} />
+                        <img className='component-img' alt={ component } src={ this.tryRequire(section_, item.img_path) } />
                     </Col>
                     <Col xs='5'>
-                        {item.name}
+                        { item.name }
                     </Col>
                     <Col xs='4'>
                         <Row>
                             <Col xs='2'>
-                                <button onClick={() => this.handleAction(types.SUB_QUANTITY, component)}>-</button>
+                                <button onClick={ () => this.handleAction(types.SUB_QUANTITY, component) }>-</button>
                             </Col>
                             <Col xs='4'>
-                                {this.props.addedItems[component].quantity}
+                                { this.props.addedItems[component].quantity }
                             </Col>
                             <Col xs='2'>
-                                <button onClick={() => this.handleAction(types.ADD_QUANTITY, component)}>+</button>
+                                <button onClick={ () => this.handleAction(types.ADD_QUANTITY, component) }>+</button>
                             </Col>
                             <Col xs='2'>
-                                <button onClick={() => this.handleAction(types.REMOVE_COMPONENT, component)}>x</button>
+                                <button onClick={ () => this.handleAction(types.REMOVE_COMPONENT, component) }>x</button>
                             </Col>
                         </Row>
                     </Col>
@@ -97,11 +103,12 @@ class SelectionCart extends Component {
                     Checkout!
                 </Row>
                 <Col className='cart-collection'>
-                    {this.getItems()}
+                    { this.getItems() }
                 </Col>
                 <Row className='justify-content-center'>
                     <button
-                        onClick={this.props.clearCart}>
+                        disabled={ Object.keys(this.props.addedItems).length === 0 }
+                        onClick={ () => { this.handleAction(types.CLEAR_CART) } }>
                         DONE
                     </button>
                 </Row>

@@ -17,41 +17,39 @@ class WarehouseComponents extends Component {
     }
 
     resolveFilter(section) {
+        let componentsList=[];
         if (section === "All") {
-            let res=[];
             for(let section_ in this.props.components){
-                for(let component in this.props.components[section_]){
-                    this.props.components[section_][component]["id"]=component;
-                    res.push(
-                        <Col xs='12'  sm='6' md='4' lg='3' key={component} className='component-col'>
+                for(let id in this.props.components[section_]){
+                    this.props.components[section_][id]["id"]=id;
+                    componentsList.push(
+                        <Col xs='12'  sm='6' md='4' lg='3' key={ id } className='component-col'>
                             <SingleComponent
-                                component={this.props.components[section_][component]}
-                                section={section_}
+                                component={ this.props.components[section_][id] }
+                                section={ section_ }
                             />
                         </Col>   
                     );
                 }
             }
-            return res;
         }
         else {
-            let res=[];
             if(!this.props.components.hasOwnProperty(section)){
-                return res;
+                return componentsList;
             }
-            for(let component in this.props.components[section]){
-                this.props.components[section][component]["id"]=component;
-                res.push(
-                    <Col xs='12'  sm='6' md='4' lg='3' key={component} className='component-col'>
+            for(let id in this.props.components[section]){
+                this.props.components[section][id]["id"]=id;
+                componentsList.push(
+                    <Col xs='12'  sm='6' md='4' lg='3' key={ id } className='component-col'>
                         <SingleComponent
-                            component={this.props.components[section][component]}
-                            section={section}
+                            component={ this.props.components[section][id] }
+                            section={ section }
                         />
                     </Col>  
                 );
             }
-            return res;
         }
+        return componentsList;
     }
 
     handleChange(e) {
@@ -64,7 +62,7 @@ class WarehouseComponents extends Component {
                 <Col xs='10' sm='10' md='10' lg='10' xl='10'>
                     <Row className='warehousecomponent-search'>
                         <span className='warehousecomponent-search-title'>Filter by component type:</span>
-                        <select className="search_filter" onChange={this.handleChange} value={this.state.value}>
+                        <select className="search_filter" onChange={ this.handleChange } value={ this.state.value }>
                             <option value="All"> All </option>
                             <option value="component"> Circuit Component </option>
                             <option value="sensors"> Sensors </option>
@@ -73,7 +71,7 @@ class WarehouseComponents extends Component {
                         </select>
                     </Row>
                     <Row>
-                        {this.resolveFilter(this.state.value)}
+                        { this.resolveFilter(this.state.value) }
                     </Row>
                 </Col>
             </Row>

@@ -73,39 +73,39 @@ class SingleComponentModal extends Component {
 
     render() {
         return (
-            <div className="singleComponentModal_container" onClick={e => e.stopPropagation()}>
+            <div className="singleComponentModal_container" onClick={ e => e.stopPropagation() }>
                 <Row className="justify-content-sm-center ">
                     <Col sm='6'>
                         <img
                             className="single_component_image"
-                            src={this.tryRequire(this.component.img_path)}
-                            alt={this.component.id}
+                            src={ this.tryRequire(this.component.img_path) }
+                            alt={ this.component.id }
                         />
                     </Col>
                     <Col sm='6'>
                         <div className="component_data justify-content-center">
-                            <p>In Stock: {this.component.stock}</p>
+                            <p>In Stock: { this.component.stock }</p>
                             <p>
-                                Already in Cart : {this.getAlreadyInCart()}
+                                Already in Cart : { this.getAlreadyInCart() }
                             </p>
                             <p>How many you want to add?</p>
                             <div className="inline_section d-flex justify-content-center">
                                 <Button
                                     className="minus_button"
-                                    onClick={this.handleDecrement}> -
+                                    onClick={ this.handleDecrement }> -
                                 </Button>
-                                <div className="input-group-field" > {this.state.quantity}</div>
+                                <div className="input-group-field" > { this.state.quantity }</div>
                                 <Button
                                     className="plus_button"
-                                    onClick={this.handleIncrement}> +
+                                    onClick={ this.handleIncrement }> +
                                 </Button>
                             </div>
                         </div>
                     </Col>
                     <Button
                         className="reserve_button"
-                        onClick={this.handleChange}
-                        disabled={this.reserveDisabledButton()} >
+                        onClick={ this.handleChange }
+                        disabled={ this.reserveDisabledButton() } >
                         Agregar al Carrito
                     </Button>
                 </Row>
