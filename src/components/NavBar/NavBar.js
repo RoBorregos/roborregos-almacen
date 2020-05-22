@@ -107,7 +107,7 @@ class NavBar extends Component {
                 show={this.state.show}
                 onHide={this.handleClose}
               >
-                <ModalHeader className='cart-head' closeButton><h3>Checkout selection</h3></ModalHeader>
+                <ModalHeader className='cart-head' closeButton><h3>Cart</h3></ModalHeader>
                 <ModalBody>
                   <SelectionCart 
                     handleClose={this.handleClose}

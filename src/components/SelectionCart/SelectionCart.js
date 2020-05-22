@@ -100,7 +100,7 @@ class SelectionCart extends Component {
         return (
             <Col className='cart-container'>
                 <Row className='cart-header'>
-                    Checkout!
+                    Your cart is empty!
                 </Row>
                 <Col className='cart-collection'>
                     { this.getItems() }
@@ -109,7 +109,7 @@ class SelectionCart extends Component {
                     <button
                         disabled={ Object.keys(this.props.addedItems).length === 0 }
                         onClick={ () => { this.handleAction(types.CLEAR_CART) } }>
-                        DONE
+                        Done
                     </button>
                 </Row>
             </Col>
