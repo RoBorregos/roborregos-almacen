@@ -52,7 +52,7 @@ class SelectionCart extends Component {
 
 
     getItems() {
-        if (!this.props.addedItems)
+        if (typeof this.props.addedItems === undefined)
             return;
 
         let res = [];
@@ -100,7 +100,7 @@ class SelectionCart extends Component {
         return (
             <Col className='cart-container'>
                 <Row className='cart-header'>
-                    Your cart is empty!
+                    { (Object.keys(this.props.addedItems).length === 0) ? "Your cart is empty!" : "" }
                 </Row>
                 <Col className='cart-collection'>
                     { this.getItems() }
