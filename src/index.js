@@ -3,9 +3,19 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import cartReducer , { saveState } from './scripts/cartReducer';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import throttle from 'lodash.throttle';
+
+const store = createStore(cartReducer);
+
+store.subscribe(throttle(() => {
+  saveState(store.getState().addedItems);
+}, 1000));
 
 ReactDOM.render(
-    <App />,
+  <Provider store={ store }> <App /> </Provider>,
   document.getElementById('root')
 );
 

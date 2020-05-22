@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Row, Col, Button } from 'react-bootstrap';
 import placeholder from 'images/placeholder-rectangle.png';
 import './SingleComponentModal.css';
-import componentData from '../../../../../data/components.json';
+import { connect } from 'react-redux';
+import { addToCart } from './../../../../../scripts/cartReducer';
 
 class SingleComponentModal extends Component {
     constructor(props) {
@@ -12,13 +13,16 @@ class SingleComponentModal extends Component {
         this.handleIncrement = this.handleIncrement.bind(this);
         this.handleDecrement = this.handleDecrement.bind(this);
         this.handleChange = this.handleChange.bind(this);
-
+        this.getAlreadyInCart = this.getAlreadyInCart.bind(this);
+        this.handleClose = props.handleClose;
         this.component = props.component;
         this.section = props.section;
+
         this.stock = this.component.stock;
 
         this.state = {
-            count: 0
+            quantity: 0,
+            reserveButtonState: 0
         }
     }
 
@@ -31,60 +35,94 @@ class SingleComponentModal extends Component {
     }
 
     handleIncrement() {
-        if(this.state.count == this.component.stock) return;
+        let quantityInCart = 0;
 
-        this.setState({ count: this.state.count + 1 })
+        if (this.props.addedItems) {
+            if (this.props.addedItems.hasOwnProperty(this.component.id)) {
+                quantityInCart = this.props.addedItems[this.component.id].quantity;
+            }
+        }
+
+        if (this.state.quantity === this.component.stock - quantityInCart) return;
+
+        this.setState({ quantity: this.state.quantity + 1 })
     }
 
     handleDecrement() {
-        if(this.state.count <= 0) return;
-
-        this.setState({ count: this.state.count - 1 })
+        if (this.state.quantity <= 0) return;
+        this.setState({ quantity: this.state.quantity - 1 })
     }
 
     handleChange() {
-        let json = componentData['components'][this.section];
-        for(let i=0; i<json.length; i++){
-            if(json[i].id == this.component.id) {
-                json[i].stock = json[i].stock - this.state.count;
-                this.setState({ count: json[i].stock })
-                break;
+        this.props.addToCart(this.component.id, this.state.quantity, this.section);
+        this.handleClose();
+    }
+
+    reserveDisabledButton() {
+        return this.state.quantity === 0;
+    }
+
+    getAlreadyInCart() {
+        if (this.props.addedItems) {
+            if (this.props.addedItems.hasOwnProperty(this.component.id)) {
+                return this.props.addedItems[this.component.id].quantity;
             }
         }
+        return 0;
     }
 
     render() {
-        return(
-            <div className = "singleComponentModal_container" onClick={ e => e.stopPropagation() }>
-                <Row className = "justify-content-sm-center ">
-                    <Col sm = '6'>
+        return (
+            <div className="singleComponentModal_container" onClick={ e => e.stopPropagation() }>
+                <Row className="justify-content-sm-center ">
+                    <Col sm='6'>
                         <img
-                            className = "single_component_image"
+                            className="single_component_image"
                             src={ this.tryRequire(this.component.img_path) }
                             alt={ this.component.id }
                         />
                     </Col>
-                    <Col sm = '6'>
-                        <div className = "component_data justify-content-center">
+                    <Col sm='6'>
+                        <div className="component_data justify-content-center">
                             <p>In Stock: { this.component.stock }</p>
-                            <p>How many you want to reserve?</p>
-                            <div className = "inline_section d-flex justify-content-center">
-                                <Button 
-                                    className = "minus_button" 
-                                    onClick = { this.handleDecrement }> - 
+                            <p>
+                                Already in Cart : { this.getAlreadyInCart() }
+                            </p>
+                            <p>How many you want to add?</p>
+                            <div className="inline_section d-flex justify-content-center">
+                                <Button
+                                    className="minus_button"
+                                    onClick={ this.handleDecrement }> -
                                 </Button>
-                                <div className="input-group-field" > { this.state.count }</div>
-                                <Button 
-                                    className = "plus_button" 
-                                    onClick = { this.handleIncrement }> + 
+                                <div className="input-group-field" > { this.state.quantity }</div>
+                                <Button
+                                    className="plus_button"
+                                    onClick={ this.handleIncrement }> +
                                 </Button>
                             </div>
                         </div>
                     </Col>
-                    <Button className = "reserve_button" onClick = { this.handleChange }> Reserve </Button>
+                    <Button
+                        className="reserve_button"
+                        onClick={ this.handleChange }
+                        disabled={ this.reserveDisabledButton() } >
+                        Agregar al Carrito
+                    </Button>
                 </Row>
             </div>
         );
     }
 }
-export default SingleComponentModal;
+
+const mapStateToProps = (state) => {
+    return {
+        addedItems: state.addedItems
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addToCart: (id, quantity, section) => { dispatch(addToCart(id, quantity, section)) }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SingleComponentModal);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { Modal, ModalFooter, ModalBody, Button } from 'react-bootstrap';
+import { Modal, ModalBody } from 'react-bootstrap';
 import SelectionCart from '../SelectionCart/SelectionCart.js'
 import ModalHeader from 'react-bootstrap/ModalHeader';
 import logo from 'images/white_logo.png';
@@ -107,9 +107,11 @@ class NavBar extends Component {
                 show={this.state.show}
                 onHide={this.handleClose}
               >
-                <ModalHeader className='cart-head' closeButton><h3>Checkout selection</h3></ModalHeader>
+                <ModalHeader className='cart-head' closeButton><h3>Cart</h3></ModalHeader>
                 <ModalBody>
-                  <SelectionCart />
+                  <SelectionCart 
+                    handleClose={this.handleClose}
+                  />
                 </ModalBody>
               </Modal>
             </div>

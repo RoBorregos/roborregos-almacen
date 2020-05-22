@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, ModalFooter, ModalBody, Button} from 'react-bootstrap';
+import { Modal, ModalBody} from 'react-bootstrap';
 import ModalHeader from 'react-bootstrap/ModalHeader';
 import SingleComponentModal from './SingleComponentModal/SingleComponentModal.js';
 import placeholder from 'images/placeholder-rectangle.png';
@@ -14,10 +14,10 @@ class SingleComponent extends Component{
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
 
+    this.id = props.id;
     this.component = props.component;
     this.section = props.section;
-    this.props = props;
-
+    
     this.state = {
       show: false
     }
@@ -57,6 +57,7 @@ class SingleComponent extends Component{
             <ModalHeader closeButton><h1>{ this.component.name }</h1></ModalHeader>
             <ModalBody>
               <SingleComponentModal 
+                handleClose = { this.handleClose }
                 component = { this.component }
                 section = { this.section }
               />
