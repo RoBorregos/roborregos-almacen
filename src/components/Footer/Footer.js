@@ -6,7 +6,6 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import logo from 'images/white_logo.png';
-import smallLogo from 'images/small_logo.png'
 import { MEDIUM_WIDTH, MOBILE_WIDTH } from 'constants.js';
 import './Footer.css';
 
