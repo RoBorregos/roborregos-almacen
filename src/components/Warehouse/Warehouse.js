@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import WarehouseComponents from './WarehouseComponents/WarehouseComponents.js';
 import WarehouseHeader from './WarehouseHeader/WarehouseHeader.js';
-import Footer from 'components/Footer/Footer.js';
 import './Warehouse.css';
 
 class Warehouse extends Component { 
@@ -10,7 +9,6 @@ class Warehouse extends Component { 
             <div className = "warehouse_contanier">
                 <WarehouseHeader />
                 <WarehouseComponents />
-                <Footer />
             </div>
         );
     }

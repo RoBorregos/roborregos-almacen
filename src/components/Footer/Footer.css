@@ -6,7 +6,7 @@
 .footer-row {
   background-color:  rgb(10, 15, 20);
   width: 100%;
-  height: 20vh;
+  height: 22vh;
 }
 
 .row-justify-right {
@@ -14,8 +14,8 @@
 }
 
 .footer-logo {
-  width: 38.4vh;
-  height: 20vh;
+  width: 39vh;
+  height: 22vh;
   object-fit: cover;
   object-position: top;
 }
@@ -23,12 +23,12 @@
 .col-logo {
   padding-left: 2%;
   align-items: left;
-  height: 20vh;
+  height: 22vh;
 }
 
 .footer-col {
   padding-top: 20px;
-  height: 20vh;
+  height: 22vh;
 }
 
 .sitemap-link {
@@ -127,8 +127,8 @@
 
   .footer-logo {
     padding: 0;
-    width: 38.4vh;
-    height: 20vh;
+    width: 39vh;
+    height: 22vh;
   }
 
   .sitemap-container {
