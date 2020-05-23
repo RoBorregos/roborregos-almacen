@@ -6,7 +6,7 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import logo from 'images/white_logo.png';
-import smallLogo from 'images/small_logo.png';
+import smallLogo from 'images/small_logo.png'
 import { MEDIUM_WIDTH, MOBILE_WIDTH } from 'constants.js';
 import './Footer.css';
 
@@ -62,7 +62,7 @@ class Footer extends Component {
   }
 
   goUp() {
-    window.scrollTo({top:0, behavior:'smooth'});
+    window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
   }
 
   setSizeAtributes(){
@@ -79,16 +79,16 @@ class Footer extends Component {
           <Col lg='4' className='col-logo'>
             <img src={ logo } className='footer-logo' alt='logo' />
           </Col>
-          <Col lg='4'>
-          <div className='sitemap-link'>
+          <Col lg='3' className='sitemap-container'>
+            <div className='sitemap-link'>
               { sitemapLink('/Profile', 'Profile', true) }
             </div>
             <div className='sitemap-link'>
               { sitemapLink('/', 'Warehouse', true) }
             </div>
           </Col>
-          <Col lg='4'>
-            <Row>
+          <Col lg='5'>
+            <Row className= 'row-justify-right'>
               <div className='goback-button'>
                 <IconButton
                   component='a'
@@ -103,13 +103,13 @@ class Footer extends Component {
                 </IconButton>
               </div>
             </Row>
-            <Row>
+            <Row className= 'row-justify-right'>
               <div className='row-socialMedia'>
                 { sitemapIconButton('https://www.instagram.com/roborregos/', <InstagramIcon style={{ fontSize: this.state.icon_size }} />) }
                 { sitemapIconButton('https://www.facebook.com/RoBorregos/', <FacebookIcon style={{ fontSize: this.state.icon_size }} />) }
                 { sitemapIconButton('https://github.com/RoBorregos/', <GitHubIcon style={{ fontSize: this.state.icon_size - 5 }} />) }
                 <div className='mark-text'>
-                  @2020{ sitemapLink('http://roborregos.com', 'RoBorregos', true) }
+                  @2020 <a className='roborregos-link' href = 'http://roborregos.com'>RoBorregos</a>
                 </div>
               </div>
             </Row>
@@ -123,10 +123,9 @@ class Footer extends Component {
     return(
       <Container fluid className='footer-container'>
         <Row noGutters className='footer-row'>
-          <Col xs={ 4 } className='col-logo'>
-            <img src={ smallLogo } className='footer-logo' alt='logo' />
+          <Col xs={ 8 } className='col-logo'>
+            <img src={ logo } className='footer-logo' alt='logo' />
           </Col>
-          <Col xs={ 4 }></Col>
           <Col xs={ 4 }>
             <Row noGutters className='goback-container'>
               <div className='goback-button'>
@@ -145,6 +144,8 @@ class Footer extends Component {
             </Row>
             <Row noGutters className='sitemap-container'>
               <div>
+                { sitemapLink('/Profile', 'Profile', false) }
+                { sitemapLink('/', 'Warehouse', false) }
                 <div className='mark-text'>
                   @2020 RoBorregos
                 </div>

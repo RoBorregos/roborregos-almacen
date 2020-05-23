@@ -6,12 +6,16 @@
 .footer-row {
   background-color:  rgb(10, 15, 20);
   width: 100%;
-  height: 15vh;
+  height: 20vh;
+}
+
+.row-justify-right {
+  justify-content: flex-end;
 }
 
 .footer-logo {
-  width: 30vh;
-  height: 15vh;
+  width: 38.4vh;
+  height: 20vh;
   object-fit: cover;
   object-position: top;
 }
@@ -19,12 +23,12 @@
 .col-logo {
   padding-left: 2%;
   align-items: left;
-  height: 15vh;
+  height: 20vh;
 }
 
 .footer-col {
   padding-top: 20px;
-  height: 30vh;
+  height: 20vh;
 }
 
 .sitemap-link {
@@ -33,7 +37,16 @@
   padding-top: 12px;
   text-decoration: none;
   color: rgb(250, 250, 250);
-  font-size: 1.3vw;
+  font-size: 2.5vh;
+}
+
+.roborregos-link {
+  display: inline-block;
+  padding-left: 0.7vw;
+  padding-top: 12px;
+  text-decoration: none;
+  color: rgb(250, 250, 250);
+  font-size: 2.5vh;
 }
 
 .icon-link {
@@ -41,11 +54,17 @@
   text-decoration: none;
   color: rgb(250, 250, 250);
   font-size: 15px;
-  padding-right: 1vw;
+  padding-right: 0.8vw;
 }
 
 
 .sitemap-link:hover {
+  text-decoration: none;
+  color: rgb(0, 225, 250);
+  background: none;
+}
+
+.roborregos-link:hover {
   text-decoration: none;
   color: rgb(0, 225, 250);
   background: none;
@@ -59,24 +78,25 @@
 
 .goback-button {
   padding-left: 20vw;
-  padding-top: 5px;
-  height: 8vh;
+  padding-top: 10px;
+  height: 10vh;
 }
 
 .goback-text {
-  font-size: 1.3vw;
+  font-size: 2.5vh;
 }
 
 .row-socialMedia{
   padding-left: 6vw;
-  height: 6vh;
+  height: 4vh;
   padding-top: 0.3vh;
-  padding-bottom: 0.1vh;
+  padding-bottom: 0.3vh;
+  padding-right: 12px;
 }
 
 .mark-text {
   display: inline-block;
-  font-size: 1.3vw;
+  font-size: 2.5vh;
 }
 
 @media (max-width: 1170px) {
@@ -89,7 +109,7 @@
   }
 }
 
-@media (max-width: 992px) {
+@media (max-width: 1004px) {
   .footer-container {
     height: min-content;
     padding: 0;
@@ -107,9 +127,8 @@
 
   .footer-logo {
     padding: 0;
-    width: 100%;
-    height: 100%;
-    object-position: 100% 20%;
+    width: 38.4vh;
+    height: 20vh;
   }
 
   .sitemap-container {
@@ -132,6 +151,14 @@
     min-width: 51%;
   }
 
+  .roborregos-link {
+    padding: 0;
+    font-size: 2.5vh;
+    padding-right: 3vw;
+    float: left;
+    min-width: 51%;
+  }
+
   .goback-container {
     text-decoration: none;
     text-align: right;
@@ -149,7 +176,7 @@
   }
 
   .goback-text {
-    font-size: 4vw;
+    font-size: 2.5vh;
   }
 
   .goback-text:hover {
@@ -166,12 +193,9 @@
     color: #555652;
   }
 
-  .roborregos-text {
-    font-size: 4vh;
-  }
-
   .icon-link {
-    width: 33%;
+    min-width: 37px;
+    width: 15%;
     padding: 0;
     margin: 0;
     padding-top: 1vh;
@@ -181,14 +205,16 @@
     display: flex;
     flex-flow: row nowrap;
     align-items: flex-end;
-    text-align: center;
+    text-align: right;
     padding: 0;
     width: 100%;
     height: auto;
+    justify-content: flex-end;
   }
 }
 
 @media (max-width: 520px) {
+
   .sitemap-container {
     height: min-content;
   }
@@ -198,7 +224,11 @@
   }
 
   .sitemap-link {
-    font-size: 3.6v;
+    font-size: 3.6vw;
+  }
+
+  .roborregos-link {
+    font-size: 3.6vw;
   }
 
   .mark-text {
