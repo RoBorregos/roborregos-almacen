@@ -6,7 +6,8 @@
 .footer-row {
   background-color:  rgb(10, 15, 20);
   width: 100%;
-  height: 22vh;
+  min-width: 100%;
+  height: 100%;
 }
 
 .row-justify-right {
@@ -14,21 +15,21 @@
 }
 
 .footer-logo {
-  width: 39vh;
-  height: 22vh;
+  width: 310px;
+  height: 100%;
   object-fit: cover;
   object-position: top;
 }
 
 .col-logo {
-  padding-left: 2%;
+  padding-left: 1%;
   align-items: left;
-  height: 22vh;
+  height: 160px;
 }
 
 .footer-col {
   padding-top: 20px;
-  height: 22vh;
+  height: min-content;
 }
 
 .sitemap-link {
@@ -37,7 +38,7 @@
   padding-top: 12px;
   text-decoration: none;
   color: rgb(250, 250, 250);
-  font-size: 2.5vh;
+  font-size: 18px;
 }
 
 .roborregos-link {
@@ -46,7 +47,7 @@
   padding-top: 12px;
   text-decoration: none;
   color: rgb(250, 250, 250);
-  font-size: 2.5vh;
+  font-size: 18px;
 }
 
 .icon-link {
@@ -79,11 +80,12 @@
 .goback-button {
   padding-left: 20vw;
   padding-top: 10px;
-  height: 10vh;
+  height: 12vh;
+  min-height: 100px;
 }
 
 .goback-text {
-  font-size: 2.5vh;
+  font-size: 18px;
 }
 
 .row-socialMedia{
@@ -96,7 +98,7 @@
 
 .mark-text {
   display: inline-block;
-  font-size: 2.5vh;
+  font-size: 18px;
 }
 
 @media (max-width: 1170px) {
@@ -116,19 +118,21 @@
   }
 
   .footer-row {
+    width: 100%;
+    min-width: 100%;
     height: 100%;
   }
 
   .col-logo {
-    padding: 0;
-    width: 100%;
-    height: auto;
+    padding-left: 1%;
+    align-items: left;
+    height: 180px;
   }
 
   .footer-logo {
     padding: 0;
-    width: 39vh;
-    height: 22vh;
+    width: 310px;
+    height: 100%;
   }
 
   .sitemap-container {
@@ -145,7 +149,7 @@
 
   .sitemap-link {
     padding: 0;
-    font-size: 2.5vh;
+    font-size: 16px;
     padding-right: 3vw;
     float: right;
     min-width: 51%;
@@ -153,7 +157,7 @@
 
   .roborregos-link {
     padding: 0;
-    font-size: 2.5vh;
+    font-size: 16px;
     padding-right: 3vw;
     float: left;
     min-width: 51%;
@@ -164,6 +168,7 @@
     text-align: right;
     color: rgb(250, 250, 250);
     width: 100%;
+    height: 50px;
     padding: 0;
     margin: 0;
   }
@@ -176,7 +181,7 @@
   }
 
   .goback-text {
-    font-size: 2.5vh;
+    font-size: 16px;
   }
 
   .goback-text:hover {
@@ -187,7 +192,7 @@
 
   .mark-text {
     float: right;
-    font-size: 2vh;
+    font-size: 16px;
     padding-right: 3vw;
     padding-top: 1vh;
     color: #555652;
@@ -219,19 +224,24 @@
     height: min-content;
   }
 
+  .footer-logo{
+    margin-left: -50px;
+    width: 270px;
+  }
+
   .goback-text {
-    font-size: 3.8vw;
+    font-size: 14px;
   }
 
   .sitemap-link {
-    font-size: 3.6vw;
+    font-size: 14px;
   }
 
   .roborregos-link {
-    font-size: 3.6vw;
+    font-size: 14px;
   }
 
   .mark-text {
-    font-size: 2vw;
+    font-size: 14px;
   }
 }
