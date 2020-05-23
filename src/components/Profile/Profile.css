@@ -4,3 +4,25 @@
     background: linear-gradient( 45deg, rgba(20, 18, 19, 0.9) 30%, rgba(0, 94, 105, 0.9) 100%);
     padding-top: 55px;
 }
+
+.profileBox{
+    width: 400px;
+    height: 200px;
+    background: linear-gradient( 45deg, rgba(46, 204, 113, 1) 1%, rgba(28, 131, 172, 0.849) 100%);
+    position: absolute;
+    left: 15%;
+    border-radius: 30px;
+    padding: 20px;
+    font-size: 20px;
+}
+
+.cartBox{
+    width: 500px;
+    height: 500px;
+    background: linear-gradient( 45deg, rgba(46, 204, 113, 1) 1%, rgba(28, 131, 172, 0.849) 100%);
+    position: absolute;
+    right: 15%;
+    border-radius: 30px;
+    padding: 20px;
+    text-align: center;
+}
