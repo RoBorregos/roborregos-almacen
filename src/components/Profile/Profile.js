@@ -1,97 +1,60 @@
 import React, { Component } from 'react';
 import './Profile.css';
-import memberData from '../../data/members.json'
+import members from '../../data/members.json';
+import { Row, Col } from 'react-bootstrap';
 
 
-
-
-class Profile extends Component{
-
-
-
+class Profile extends Component {
     constructor(props) {
         super(props);
 
-        this.state={
-            components:[
-                {
-                    "name": "Raspberry Pi 3",     
-                },
+        this.member = members.members[0]
+        this.mock_reservations = props.mock_reservations;
 
-                {
-                    "name": "Arduino uno",                
-                },
-                {
-                    "name": "Capacitor 10 microF"
-                }
-            ]
-
-           
-        }
-
-        this.state2={
-            members:[
-                {
-                    "name": "Ricardo Chapa Romero",
-                    "memberID":"A00123456",
-                    "mail": "ricardochaparomero@gmail.com"
-                }
-            ]
-        }
-        
+        this.loadMember = this.loadMember.bind(this);
+        this.loadReservations = this.loadReservations.bind(this);
     }
 
-   
-
-  
-
-  
-
-    render(){
-        return(
-
-
-
-
-
-            <div className = "profile_container">
-                <h2>Profile</h2>
-                <div className = "profileBox">
-                {
-                       this.state2.members.map((memberD,i) =>
-                       <div>
-                       <p>{memberD.name} </p>
-                       <p>{memberD.memberID}</p>
-                       <p>{memberD.mail} </p>
-
-                       </div>
-                      
-                            )
-                   }
-
-                   
-                </div>
-                
-                <div className = "cartBox">
-                 <h1>Rented components</h1>
-                   {
-                       this.state.components.map((comp,i) =>
-                       <p>{comp.name} </p>
-                            )
-                   }
-
-                </div>
-
-
-               
+    loadMember() {
+        return (
+            <div>
+                <p>{ "Nombre: " + this.member.name }</p>
+                <p>{ "Mail: " + this.member.mail }</p>
+                <p>{ "Matricula: " + this.member.memberID }</p>
             </div>
-            
+        );
+    }
 
+    loadReservations(){
+        
+        let reservationArray = this.mock_reservations[0].reservation;
+        let componentsList=[];
+        for(let i=0; i<reservationArray.length; i++) {
+            componentsList.push(
+                <Row className="justify-content-sm-left">
+                    <Col >{ "Material: " + reservationArray[i].componentID }</Col>
+                    <Col>{ "Quantity: " + reservationArray[i].quantity  }</Col>
+                </Row>
+            );
+        }
+        return componentsList;
+    }
 
-              
+    render() {
+        return (
+                <div className="profile_container">
+                    <h2>Profile</h2>
+                    <div className="profileBox">
+                        { this.loadMember() }
+                    </div>
 
-
-
+                    <div className="cartBox">
+                        <h1>Rented components</h1>
+                            <Col>
+                                { this.loadReservations() }
+                            </Col>
+                    </div>
+                </div>
         );
     }
 }
