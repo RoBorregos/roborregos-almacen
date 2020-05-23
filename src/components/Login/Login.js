@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Col, Row, Button } from 'react-bootstrap';
 import RoBorregosLogo from '../../images/white_logo.png';
 import membersData from '../../data/members.json';
+import Footer from 'components/Footer/Footer.js';
 import './Login.css';
 
 class Login extends Component {
