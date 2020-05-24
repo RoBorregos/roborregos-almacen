@@ -11,7 +11,6 @@ class WarehouseComponents extends Component {
         this.resolveFilter = this.resolveFilter.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleComponentSearch = this.handleComponentSearch.bind(this);
-        this.resolveComponentSearch = this.resolveComponentSearch.bind(this);
 
         this.state = {
             value: 'All',
@@ -19,54 +18,86 @@ class WarehouseComponents extends Component {
         }
     }
 
-    resolveComponentSearch(){
-        let componentsList=[];
-            componentsList.push(<p>Hello World</p>);
-            
-        return(componentsList);
-    }
-
     resolveFilter(section) {
-        if(this.state.specificComponentValue !== '')
-            return this.resolveComponentSearch();
 
-        let componentsList=[];
+        let componentsList = [];
+        let searchedComponent = this.state.specificComponentValue.toLowerCase();
         if (section === "All") {
-            for(let section_ in this.props.components){
-                for(let id in this.props.components[section_]){
-                    this.props.components[section_][id]["id"]=id;
-                    componentsList.push(
-                        <Col xs='12'  sm='6' md='4' lg='3' key={ id } className='component-col'>
-                            <SingleComponent
-                                component={ this.props.components[section_][id] }
-                                section={ section_ }
-                            />
-                        </Col>   
-                    );
+            if (this.state.specificComponentValue !== '') {
+                for (let section_ in this.props.components) {
+                    for (let id in this.props.components[section_]) {
+
+                        let componentName = this.props.components[section_][id]["name"].toLowerCase();
+                        if (componentName.substr(0, searchedComponent.length) === searchedComponent) {
+                            componentsList.push(
+                                <Col xs='12' sm='6' md='4' lg='3' key={id} className='component-col'>
+                                    <SingleComponent
+                                        component={this.props.components[section_][id]}
+                                        section={section_}
+                                    />
+                                </Col>
+                            );
+                        }
+                    }
+                }
+            }
+            else {
+                for (let section_ in this.props.components) {
+                    for (let id in this.props.components[section_]) {
+                        this.props.components[section_][id]["id"] = id;
+                        componentsList.push(
+                            <Col xs='12' sm='6' md='4' lg='3' key={id} className='component-col'>
+                                <SingleComponent
+                                    component={this.props.components[section_][id]}
+                                    section={section_}
+                                />
+                            </Col>
+                        );
+                    }
                 }
             }
         }
         else {
-            if(!this.props.components.hasOwnProperty(section)){
+            if (!this.props.components.hasOwnProperty(section)) {
                 return componentsList;
             }
-            for(let id in this.props.components[section]){
-                this.props.components[section][id]["id"]=id;
-                componentsList.push(
-                    <Col xs='12'  sm='6' md='4' lg='3' key={ id } className='component-col'>
-                        <SingleComponent
-                            component={ this.props.components[section][id] }
-                            section={ section }
-                        />
-                    </Col>  
-                );
+
+            if (this.state.specificComponentValue !== '') {
+                for (let id in this.props.components[section]) {
+                    this.props.components[section][id]["id"] = id;
+                    let componentName = this.props.components[section][id]["name"].toLowerCase();
+
+                    if (componentName.substr(0, searchedComponent.length) === searchedComponent) {
+                        componentsList.push(
+                            <Col xs='12' sm='6' md='4' lg='3' key={id} className='component-col'>
+                                <SingleComponent
+                                    component={this.props.components[section][id]}
+                                    section={section}
+                                />
+                            </Col>
+                        );
+                    }
+                }
+            }
+            else {
+                for (let id in this.props.components[section]) {
+                    this.props.components[section][id]["id"] = id;
+                    componentsList.push(
+                        <Col xs='12' sm='6' md='4' lg='3' key={id} className='component-col'>
+                            <SingleComponent
+                                component={this.props.components[section][id]}
+                                section={section}
+                            />
+                        </Col>
+                    );
+                }
             }
         }
         return componentsList;
     }
 
-    handleComponentSearch(e){
-        this.setState({ specificComponentValue:e.target.value })
+    handleComponentSearch(e) {
+        this.setState({ specificComponentValue: e.target.value })
     }
 
     handleChange(e) {
@@ -81,7 +112,7 @@ class WarehouseComponents extends Component {
                     <Row className='warehousecomponent-search'>
                         <Col>
                             <span className='warehousecomponent-search-title'>Filter by component type:</span>
-                            <select className="search_filter" onChange={ this.handleChange } value={ this.state.value }>
+                            <select className="search_filter" onChange={this.handleChange} value={this.state.value}>
                                 <option value="All"> All </option>
                                 <option value="component"> Circuit Component </option>
                                 <option value="sensors"> Sensors </option>
@@ -90,18 +121,18 @@ class WarehouseComponents extends Component {
                             </select>
                         </Col>
                         <Col>
-                            <span className = "warehousecomponent-search-title">Search by component:</span>
-                            <input 
-                                className = "component_search_filter" 
-                                type = "input" 
-                                placeholder = "Search by component name..."
-                                value = { this.state.specificComponentValue }
-                                onChange = { this.handleComponentSearch }>
+                            <span className="warehousecomponent-search-title">Search by component:</span>
+                            <input
+                                className="component_search_filter"
+                                type="input"
+                                placeholder="Search by component name..."
+                                value={this.state.specificComponentValue}
+                                onChange={this.handleComponentSearch}>
                             </input>
                         </Col>
                     </Row>
                     <Row>
-                        { this.resolveFilter(this.state.value) }
+                        {this.resolveFilter(this.state.value)}
                     </Row>
                 </Col>
             </Row>
@@ -110,9 +141,9 @@ class WarehouseComponents extends Component {
 }
 
 
-const mapStateToProps = (state)=>{
+const mapStateToProps = (state) => {
     return {
         components: state.components
     }
 }
-export default connect(mapStateToProps,null)(WarehouseComponents);
+export default connect(mapStateToProps, null)(WarehouseComponents);
