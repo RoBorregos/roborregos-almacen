@@ -10,13 +10,26 @@ class WarehouseComponents extends Component {
 
         this.resolveFilter = this.resolveFilter.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleComponentSearch = this.handleComponentSearch.bind(this);
+        this.resolveComponentSearch = this.resolveComponentSearch.bind(this);
 
         this.state = {
-            value: 'All'
+            value: 'All',
+            specificComponentValue: ''
         }
     }
 
+    resolveComponentSearch(){
+        let componentsList=[];
+            componentsList.push(<p>Hello World</p>);
+            
+        return(componentsList);
+    }
+
     resolveFilter(section) {
+        if(this.state.specificComponentValue !== '')
+            return this.resolveComponentSearch();
+
         let componentsList=[];
         if (section === "All") {
             for(let section_ in this.props.components){
@@ -52,23 +65,40 @@ class WarehouseComponents extends Component {
         return componentsList;
     }
 
+    handleComponentSearch(e){
+        this.setState({ specificComponentValue:e.target.value })
+    }
+
     handleChange(e) {
         this.setState({ value: e.target.value });
     }
 
     render() {
+        console.log(this.state.specificComponentValue);
         return (
             <Row className='justify-content-center mr-0 ml-0'>
                 <Col xs='10' sm='10' md='10' lg='10' xl='10'>
                     <Row className='warehousecomponent-search'>
-                        <span className='warehousecomponent-search-title'>Filter by component type:</span>
-                        <select className="search_filter" onChange={ this.handleChange } value={ this.state.value }>
-                            <option value="All"> All </option>
-                            <option value="component"> Circuit Component </option>
-                            <option value="sensors"> Sensors </option>
-                            <option value="motors"> Motors </option>
-                            <option value="microcontrollers"> Microcontrollers </option>
-                        </select>
+                        <Col>
+                            <span className='warehousecomponent-search-title'>Filter by component type:</span>
+                            <select className="search_filter" onChange={ this.handleChange } value={ this.state.value }>
+                                <option value="All"> All </option>
+                                <option value="component"> Circuit Component </option>
+                                <option value="sensors"> Sensors </option>
+                                <option value="motors"> Motors </option>
+                                <option value="microcontrollers"> Microcontrollers </option>
+                            </select>
+                        </Col>
+                        <Col>
+                            <span className = "warehousecomponent-search-title">Search by component:</span>
+                            <input 
+                                className = "component_search_filter" 
+                                type = "input" 
+                                placeholder = "Search by component name..."
+                                value = { this.state.specificComponentValue }
+                                onChange = { this.handleComponentSearch }>
+                            </input>
+                        </Col>
                     </Row>
                     <Row>
                         { this.resolveFilter(this.state.value) }

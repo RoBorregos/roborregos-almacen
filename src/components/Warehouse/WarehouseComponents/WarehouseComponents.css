@@ -19,3 +19,15 @@
     border-radius: 10px;
     padding: 8px 15px;
 }
+
+.component_search_filter{
+    position:relative;
+    width: 40%;
+	font-size: 0.8em;
+	background: white;
+	display: inline-block;
+    border-radius: 9999em;
+}
+.component_search_filter:focus{
+    outline: none;
+}
