@@ -22,6 +22,11 @@
                 "name": "Capacitor 20 microF",
                 "img_path": "capacitor.jpg",
                 "stock": 1
+            },
+            "capacitor3": {
+                "name": "Capacitor 30 microF",
+                "img_path": "capacitor.jpg",
+                "stock": 1
             }
         },
         "sensors": {

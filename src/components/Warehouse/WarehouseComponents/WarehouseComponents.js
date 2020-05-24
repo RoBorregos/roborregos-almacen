@@ -105,7 +105,6 @@ class WarehouseComponents extends Component {
     }
 
     render() {
-        console.log(this.state.specificComponentValue);
         return (
             <Row className='justify-content-center mr-0 ml-0'>
                 <Col xs='10' sm='10' md='10' lg='10' xl='10'>
