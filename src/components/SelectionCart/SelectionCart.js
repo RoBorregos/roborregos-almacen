@@ -109,7 +109,7 @@ class SelectionCart extends Component {
                     <button
                         disabled={ Object.keys(this.props.addedItems).length === 0 }
                         onClick={ () => { this.handleAction(types.CLEAR_CART) } }>
-                        Done
+                        Checkout
                     </button>
                 </Row>
             </Col>
