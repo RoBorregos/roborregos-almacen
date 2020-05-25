@@ -30,10 +30,10 @@ class WarehouseComponents extends Component {
                         let componentName = this.props.components[section_][id]["name"].toLowerCase();
                         if (componentName.indexOf(searchedComponent) > -1) {
                             componentsList.push(
-                                <Col xs='12' sm='6' md='4' lg='3' key={id} className='component-col'>
+                                <Col xs='12' sm='6' md='4' lg='3' key={ id } className='component-col'>
                                     <SingleComponent
-                                        component={this.props.components[section_][id]}
-                                        section={section_}
+                                        component={ this.props.components[section_][id] }
+                                        section={ section_ }
                                     />
                                 </Col>
                             );
@@ -46,10 +46,10 @@ class WarehouseComponents extends Component {
                     for (let id in this.props.components[section_]) {
                         this.props.components[section_][id]["id"] = id;
                         componentsList.push(
-                            <Col xs='12' sm='6' md='4' lg='3' key={id} className='component-col'>
+                            <Col xs='12' sm='6' md='4' lg='3' key={ id } className='component-col'>
                                 <SingleComponent
-                                    component={this.props.components[section_][id]}
-                                    section={section_}
+                                    component={ this.props.components[section_][id] }
+                                    section={ section_ }
                                 />
                             </Col>
                         );
@@ -71,8 +71,8 @@ class WarehouseComponents extends Component {
                         componentsList.push(
                             <Col xs='12' sm='6' md='4' lg='3' key={id} className='component-col'>
                                 <SingleComponent
-                                    component={this.props.components[section][id]}
-                                    section={section}
+                                    component={ this.props.components[section][id] }
+                                    section={ section }
                                 />
                             </Col>
                         );
@@ -83,10 +83,10 @@ class WarehouseComponents extends Component {
                 for (let id in this.props.components[section]) {
                     this.props.components[section][id]["id"] = id;
                     componentsList.push(
-                        <Col xs='12' sm='6' md='4' lg='3' key={id} className='component-col'>
+                        <Col xs='12' sm='6' md='4' lg='3' key={ id } className='component-col'>
                             <SingleComponent
-                                component={this.props.components[section][id]}
-                                section={section}
+                                component={ this.props.components[section][id] }
+                                section={ section }
                             />
                         </Col>
                     );
@@ -111,7 +111,7 @@ class WarehouseComponents extends Component {
                     <Row className='warehousecomponent-search'>
                         <Col>
                             <span className='warehousecomponent-search-title'>Filter by component type:</span>
-                            <select className="search_filter" onChange={this.handleChange} value={this.state.value}>
+                            <select className="search_filter" onChange={ this.handleChange } value={ this.state.value }>
                                 <option value="All"> All </option>
                                 <option value="component"> Circuit Component </option>
                                 <option value="sensors"> Sensors </option>
@@ -125,13 +125,13 @@ class WarehouseComponents extends Component {
                                 className="component_search_filter"
                                 type="search"
                                 placeholder="Component Name"
-                                value={this.state.specificComponentValue}
-                                onChange={this.handleComponentSearch}>
+                                value={ this.state.specificComponentValue }
+                                onChange={ this.handleComponentSearch }>
                             </input>
                         </Col>
                     </Row>
                     <Row>
-                        {this.resolveFilter(this.state.value)}
+                        { this.resolveFilter(this.state.value) }
                     </Row>
                 </Col>
             </Row>
