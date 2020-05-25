@@ -28,7 +28,7 @@ class WarehouseComponents extends Component {
                     for (let id in this.props.components[section_]) {
 
                         let componentName = this.props.components[section_][id]["name"].toLowerCase();
-                        if (componentName.substr(0, searchedComponent.length) === searchedComponent) {
+                        if (componentName.indexOf(searchedComponent) > -1) {
                             componentsList.push(
                                 <Col xs='12' sm='6' md='4' lg='3' key={id} className='component-col'>
                                     <SingleComponent
@@ -64,10 +64,10 @@ class WarehouseComponents extends Component {
 
             if (this.state.specificComponentValue !== '') {
                 for (let id in this.props.components[section]) {
+
                     this.props.components[section][id]["id"] = id;
                     let componentName = this.props.components[section][id]["name"].toLowerCase();
-
-                    if (componentName.substr(0, searchedComponent.length) === searchedComponent) {
+                    if (componentName.indexOf(searchedComponent) > -1) {
                         componentsList.push(
                             <Col xs='12' sm='6' md='4' lg='3' key={id} className='component-col'>
                                 <SingleComponent
