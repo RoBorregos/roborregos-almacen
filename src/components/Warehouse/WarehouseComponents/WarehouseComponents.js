@@ -123,8 +123,8 @@ class WarehouseComponents extends Component {
                             <span className="warehousecomponent-search-title">Search by component:</span>
                             <input
                                 className="component_search_filter"
-                                type="input"
-                                placeholder="Search by component name..."
+                                type="search"
+                                placeholder="Component Name"
                                 value={this.state.specificComponentValue}
                                 onChange={this.handleComponentSearch}>
                             </input>

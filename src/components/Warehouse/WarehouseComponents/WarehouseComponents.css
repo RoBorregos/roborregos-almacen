@@ -22,11 +22,10 @@
 
 .component_search_filter{
     position:relative;
-    width: 40%;
 	font-size: 0.8em;
 	background: white;
 	display: inline-block;
-    border-radius: 9999em;
+    border-radius: 10px;
 }
 .component_search_filter:focus{
     outline: none;
