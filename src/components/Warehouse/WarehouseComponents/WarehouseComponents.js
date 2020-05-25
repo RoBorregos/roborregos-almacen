@@ -108,7 +108,7 @@ class WarehouseComponents extends Component {
         return (
             <Row className='justify-content-center mr-0 ml-0'>
                 <Col xs='10' sm='10' md='10' lg='10' xl='10'>
-                    <Row className='warehousecomponent-search'>
+                    <Row className='warehousecomponent-search' >
                         <Col>
                             <span className='warehousecomponent-search-title'>Filter by component type:</span>
                             <select className="search_filter" onChange={ this.handleChange } value={ this.state.value }>
