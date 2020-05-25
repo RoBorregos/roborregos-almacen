@@ -14,16 +14,16 @@ class WarehouseComponents extends Component {
 
         this.state = {
             value: 'All',
-            specificComponentValue: ''
+            searchedComponentValue: ''
         }
     }
 
     resolveFilter(section) {
 
         let componentsList = [];
-        let searchedComponent = this.state.specificComponentValue.toLowerCase();
+        let searchedComponent = this.state.searchedComponentValue.toLowerCase();
         if (section === "All") {
-            if (this.state.specificComponentValue !== '') {
+            if (this.state.searchedComponentValue !== '') {
                 for (let section_ in this.props.components) {
                     for (let id in this.props.components[section_]) {
 
@@ -62,7 +62,7 @@ class WarehouseComponents extends Component {
                 return componentsList;
             }
 
-            if (this.state.specificComponentValue !== '') {
+            if (this.state.searchedComponentValue !== '') {
                 for (let id in this.props.components[section]) {
 
                     this.props.components[section][id]["id"] = id;
@@ -97,7 +97,7 @@ class WarehouseComponents extends Component {
     }
 
     handleComponentSearch(e) {
-        this.setState({ specificComponentValue: e.target.value })
+        this.setState({ searchedComponentValue: e.target.value })
     }
 
     handleChange(e) {
@@ -125,7 +125,7 @@ class WarehouseComponents extends Component {
                                 className="component_search_filter"
                                 type="search"
                                 placeholder="Component Name"
-                                value={ this.state.specificComponentValue }
+                                value={ this.state.searchedComponentValue }
                                 onChange={ this.handleComponentSearch }>
                             </input>
                         </Col>
