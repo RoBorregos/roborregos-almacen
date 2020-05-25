@@ -72,7 +72,7 @@ class SingleComponent extends Component{
           />
           <p 
             className = "text-center"
-            style = { { fontFamily: "Arial", fontSize:"1.3vw" } }
+            style = { { fontFamily: "Arial", fontSize:"1.3rem" } }
           >
           { this.component.name }
           </p>
