@@ -16,6 +16,10 @@
                 {
                     "componentID": "component_ID3",
                     "quantity": 2
+                },
+                {
+                    "componentID":"component_ID4",
+                    "quantity": 3
                 }
             ]
         }

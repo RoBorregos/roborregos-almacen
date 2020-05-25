@@ -17,11 +17,13 @@ class Profile extends Component {
 
     loadMember() {
         return (
-            <div>
-                <p>{ "Nombre: " + this.member.name }</p>
-                <p>{ "Mail: " + this.member.mail }</p>
-                <p>{ "Matricula: " + this.member.memberID }</p>
-            </div>
+           <Row >
+            <Col>{ "NOMBRE: " + this.member.name  }</Col>
+            <Col>{"MAIL: " + this.member.mail}</Col>
+            <Col>{"MATRICULA: " + this.member.memberID}</Col>
+
+
+            </Row> 
         );
     }
 
@@ -43,17 +45,27 @@ class Profile extends Component {
     render() {
         return (
                 <div className="profile_container">
-                    <h2>Profile</h2>
-                    <div className="profileBox">
-                        { this.loadMember() }
-                    </div>
+                      
+                    
+                      <Col> 
+                         <h3>Profile</h3> 
+                      </Col>
+                     
+                     
+                      <Col>  
+                         { this.loadMember() }
+                      </Col>
+                    
+                      <Col> 
+                         <h3>Rented components</h3>
+                      </Col>
 
-                    <div className="cartBox">
-                        <h1>Rented components</h1>
-                            <Col>
-                                { this.loadReservations() }
-                            </Col>
-                    </div>
+                      <Col>
+                         { this.loadReservations() }
+                      </Col>
+
+                   
+                    
                 </div>
         );
     }
