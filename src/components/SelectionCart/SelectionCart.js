@@ -18,6 +18,8 @@ class SelectionCart extends Component {
 
         this.state = {
             handleChange: false,
+            showQR: false,
+            idQR: '',
         }
     }
 
@@ -42,7 +44,7 @@ class SelectionCart extends Component {
                 break;
             case types.CLEAR_CART:
                 this.props.clearCart();
-                this.handleClose();
+                this.setState({showQR:true, idQR:'Hola Mundo.'})
                 return;
             default:
 
@@ -98,24 +100,36 @@ class SelectionCart extends Component {
     }
 
     render() {
-        return (
-            <Col className='cart-container'>
-                <Qr_code/>
-                <Row className='cart-header'>
-                    {(Object.keys(this.props.addedItems).length === 0) ? "Your cart is empty!" : ""}
-                </Row>
-                <Col className='cart-collection'>
-                    {this.getItems()}
+        if(this.state.showQR){
+            return (
+                <Col className='qrcode-container'>
+                    <Row className='justify-content-center mb-4'>
+                        Save your QRcode!!
+                    </Row>
+                    <Row className='justify-content-center'>
+                        <Qr_code idQR={this.state.idQR} />
+                    </Row>
                 </Col>
-                <Row className='justify-content-center'>
-                    <button
-                        disabled={Object.keys(this.props.addedItems).length === 0}
-                        onClick={() => { this.handleAction(types.CLEAR_CART) }}>
-                        Checkout
-                    </button>
-                </Row>
-            </Col>
-        );
+                ); 
+        }else{
+            return (
+                <Col className='cart-container'>
+                    <Row className='cart-header'>
+                        {(Object.keys(this.props.addedItems).length === 0) ? "Your cart is empty!" : ""}
+                    </Row>
+                    <Col className='cart-collection'>
+                        {this.getItems()}
+                    </Col>
+                    <Row className='justify-content-center'>
+                        <button
+                            disabled={Object.keys(this.props.addedItems).length === 0}
+                            onClick={() => { this.handleAction(types.CLEAR_CART) }}>
+                            Checkout
+                        </button>
+                    </Row>
+                </Col>
+            );
+        }
     }
 }
 
