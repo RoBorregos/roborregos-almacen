@@ -4,6 +4,7 @@ import Profile from "./components/Profile/Profile.js";
 import Warehouse from "./components/Warehouse/Warehouse.js";
 import SelectionCart from "./components/SelectionCart/SelectionCart.js";
 import NavBar from "./components/NavBar/NavBar.js";
+import Footer from 'components/Footer/Footer.js';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import cookie from 'react-cookies'
 import routesData from 'data/routes.json';
@@ -63,6 +64,7 @@ class App extends Component {
             exact path='/selectionCart'
             component={ () => <SelectionCart /> }
           />
+          <Footer />
         </div>
       </Router>
     );
