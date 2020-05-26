@@ -3,6 +3,7 @@ import { Col, Row } from 'react-bootstrap';
 import './SelectionCart.css';
 import placeholder from 'images/placeholder-rectangle.png';
 import { connect } from 'react-redux';
+import Qr_code from '../QR_code/QR_code.js';
 import { types, subtractQuantity, addQuantity, removeItem, clearCart } from '../../scripts/cartReducer';
 
 class SelectionCart extends Component {
@@ -17,6 +18,8 @@ class SelectionCart extends Component {
 
         this.state = {
             handleChange: false,
+            showQR: false,
+            idQR: '',
         }
     }
 
@@ -32,20 +35,20 @@ class SelectionCart extends Component {
         switch (action) {
             case types.ADD_QUANTITY:
                 this.props.addQuantity(component);
-            break;
+                break;
             case types.SUB_QUANTITY:
                 this.props.subtractQuantity(component);
-            break;
+                break;
             case types.REMOVE_COMPONENT:
                 this.props.removeItem(component);
-            break;
+                break;
             case types.CLEAR_CART:
                 this.props.clearCart();
-                this.handleClose();
+                this.setState({ showQR: true, idQR: 'Hola Mundo.' })
                 return;
             default:
 
-            break;
+                break;
         }
         this.setState({ handleChange: !this.state.handleChange });
     }
@@ -67,9 +70,9 @@ class SelectionCart extends Component {
                 continue;
             }
             res.push(
-                <Row key={ component } className='justify-content-center'>
+                <Row key={component} className='justify-content-center'>
                     <Col xs='3'>
-                        <img className='component-img' alt={ component } src={ this.tryRequire(section_, item.img_path) } />
+                        <img className='component-img' alt={component} src={ this.tryRequire(section_, item.img_path) } />
                     </Col>
                     <Col xs='5'>
                         { item.name }
@@ -97,23 +100,37 @@ class SelectionCart extends Component {
     }
 
     render() {
-        return (
-            <Col className='cart-container'>
-                <Row className='cart-header'>
-                    { (Object.keys(this.props.addedItems).length === 0) ? "Your cart is empty!" : "" }
-                </Row>
-                <Col className='cart-collection'>
-                    { this.getItems() }
+        if (this.state.showQR) {
+            return (
+                <Col className='qrcode-container'>
+                    <Row className='justify-content-center mb-4'>
+                        Save your QRcode!!
+                    </Row>
+                    <Row className='justify-content-center'>
+                        <Qr_code idQR={ this.state.idQR } />
+                    </Row>
                 </Col>
-                <Row className='justify-content-center'>
-                    <button
-                        disabled={ Object.keys(this.props.addedItems).length === 0 }
-                        onClick={ () => { this.handleAction(types.CLEAR_CART) } }>
-                        Checkout
-                    </button>
-                </Row>
-            </Col>
-        );
+            );
+        } 
+        else {
+            return (
+                <Col className='cart-container'>
+                    <Row className='cart-header'>
+                        { (Object.keys(this.props.addedItems).length === 0) ? "Your cart is empty!" : "" }
+                    </Row>
+                    <Col className='cart-collection'>
+                        { this.getItems() }
+                    </Col>
+                    <Row className='justify-content-center'>
+                        <button
+                            disabled={ Object.keys(this.props.addedItems).length === 0 }
+                            onClick={ () => { this.handleAction(types.CLEAR_CART) } }>
+                            Checkout
+                        </button>
+                    </Row>
+                </Col>
+            );
+        }
     }
 }
 
