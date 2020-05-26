@@ -54,15 +54,9 @@ class Profile extends Component {
         return (
             <div className="profile_container">
 
-                <Col>
-                    <h1>User</h1>
-                    {this.loadMember()}
-                </Col>
-
-                <br />
-
+             
                 <Col >
-                    <h1>Reservations</h1>
+                    <h1>Your Reservations</h1>
                 </Col>
                 <Col>
                     <Col>
