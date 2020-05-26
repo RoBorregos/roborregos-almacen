@@ -8,6 +8,7 @@ import Footer from 'components/Footer/Footer.js';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import cookie from 'react-cookies'
 import routesData from 'data/routes.json';
+import mock_reservations from './data/mock_reservations.json';
 import './App.css';
 
 class App extends Component {
@@ -57,7 +58,7 @@ class App extends Component {
           />
           <Route
             exact path='/profile'
-            component={ () => <Profile /> }
+            component={ () => <Profile mock_reservations= { mock_reservations.reservations }/> }
           />
           <Route
             exact path='/selectionCart'

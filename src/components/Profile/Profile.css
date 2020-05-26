@@ -3,4 +3,17 @@
     min-height: 100%;
     background: linear-gradient( 45deg, rgba(20, 18, 19, 0.9) 30%, rgba(0, 94, 105, 0.9) 100%);
     padding-top: 55px;
+    font-size: 25px;
 }
+
+.reservations{
+    color: black;
+  
+    background-color: rgb(188, 188, 209);
+}
+
+.headers{
+    color: black;
+    background-color: darkgray;
+}
+
