@@ -44,7 +44,7 @@ class SelectionCart extends Component {
                 break;
             case types.CLEAR_CART:
                 this.props.clearCart();
-                this.setState({showQR:true, idQR:'Hola Mundo.'})
+                this.setState({ showQR: true, idQR: 'Hola Mundo.' })
                 return;
             default:
 
@@ -72,24 +72,24 @@ class SelectionCart extends Component {
             res.push(
                 <Row key={component} className='justify-content-center'>
                     <Col xs='3'>
-                        <img className='component-img' alt={component} src={this.tryRequire(section_, item.img_path)} />
+                        <img className='component-img' alt={component} src={ this.tryRequire(section_, item.img_path) } />
                     </Col>
                     <Col xs='5'>
-                        {item.name}
+                        { item.name }
                     </Col>
                     <Col xs='4'>
                         <Row>
                             <Col xs='2'>
-                                <button onClick={() => this.handleAction(types.SUB_QUANTITY, component)}>-</button>
+                                <button onClick={ () => this.handleAction(types.SUB_QUANTITY, component) }>-</button>
                             </Col>
                             <Col xs='4'>
-                                {this.props.addedItems[component].quantity}
+                                { this.props.addedItems[component].quantity }
                             </Col>
                             <Col xs='2'>
-                                <button onClick={() => this.handleAction(types.ADD_QUANTITY, component)}>+</button>
+                                <button onClick={ () => this.handleAction(types.ADD_QUANTITY, component) }>+</button>
                             </Col>
                             <Col xs='2'>
-                                <button onClick={() => this.handleAction(types.REMOVE_COMPONENT, component)}>x</button>
+                                <button onClick={ () => this.handleAction(types.REMOVE_COMPONENT, component) }>x</button>
                             </Col>
                         </Row>
                     </Col>
@@ -100,30 +100,31 @@ class SelectionCart extends Component {
     }
 
     render() {
-        if(this.state.showQR){
+        if (this.state.showQR) {
             return (
                 <Col className='qrcode-container'>
                     <Row className='justify-content-center mb-4'>
                         Save your QRcode!!
                     </Row>
                     <Row className='justify-content-center'>
-                        <Qr_code idQR={this.state.idQR} />
+                        <Qr_code idQR={ this.state.idQR } />
                     </Row>
                 </Col>
-                ); 
-        }else{
+            );
+        } 
+        else {
             return (
                 <Col className='cart-container'>
                     <Row className='cart-header'>
-                        {(Object.keys(this.props.addedItems).length === 0) ? "Your cart is empty!" : ""}
+                        { (Object.keys(this.props.addedItems).length === 0) ? "Your cart is empty!" : "" }
                     </Row>
                     <Col className='cart-collection'>
-                        {this.getItems()}
+                        { this.getItems() }
                     </Col>
                     <Row className='justify-content-center'>
                         <button
-                            disabled={Object.keys(this.props.addedItems).length === 0}
-                            onClick={() => { this.handleAction(types.CLEAR_CART) }}>
+                            disabled={ Object.keys(this.props.addedItems).length === 0 }
+                            onClick={ () => { this.handleAction(types.CLEAR_CART) } }>
                             Checkout
                         </button>
                     </Row>
