@@ -17,56 +17,73 @@ class Profile extends Component {
 
     loadMember() {
         return (
-           <Row >
-            <Col>{ "NOMBRE: " + this.member.name  }</Col>
-            <Col>{"MAIL: " + this.member.mail}</Col>
-            <Col>{"MATRICULA: " + this.member.memberID}</Col>
-
-
-            </Row> 
+            <div className="member">
+                <Row >
+                    <Col>{this.member.name}</Col>
+                    <Col>{this.member.mail}</Col>
+                    <Col>{this.member.memberID}</Col>
+                </Row>
+            </div>
         );
     }
 
-    loadReservations(){
-        
-        let reservationArray = this.mock_reservations[0].reservation;
-        let componentsList=[];
-        for(let i=0; i<reservationArray.length; i++) {
-            componentsList.push(
-                <Row className="justify-content-sm-left">
-                    <Col >{ "Material: " + reservationArray[i].componentID }</Col>
-                    <Col>{ "Quantity: " + reservationArray[i].quantity  }</Col>
-                </Row>
-            );
+    loadReservations() {
+
+        let componentsList = [];
+        for (let reservations = 0; reservations < this.mock_reservations.length; reservations++) {
+
+            let reservationArray = this.mock_reservations[reservations].reservation;
+            for (let i = 0; i < reservationArray.length; i++) {
+                let style = (i % 2 === 0) ? "lightgray" : "white";
+                componentsList.push(
+                    <div>
+                        <Row className="justify-content-sm-left">
+                            <Col className="reservations" style={{ backgroundColor: style }}>{this.mock_reservations[reservations].date}</Col>
+                            <Col className="reservations" style={{ backgroundColor: style }}>{reservationArray[i].componentID}</Col>
+                            <Col className="reservations" style={{ backgroundColor: style }}>{reservationArray[i].quantity}</Col>
+                        </Row>
+                    </div>
+                );
+            }
+
         }
         return componentsList;
     }
 
     render() {
         return (
-                <div className="profile_container">
-                      
-                    
-                      <Col> 
-                         <h3>Profile</h3> 
-                      </Col>
-                     
-                     
-                      <Col>  
-                         { this.loadMember() }
-                      </Col>
-                    
-                      <Col> 
-                         <h3>Rented components</h3>
-                      </Col>
+            <div className="profile_container">
 
-                      <Col>
-                         { this.loadReservations() }
-                      </Col>
+                <Col>
+                    <h1>User</h1>
+                    {this.loadMember()}
+                </Col>
 
-                   
-                    
-                </div>
+                <br />
+
+                <Col >
+                    <h1>Reservations</h1>
+                </Col>
+                <Col>
+                    <Col>
+                        <Row className="justify-content-center">
+                            <Col className="headers justify-content-center">
+                                <h2>Date</h2>
+                            </Col>
+                            <Col className="headers justify-content-center">
+                                <h2>Component</h2>
+                            </Col>
+                            <Col className="headers justify-content-center">
+                                <h2>Quantity</h2>
+                            </Col>
+                        </Row>
+                    </Col>
+                    <Col>
+                        {this.loadReservations()}
+                    </Col>
+                </Col>
+
+            </div>
         );
     }
 }

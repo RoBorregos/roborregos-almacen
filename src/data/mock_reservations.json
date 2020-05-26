@@ -22,6 +22,29 @@
                     "quantity": 3
                 }
             ]
+        },
+        {
+            "reservation_key": 1,
+            "memberID": "A00123456",
+            "date": "22-06-2020",
+            "reservation": [
+                {
+                    "componentID": "component_ID",
+                    "quantity": 1
+                },
+                {
+                    "componentID": "component_ID2",
+                    "quantity": 3
+                },
+                {
+                    "componentID": "component_ID3",
+                    "quantity": 2
+                },
+                {
+                    "componentID":"component_ID4",
+                    "quantity": 3
+                }
+            ]
         }
     ]
 }
