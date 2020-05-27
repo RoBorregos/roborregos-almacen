@@ -35,7 +35,7 @@ class SelectionCart extends Component {
         }
     }
 
-    getCurrentDate(){
+    getCurrentDate() {
         const today = new Date();
         const dd = today.getDate();
         let mm= today.getMonth()+1;
@@ -44,7 +44,7 @@ class SelectionCart extends Component {
         return dd + '-' + mm + '-' + yyyy;
     }
 
-    doAPICall(addedItems){
+    doAPICall(addedItems) {
         let data = {
             'reservation_key': Math.floor( Math.random() * 100 ), 
             'member_ID': this.userID, 
@@ -52,7 +52,7 @@ class SelectionCart extends Component {
             'reservation': [
             ]
         };
-        for(let id in addedItems){
+        for(let id in addedItems) {
             data.reservation.push({
                 'componentID' : id,
                 'quantity' : addedItems[id].quantity,
