@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Profile.css';
 import members from '../../data/members.json';
+import { connect } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
 
 
@@ -30,20 +31,21 @@ class Profile extends Component {
     loadReservations() {
 
         let componentsList = [];
+        let countComponents = 0;
         for (let reservations = 0; reservations < this.mock_reservations.length; reservations++) {
-
             let reservationArray = this.mock_reservations[reservations].reservation;
             for (let i = 0; i < reservationArray.length; i++) {
-                let style = (i % 2 === 0) ? "lightgray" : "white";
+                let style = (countComponents % 2 === 0) ? "oddRow" : "evenRow";
                 componentsList.push(
                     <div>
-                        <Row className="justify-content-sm-left">
-                            <Col className="reservations" style={{ backgroundColor: style }}>{this.mock_reservations[reservations].date}</Col>
-                            <Col className="reservations" style={{ backgroundColor: style }}>{reservationArray[i].componentID}</Col>
-                            <Col className="reservations" style={{ backgroundColor: style }}>{reservationArray[i].quantity}</Col>
+                        <Row className={ style }>
+                            <Col className="reservations">{this.mock_reservations[reservations].date}</Col>
+                            <Col className="reservations">{reservationArray[i].componentID}</Col>
+                            <Col className="reservations">{reservationArray[i].quantity}</Col>
                         </Row>
                     </div>
                 );
+                countComponents++;
             }
 
         }
@@ -82,8 +84,10 @@ class Profile extends Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        addedItems: state.addedItems
+    }
+}
 
-
-
-
-export default Profile;
+export default connect(mapStateToProps, null)(Profile);

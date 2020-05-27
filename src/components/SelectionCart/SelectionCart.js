@@ -4,7 +4,7 @@ import './SelectionCart.css';
 import placeholder from 'images/placeholder-rectangle.png';
 import { connect } from 'react-redux';
 import Qr_code from '../QR_code/QR_code.js';
-import membersData from '../../data/members.json';
+import MockReservation from '../../data/mock_reservations.json';
 import { types, subtractQuantity, addQuantity, removeItem, clearCart } from '../../scripts/cartReducer';
 
 class SelectionCart extends Component {
@@ -34,40 +34,31 @@ class SelectionCart extends Component {
             return placeholder;
         }
     }
-    
-    getMemberName(){
-        let users = membersData.members;
-        for (let i = 0; i < users.length; i++) {
-            if (users[i].memberID === this.userID) {
-                return users[i].name;
-            }
-        }
-    }
 
     getCurrentDate(){
         const today = new Date();
         const dd = today.getDate();
-        const mm = today.getMonth()+1; 
+        let mm= today.getMonth()+1;
+        mm = mm < 9 ? '0' + mm : mm;  
         const yyyy = today.getFullYear();
-        return dd + '/' + mm + '/' + yyyy;
+        return dd + '-' + mm + '-' + yyyy;
     }
 
     doAPICall(addedItems){
         let data = {
-            "member_ID": this.userID, 
-            "member_Name": this.getMemberName(),
-            "date": this.getCurrentDate(),
-            "reservation": [
+            'reservation_key': Math.floor( Math.random() * 100 ), 
+            'member_ID': this.userID, 
+            'date': this.getCurrentDate(),
+            'reservation': [
             ]
         };
         for(let id in addedItems){
-            const section = addedItems[id].section;
             data.reservation.push({
-                "componentID" : id,
-                "componentName" : this.components[section][id].name,
-                "quantity" : addedItems[id].quantity,
+                'componentID' : id,
+                'quantity' : addedItems[id].quantity,
             })
         }
+        MockReservation.reservations.push(data);
     }
 
     handleAction(action, component) {
