@@ -8,8 +8,14 @@
 
 .reservations{
     color: black;
-  
-    background-color: rgb(188, 188, 209);
+}
+
+.evenRow{
+    background-color: white;
+}
+
+.oddRow{
+    background-color: lightgray;
 }
 
 .headers{

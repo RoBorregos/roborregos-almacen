@@ -4,17 +4,21 @@ import './SelectionCart.css';
 import placeholder from 'images/placeholder-rectangle.png';
 import { connect } from 'react-redux';
 import Qr_code from '../QR_code/QR_code.js';
+import MockReservation from '../../data/mock_reservations.json';
 import { types, subtractQuantity, addQuantity, removeItem, clearCart } from '../../scripts/cartReducer';
 
 class SelectionCart extends Component {
 
     constructor(props) {
         super(props);
+
         this.getItems = this.getItems.bind(this);
         this.tryRequire = this.tryRequire.bind(this);
         this.handleAction = this.handleAction.bind(this);
+        this.doAPICall = this.doAPICall.bind(this);
         this.handleClose = this.props.handleClose;
         this.components = props.components;
+        this.userID= this.props.userID;
 
         this.state = {
             handleChange: false,
@@ -31,6 +35,32 @@ class SelectionCart extends Component {
         }
     }
 
+    getCurrentDate() {
+        const today = new Date();
+        const dd = today.getDate();
+        let mm= today.getMonth()+1;
+        mm = mm < 9 ? '0' + mm : mm;  
+        const yyyy = today.getFullYear();
+        return dd + '-' + mm + '-' + yyyy;
+    }
+
+    doAPICall(addedItems) {
+        let data = {
+            'reservation_key': Math.floor( Math.random() * 100 ), 
+            'member_ID': this.userID, 
+            'date': this.getCurrentDate(),
+            'reservation': [
+            ]
+        };
+        for(let id in addedItems) {
+            data.reservation.push({
+                'componentID' : id,
+                'quantity' : addedItems[id].quantity,
+            })
+        }
+        MockReservation.reservations.push(data);
+    }
+
     handleAction(action, component) {
         switch (action) {
             case types.ADD_QUANTITY:
@@ -43,6 +73,7 @@ class SelectionCart extends Component {
                 this.props.removeItem(component);
                 break;
             case types.CLEAR_CART:
+                this.doAPICall(this.props.addedItems);
                 this.props.clearCart();
                 this.setState({ showQR: true, idQR: 'Hola Mundo.' })
                 return;
