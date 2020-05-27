@@ -9,11 +9,24 @@
 }
 
 .single_component_back_sc{
-    background: linear-gradient( 45deg, rgba(46, 204, 113, 1) 1%, rgba(28, 131, 172, 0.849) 100%), url(/../../images/github_pattern.svg) top left/auto repeat fixed;
+    background: linear-gradient( 45deg, rgba(46, 204, 113, 1) 1%, rgba(28, 131, 172, 0.849) 100%), url(../../images/github_pattern.svg) top left/auto repeat fixed;
     height: max-content;
     width: max-content;
     padding: 5px 5px 5px 5px;
     border-radius: 12px;
+}
+
+.single_component_back_r{
+    background: linear-gradient( 45deg, rgba(46, 204, 113, 1) 1%, rgba(28, 131, 172, 0.849) 100%), url(../../images/github_pattern.svg) top left/auto repeat fixed;
+    height: max-content;
+    width: 100%;
+    padding: 5px 5px 5px 5px;
+    border-radius: 12px;
+}
+
+.single_component_back_r:hover{
+    transform: scale(1.01);
+    box-shadow: 0 6px 4px black;
 }
 
 .checkout-button{

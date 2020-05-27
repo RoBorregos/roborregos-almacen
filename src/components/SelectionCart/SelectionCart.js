@@ -67,7 +67,7 @@ class SelectionCart extends Component {
                 continue;
             }
             res.push(
-                <Row key={ component } className='justify-content-center bottom-buffer'>
+                <Row key={ component } className='justify-content-center bottom-buffer single_component_back_r'>
                     <Col xs='2' className='vertical-center'>
                         <div className='single_component_back_sc'>
                             <img className='component-img' alt={ component } src={ this.tryRequire(section_, item.img_path) } />
