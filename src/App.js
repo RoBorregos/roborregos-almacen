@@ -42,7 +42,6 @@ class App extends Component {
     if(this.state.userID !== cookie.load('userId')){
       this.setState({ userID:cookie.load('userId') });
     }
-
     if (!this.state.userID)
       return <Login onLogin={ this.onLogin } />;
 
@@ -50,7 +49,7 @@ class App extends Component {
       <Router>
         <div className="app-container">
 
-          <NavBar onLogout={ this.onLogout } routes={ routesData.routes } />
+          <NavBar userID={ this.state.userID } onLogout={ this.onLogout } routes={ routesData.routes } />
 
           <Route
             exact path='/'

@@ -14,8 +14,9 @@ class NavBar extends Component {
     super(props);
 
     this.handleNavbarClick = this.handleNavbarClick.bind(this);
-    this.routes = props.routes;
-    this.onLogout = props.onLogout;
+    this.routes = this.props.routes;
+    this.userID = this.props.userID;
+    this.onLogout = this.props.onLogout;
 
     const complete_path = window.location.pathname;
     const first_slash_index = complete_path.indexOf('/');
@@ -110,6 +111,7 @@ class NavBar extends Component {
                 <ModalHeader className='cart-head' closeButton><h3>Cart</h3></ModalHeader>
                 <ModalBody>
                   <SelectionCart 
+                    userID = {this.userID}
                     handleClose={this.handleClose}
                   />
                 </ModalBody>

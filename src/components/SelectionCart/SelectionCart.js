@@ -4,17 +4,21 @@ import './SelectionCart.css';
 import placeholder from 'images/placeholder-rectangle.png';
 import { connect } from 'react-redux';
 import Qr_code from '../QR_code/QR_code.js';
+import membersData from '../../data/members.json';
 import { types, subtractQuantity, addQuantity, removeItem, clearCart } from '../../scripts/cartReducer';
 
 class SelectionCart extends Component {
 
     constructor(props) {
         super(props);
+
         this.getItems = this.getItems.bind(this);
         this.tryRequire = this.tryRequire.bind(this);
         this.handleAction = this.handleAction.bind(this);
+        this.doAPICall = this.doAPICall.bind(this);
         this.handleClose = this.props.handleClose;
         this.components = props.components;
+        this.userID= this.props.userID;
 
         this.state = {
             handleChange: false,
@@ -30,6 +34,41 @@ class SelectionCart extends Component {
             return placeholder;
         }
     }
+    
+    getMemberName(){
+        let users = membersData.members;
+        for (let i = 0; i < users.length; i++) {
+            if (users[i].memberID === this.userID) {
+                return users[i].name;
+            }
+        }
+    }
+
+    getCurrentDate(){
+        const today = new Date();
+        const dd = today.getDate();
+        const mm = today.getMonth()+1; 
+        const yyyy = today.getFullYear();
+        return dd + '/' + mm + '/' + yyyy;
+    }
+
+    doAPICall(addedItems){
+        let data = {
+            "member_ID": this.userID, 
+            "member_Name": this.getMemberName(),
+            "date": this.getCurrentDate(),
+            "reservation": [
+            ]
+        };
+        for(let id in addedItems){
+            const section = addedItems[id].section;
+            data.reservation.push({
+                "componentID" : id,
+                "componentName" : this.components[section][id].name,
+                "quantity" : addedItems[id].quantity,
+            })
+        }
+    }
 
     handleAction(action, component) {
         switch (action) {
@@ -43,6 +82,7 @@ class SelectionCart extends Component {
                 this.props.removeItem(component);
                 break;
             case types.CLEAR_CART:
+                this.doAPICall(this.props.addedItems);
                 this.props.clearCart();
                 this.setState({ showQR: true, idQR: 'Hola Mundo.' })
                 return;
