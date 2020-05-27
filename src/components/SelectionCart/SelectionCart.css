@@ -1,7 +1,72 @@
 .SelectionCart_container{
     margin-top: 55px;
 }
+
 .component-img{
     width: 40px;
     height: 40px;
+    border-radius: 10%;
+}
+
+.checkout-button{
+    margin-top: 20px;
+    border-width: 0px;
+    border-radius: 5px;
+}
+
+.checkout-button:hover{
+    cursor: pointer;
+}
+
+.vertical-center{
+    align-self: center;
+}
+
+.bottom-buffer{
+     margin-bottom:10px; 
+}
+
+.subt-button{
+    padding: 0;
+    line-height: 15px;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border-width: 0px;
+    cursor: pointer;
+}
+
+.add-button{
+    padding: 0;
+    line-height: 15px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border-width: 0px;
+    cursor: pointer;
+}
+
+.rem-button{
+    padding: 0;
+    line-height: 15px;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border-width: 0px;
+    background-color: #FF0000;
+    cursor: pointer;
+}
+
+.item-counter{
+    margin: 0;
+    text-align: center;
+}
+
+@media (min-width: 576px){
+    .modal-dialog {
+        max-width: 550px;
+        margin-top: 1.75rem auto;
+    }
 }
