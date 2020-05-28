@@ -163,6 +163,8 @@
         border-radius: 10%;
     }
     .resp{
+        padding-right: 0;
+        padding-left: 0;
         display: inline-grid;
         justify-content: center;
         font-size: 0.9rem;
@@ -188,5 +190,33 @@
 
     .resp-just{
         width: max-content;
+    }
+}
+
+@media (max-width: 350px){
+    .col-pd{
+        padding-left: 3px;
+        padding-right: 3px;
+    }
+    .resp{
+        text-align: center;
+        font-size: 0.7rem;
+    }
+    .subt-button{
+        width: 20px;
+        height: 20px;
+    }
+    .add-button{
+        width: 20px;
+        height: 20px;
+    }
+    .rem-button{
+        width: 20px;
+        height: 20px;
+    }
+    .input-group-field{
+        width: 1.7rem;
+        text-align: center;
+        font-size: 0.7rem;
     }
 }
