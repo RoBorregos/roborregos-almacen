@@ -3,7 +3,7 @@
 }
 
 .cart-container{
-    display: inline-grid;
+    display: contents;
     justify-content: center;
 }
 
@@ -140,9 +140,9 @@
     justify-content: center;
 }
 
-@media (min-width: 576px){
+@media (min-width: 600px){
     .modal-dialog {
-        max-width: 550px;
+        max-width: 570px;
         margin-top: 1.75rem auto;
     }
 }
