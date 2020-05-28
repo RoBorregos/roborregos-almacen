@@ -101,27 +101,27 @@ class SelectionCart extends Component {
                 continue;
             }
             res.push(
-                <Row key={ component } className='justify-content-center bottom-buffer single_component_back_r'>
-                    <Col xs='2' className='vertical-center'>
-                        <div className='single_component_back_sc'>
+                <Row key={ component } className='bottom-buffer sin_comp_backg_r'>
+                    <Col xs='2' className='ver-center'>
+                        <div className='sin_comp_backg_sc'>
                             <img className='component-img' alt={ component } src={ this.tryRequire(section_, item.img_path) } />
                         </div>
                     </Col>
-                    <Col xs='5' className='vertical-center'>
+                    <Col xs='5' className='col-pd ver-center'>
                         { item.name }
                     </Col>
-                    <Col xs='5' className='vertical-center'>
+                    <Col xs='5' className='col-pd ver-center justify-content-center'>
                         <Row>
-                            <Col xs='3' className='padding-zero'>
+                            <Col xs='3' className='col-pd hor-center'>
                                 <Button className='subt-button' onClick={ () => this.handleAction(types.SUB_QUANTITY, component) }>-</Button>
                             </Col>
-                            <Col xs='3' className='item-counter padding-zero'>
+                            <Col xs='3' className='item-counter col-pd ver-center hor-center'>
                             <div className="input-group-field" > { this.props.addedItems[component].quantity } </div>
                             </Col>
-                            <Col xs='3' className='padding-zero'>
+                            <Col xs='3' className='col-pd hor-center'>
                                 <Button className='add-button' onClick={ () => this.handleAction(types.ADD_QUANTITY, component) }>+</Button>
                             </Col>
-                            <Col xs='3' className='padding-zero'>
+                            <Col xs='3' className='col-pd hor-center'>
                                 <Button className='rem-button' onClick={ () => this.handleAction(types.REMOVE_COMPONENT, component) }>x</Button>
                             </Col>
                         </Row>
@@ -151,9 +151,9 @@ class SelectionCart extends Component {
                     <Row className='cart-header empty-title'>
                         { (Object.keys(this.props.addedItems).length === 0) ? "Your cart is empty!" : "" }
                     </Row>
-                    <Col className='cart-collection'>
+                    <Row className='cart-collection justify-content-center'>
                         { this.getItems() }
-                    </Col>
+                    </Row>
                     <Row className='justify-content-center'>
                         <Button className='checkout-button'
                             disabled={ (Object.keys(this.props.addedItems).length === 0) }
