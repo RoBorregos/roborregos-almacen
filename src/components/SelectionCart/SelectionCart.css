@@ -1,10 +1,102 @@
 .SelectionCart_container{
     margin-top: 55px;
 }
+
 .component-img{
     width: 40px;
     height: 40px;
+    border-radius: 10%;
 }
-.qrcode-container{
-    font-size: 22px;
+
+.single_component_back_sc{
+    background: linear-gradient( 45deg, rgba(46, 204, 113, 1) 1%, rgba(28, 131, 172, 0.849) 100%), url(../../images/github_pattern.svg) top left/auto repeat fixed;
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
+    width: -webkit-max-content;
+    width: -moz-max-content;
+    width: max-content;
+    padding: 5px 5px 5px 5px;
+    border-radius: 12px;
+}
+
+.single_component_back_r{
+    background: linear-gradient( 45deg, rgba(46, 204, 113, 1) 1%, rgba(28, 131, 172, 0.849) 100%), url(../../images/github_pattern.svg) top left/auto repeat fixed;
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
+    width: 100%;
+    padding: 5px 10px 5px 1px;
+    border-radius: 12px;
+}
+
+.single_component_back_r:hover{
+    -webkit-transform: scale(1.01);
+    transform: scale(1.01);
+    -webkit-box-shadow: 0 6px 4px black;
+    box-shadow: 0 6px 4px black;
+}
+
+.checkout-button{
+    margin-top: 20px;
+    border-width: 0px;
+    border-radius: 5px;
+}
+
+.checkout-button:hover{
+    cursor: pointer;
+}
+
+.vertical-center{
+    -ms-flex-item-align: center;
+    align-self: center;
+}
+
+.bottom-buffer{
+     margin-bottom:10px; 
+}
+
+.subt-button{
+    padding: 0;
+    line-height: 15px;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border-width: 0px;
+    cursor: pointer;
+}
+
+.add-button{
+    padding: 0;
+    line-height: 15px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border-width: 0px;
+    cursor: pointer;
+}
+
+.rem-button{
+    padding: 0;
+    line-height: 15px;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border-width: 0px;
+    background-color: #FF0000;
+    cursor: pointer;
+}
+
+.item-counter{
+    margin: 0;
+    text-align: center;
+}
+
+@media (min-width: 576px){
+    .modal-dialog {
+        max-width: 550px;
+        margin-top: 1.75rem auto;
+    }
 }
