@@ -103,7 +103,7 @@ class SelectionCart extends Component {
             res.push(
                 <Row key={ component } className='bottom-buffer sin_comp_backg_r'>
                     <Col xs='2' className='ver-center resp'>
-                        <div className='sin_comp_backg_sc'>
+                        <div className='sin_comp_backg_sc hor-center'>
                             <img className='component-img' alt={ component } src={ this.tryRequire(section_, item.img_path) } />
                         </div>
                     </Col>
@@ -158,7 +158,7 @@ class SelectionCart extends Component {
                         <Button className='checkout-button'
                             disabled={ (Object.keys(this.props.addedItems).length === 0) }
                             onClick={ () => { this.handleAction(types.CLEAR_CART) } }>
-                            Hacer Checkout
+                            Checkout
                         </Button>
                     </Row>
                 </Col>

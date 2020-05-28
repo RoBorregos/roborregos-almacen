@@ -25,7 +25,6 @@
 }
 
 .sin_comp_backg_sc{
-    background: linear-gradient( 45deg, rgba(46, 204, 113, 1) 1%, rgba(28, 131, 172, 0.849) 100%);
     height: -webkit-max-content;
     height: -moz-max-content;
     height: max-content;
@@ -33,7 +32,6 @@
     width: -moz-max-content;
     width: max-content;
     padding: 5px 5px 5px 5px;
-    border-radius: 12px;
 }
 
 .sin_comp_backg_r{
@@ -47,7 +45,7 @@
 }
 
 .input-group-field{
-    width: 2.5em;
+    width: 4em;
     border-radius: 6px;
     text-align: center;
     flex-grow: 0.9;
@@ -60,8 +58,8 @@
 .sin_comp_backg_r:hover{
     -webkit-transform: scale(1.01);
     transform: scale(1.01);
-    -webkit-box-shadow: 0 6px 4px black;
-    box-shadow: 0 6px 4px black;
+    -webkit-box-shadow: 0 4px 2px black;
+    box-shadow: 0 4px 2px black;
 }
 
 .col-pd{
@@ -104,6 +102,7 @@
 .add-button{
     padding: 0;
     line-height: 15px;
+    text-align: center;
     width: 30px;
     height: 30px;
     border-radius: 50%;
