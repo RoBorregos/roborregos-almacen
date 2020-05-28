@@ -1,10 +1,221 @@
 .SelectionCart_container{
     margin-top: 55px;
 }
+
+.cart-container{
+    display: contents;
+    justify-content: center;
+}
+
+.hor-center{
+    display: inline-grid;
+    justify-content: center;
+}
+
+.cart-collection{
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+}
+
 .component-img{
     width: 40px;
     height: 40px;
+    border-radius: 10%;
 }
-.qrcode-container{
-    font-size: 22px;
+
+.sin_comp_backg_sc{
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
+    width: -webkit-max-content;
+    width: -moz-max-content;
+    width: max-content;
+    padding: 5px 5px 5px 5px;
+}
+
+.sin_comp_backg_r{
+    background: linear-gradient( 45deg, rgb(169, 214, 228) 1%, rgba(42, 88, 102, 0.849) 100%);
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
+    width: 100%;
+    padding: 5px 5px 5px 5px;
+    border-radius: 12px;
+}
+
+.input-group-field{
+    width: 4em;
+    border-radius: 6px;
+    text-align: center;
+    flex-grow: 0.9;
+    box-shadow: 0 0 3px #7b4397;    
+    background-image: 
+    linear-gradient(#7b4397  , #dc2430),
+    linear-gradient(#7b4397, #dc2430);
+}
+
+.sin_comp_backg_r:hover{
+    -webkit-transform: scale(1.01);
+    transform: scale(1.01);
+    -webkit-box-shadow: 0 4px 2px black;
+    box-shadow: 0 4px 2px black;
+}
+
+.col-pd{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.checkout-button{
+    font-size: 1rem;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    border-width: 0px;
+    border-radius: 5px;
+}
+
+.checkout-button:hover{
+    cursor: pointer;
+}
+
+.ver-center{
+    -ms-flex-item-align: center;
+    align-self: center;
+}
+
+.bottom-buffer{
+     margin-bottom:10px; 
+}
+
+.subt-button{
+    padding: 0;
+    line-height: 15px;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border-width: 0px;
+    cursor: pointer;
+}
+
+.add-button{
+    padding: 0;
+    line-height: 15px;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border-width: 0px;
+    cursor: pointer;
+}
+
+.rem-button{
+    padding: 0;
+    line-height: 15px;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border-width: 0px;
+    background-color: #FF0000;
+    cursor: pointer;
+}
+
+.rem-button:hover{
+    background-color: rgb(161, 2, 2);
+}
+
+.item-counter{
+    margin: 0;
+    text-align: center;
+}
+
+.empty-title {
+    margin-top: 5px;
+    font-size: 1.3em;
+    padding-right: 10px;
+    text-align: center;
+    justify-content: center;
+}
+
+@media (min-width: 600px){
+    .modal-dialog {
+        max-width: 570px;
+        margin-top: 1.75rem auto;
+    }
+}
+
+@media (max-width: 490px){
+    .modal-dialog {
+        max-width: 550px;
+        margin-top: 1.75rem auto;
+    }
+    .cart-container{
+        margin-right: -1rem;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .component-img{
+        width: 30px;
+        height: 30px;
+        border-radius: 10%;
+    }
+    .resp{
+        padding-right: 0;
+        padding-left: 0;
+        display: inline-grid;
+        justify-content: center;
+        font-size: 0.9rem;
+    }
+    .subt-button{
+        width: 22px;
+        height: 22px;
+    }
+    .add-button{
+        width: 22px;
+        height: 22px;
+    }
+    .rem-button{
+        width: 22px;
+        height: 22px;
+    }
+    
+    .input-group-field{
+        width: 2rem;
+        text-align: center;
+        font-size: 0.9rem;
+    }
+
+    .resp-just{
+        width: max-content;
+    }
+}
+
+@media (max-width: 350px){
+    .col-pd{
+        padding-left: 3px;
+        padding-right: 3px;
+    }
+    .resp{
+        text-align: center;
+        font-size: 0.7rem;
+    }
+    .subt-button{
+        width: 20px;
+        height: 20px;
+    }
+    .add-button{
+        width: 20px;
+        height: 20px;
+    }
+    .rem-button{
+        width: 20px;
+        height: 20px;
+    }
+    .input-group-field{
+        width: 1.7rem;
+        text-align: center;
+        font-size: 0.7rem;
+    }
 }

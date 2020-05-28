@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row, Button } from 'react-bootstrap';
 import './SelectionCart.css';
 import placeholder from 'images/placeholder-rectangle.png';
 import { connect } from 'react-redux';
@@ -101,26 +101,28 @@ class SelectionCart extends Component {
                 continue;
             }
             res.push(
-                <Row key={component} className='justify-content-center'>
-                    <Col xs='3'>
-                        <img className='component-img' alt={component} src={ this.tryRequire(section_, item.img_path) } />
+                <Row key={ component } className='bottom-buffer sin_comp_backg_r'>
+                    <Col xs='2' className='ver-center resp'>
+                        <div className='sin_comp_backg_sc hor-center'>
+                            <img className='component-img' alt={ component } src={ this.tryRequire(section_, item.img_path) } />
+                        </div>
                     </Col>
-                    <Col xs='5'>
+                    <Col xs='5' className='col-pd ver-center resp'>
                         { item.name }
                     </Col>
-                    <Col xs='4'>
-                        <Row>
-                            <Col xs='2'>
-                                <button onClick={ () => this.handleAction(types.SUB_QUANTITY, component) }>-</button>
+                    <Col xs='5' className='col-pd ver-center justify-content-center'>
+                        <Row className='resp-just'>
+                            <Col xs='3' className='col-pd hor-center'>
+                                <Button className='subt-button' onClick={ () => this.handleAction(types.SUB_QUANTITY, component) }>-</Button>
                             </Col>
-                            <Col xs='4'>
-                                { this.props.addedItems[component].quantity }
+                            <Col xs='3' className='item-counter col-pd ver-center hor-center'>
+                            <div className="input-group-field" > { this.props.addedItems[component].quantity } </div>
                             </Col>
-                            <Col xs='2'>
-                                <button onClick={ () => this.handleAction(types.ADD_QUANTITY, component) }>+</button>
+                            <Col xs='3' className='col-pd hor-center'>
+                                <Button className='add-button' onClick={ () => this.handleAction(types.ADD_QUANTITY, component) }>+</Button>
                             </Col>
-                            <Col xs='2'>
-                                <button onClick={ () => this.handleAction(types.REMOVE_COMPONENT, component) }>x</button>
+                            <Col xs='3' className='col-pd hor-center'>
+                                <Button className='rem-button' onClick={ () => this.handleAction(types.REMOVE_COMPONENT, component) }>x</Button>
                             </Col>
                         </Row>
                     </Col>
@@ -146,18 +148,18 @@ class SelectionCart extends Component {
         else {
             return (
                 <Col className='cart-container'>
-                    <Row className='cart-header'>
+                    <Row className='cart-header empty-title'>
                         { (Object.keys(this.props.addedItems).length === 0) ? "Your cart is empty!" : "" }
                     </Row>
-                    <Col className='cart-collection'>
+                    <Row className='cart-collection justify-content-center'>
                         { this.getItems() }
-                    </Col>
+                    </Row>
                     <Row className='justify-content-center'>
-                        <button
-                            disabled={ Object.keys(this.props.addedItems).length === 0 }
+                        <Button className='checkout-button'
+                            disabled={ (Object.keys(this.props.addedItems).length === 0) }
                             onClick={ () => { this.handleAction(types.CLEAR_CART) } }>
                             Checkout
-                        </button>
+                        </Button>
                     </Row>
                 </Col>
             );
