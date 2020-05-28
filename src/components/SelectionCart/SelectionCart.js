@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row, Button } from 'react-bootstrap';
 import './SelectionCart.css';
 import placeholder from 'images/placeholder-rectangle.png';
 import { connect } from 'react-redux';
@@ -113,16 +113,16 @@ class SelectionCart extends Component {
                     <Col xs='5' className='vertical-center'>
                         <Row>
                             <Col xs='3' className='padding-zero'>
-                                <button className='btn-primary subt-button' onClick={ () => this.handleAction(types.SUB_QUANTITY, component) }>-</button>
+                                <Button className='subt-button' onClick={ () => this.handleAction(types.SUB_QUANTITY, component) }>-</Button>
                             </Col>
                             <Col xs='3' className='item-counter padding-zero'>
                             <div className="input-group-field" > { this.props.addedItems[component].quantity } </div>
                             </Col>
                             <Col xs='3' className='padding-zero'>
-                                <button className='btn-primary add-button' onClick={ () => this.handleAction(types.ADD_QUANTITY, component) }>+</button>
+                                <Button className='add-button' onClick={ () => this.handleAction(types.ADD_QUANTITY, component) }>+</Button>
                             </Col>
                             <Col xs='3' className='padding-zero'>
-                                <button className='btn-primary rem-button' onClick={ () => this.handleAction(types.REMOVE_COMPONENT, component) }>x</button>
+                                <Button className='rem-button' onClick={ () => this.handleAction(types.REMOVE_COMPONENT, component) }>x</Button>
                             </Col>
                         </Row>
                     </Col>
@@ -155,11 +155,11 @@ class SelectionCart extends Component {
                         { this.getItems() }
                     </Col>
                     <Row className='justify-content-center'>
-                        <button className='btn-primary checkout-button'
-                            disabled={ Object.keys(this.props.addedItems).length === 0 }
+                        <Button className='checkout-button'
+                            disabled={ (Object.keys(this.props.addedItems).length === 0) }
                             onClick={ () => { this.handleAction(types.CLEAR_CART) } }>
                             Hacer Checkout
-                        </button>
+                        </Button>
                     </Row>
                 </Col>
             );

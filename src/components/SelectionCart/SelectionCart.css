@@ -48,7 +48,9 @@
 }
 
 .checkout-button{
-    margin-top: 20px;
+    font-size: 1rem;
+    margin-top: 30px;
+    margin-bottom: 10px;
     border-width: 0px;
     border-radius: 5px;
 }
@@ -97,6 +99,10 @@
     border-width: 0px;
     background-color: #FF0000;
     cursor: pointer;
+}
+
+.rem-button:hover{
+    background-color: rgb(161, 2, 2);
 }
 
 .item-counter{
