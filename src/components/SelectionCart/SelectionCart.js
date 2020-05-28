@@ -102,16 +102,16 @@ class SelectionCart extends Component {
             }
             res.push(
                 <Row key={ component } className='bottom-buffer sin_comp_backg_r'>
-                    <Col xs='2' className='ver-center'>
+                    <Col xs='2' className='ver-center resp'>
                         <div className='sin_comp_backg_sc'>
                             <img className='component-img' alt={ component } src={ this.tryRequire(section_, item.img_path) } />
                         </div>
                     </Col>
-                    <Col xs='5' className='col-pd ver-center'>
+                    <Col xs='5' className='col-pd ver-center resp'>
                         { item.name }
                     </Col>
                     <Col xs='5' className='col-pd ver-center justify-content-center'>
-                        <Row>
+                        <Row className='resp-just'>
                             <Col xs='3' className='col-pd hor-center'>
                                 <Button className='subt-button' onClick={ () => this.handleAction(types.SUB_QUANTITY, component) }>-</Button>
                             </Col>
