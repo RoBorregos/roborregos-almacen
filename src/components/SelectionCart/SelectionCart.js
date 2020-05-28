@@ -116,7 +116,7 @@ class SelectionCart extends Component {
                                 <button className='btn-primary subt-button' onClick={ () => this.handleAction(types.SUB_QUANTITY, component) }>-</button>
                             </Col>
                             <Col xs='3' className='item-counter padding-zero'>
-                                { this.props.addedItems[component].quantity }
+                            <div className="input-group-field" > { this.props.addedItems[component].quantity } </div>
                             </Col>
                             <Col xs='3' className='padding-zero'>
                                 <button className='btn-primary add-button' onClick={ () => this.handleAction(types.ADD_QUANTITY, component) }>+</button>
@@ -148,7 +148,7 @@ class SelectionCart extends Component {
         else {
             return (
                 <Col className='cart-container'>
-                    <Row className='cart-header'>
+                    <Row className='cart-header empty-title'>
                         { (Object.keys(this.props.addedItems).length === 0) ? "Your cart is empty!" : "" }
                     </Row>
                     <Col className='cart-collection'>
