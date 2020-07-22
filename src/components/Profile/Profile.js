@@ -102,7 +102,7 @@ class Profile extends Component {
                     show={this.state.show}
                     onHide={this.handleClose}
                     >
-                        <ModalHeader className='cart-head' closeButton><h3>Reserved Components</h3></ModalHeader>
+                        <ModalHeader className='returning_head' closeButton><h3>Reserved Components</h3></ModalHeader>
                         <ModalBody>
                         Here goes the list of reserved components
                         </ModalBody>
