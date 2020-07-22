@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
 import './Profile.css';
-import members from '../../data/members.json';
-import { connect } from 'react-redux';
-import { Row, Col } from 'react-bootstrap';
 
+import { Button, Col, Row } from 'react-bootstrap';
+import React, { Component } from 'react';
+
+import { connect } from 'react-redux';
+import members from '../../data/members.json';
 
 class Profile extends Component {
     constructor(props) {
@@ -78,7 +79,9 @@ class Profile extends Component {
                         {this.loadReservations()}
                     </Col>
                 </Col>
-
+                <Col>
+                    <Button> Click here to return components </Button>
+                </Col>
             </div>
         );
     }
