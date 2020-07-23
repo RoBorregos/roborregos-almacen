@@ -98,13 +98,28 @@ class Profile extends Component {
                 </Col>
                 <Col>
                     <Button onClick={this.handleShow}> Click here to return components </Button>
-                    <Modal
+                    <Modal className='return-modal'
                     show={this.state.show}
                     onHide={this.handleClose}
                     >
                         <ModalHeader className='returning_head' closeButton><h3>Reserved Components</h3></ModalHeader>
                         <ModalBody>
-                        Here goes the list of reserved components
+                            <Row className="justify-content-center">
+                                <Col className="headers justify-content-center">
+                                    <h4>Date</h4>
+                                </Col>
+                                <Col className="headers justify-content-center">
+                                    <h4>Component</h4>
+                                </Col>
+                                <Col className="headers justify-content-center">
+                                    <h4>Quantity</h4>
+                                </Col>
+                            </Row>
+                            <Row className="justify-content-center">
+                                <Col>
+                                    {this.loadReservations()}
+                                </Col>
+                            </Row>
                         </ModalBody>
                     </Modal>
                 </Col>

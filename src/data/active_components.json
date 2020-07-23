@@ -1,0 +1,13 @@
+{
+    "reservations": [
+        {
+            "memberID": "A00123456",
+            "activeComponents": [
+                {
+                    "componentID": "component_ID1",
+                    "quantity": 1
+                }
+            ]
+        }
+    ]
+}
