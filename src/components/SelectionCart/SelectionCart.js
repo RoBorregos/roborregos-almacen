@@ -71,15 +71,11 @@ class SelectionCart extends Component {
             })
         }
         MockReservation.reservations.push(data);
-        const hasReserve = ActiveComponents.reservations.find(item => {
-            return item.member_ID === this.userID;
-        })
-        if (hasReserve === true) for (let x in ActiveComponents.reservations) {
-            if (x.member_ID === this.userID) {
-                reservedComponents.activeComponents.forEach(e => {
-                    x.activeComponents.push(e); 
-                });
-            }
+        const reserveIdx = ActiveComponents.reservations.findIndex(item => item.memberID === this.userID)
+        if (reserveIdx >= 0 ) {
+            reservedComponents.activeComponents.forEach(e => {
+                    ActiveComponents.reservations[reserveIdx].activeComponents.push(e);
+            })
         }
         else ActiveComponents.reservations.push(reservedComponents);
     }
