@@ -5,22 +5,20 @@ import React, { Component } from 'react';
 
 import ReturningModal from './ReturningModal/ReturningModal';
 import { connect } from 'react-redux';
-import members from '../../data/members.json';
 
 class Profile extends Component {
     constructor(props) {
         super(props);
-
-        this.member = members.members[0]
+        this.memberID = props.memberID ;
         this.mock_reservations = props.mock_reservations;
-        this.loadMember = this.loadMember.bind(this);
+        //this.loadMember = this.loadMember.bind(this);
         this.loadReservations = this.loadReservations.bind(this);
     }
 
     handleModalState() {
         this.modalEnabled = !this.modalEnabled;
     }
-
+/*
     loadMember() {
         return (
             <div className="member">
@@ -32,7 +30,7 @@ class Profile extends Component {
             </div>
         );
     }
-
+*/
     loadReservations() {
 
         let componentsList = [];
@@ -82,7 +80,7 @@ class Profile extends Component {
                     </Col>
                 </Col>
                 <Col>
-                    <ReturningModal memberID={this.member.memberID} state = { this.modalEnabled } />  
+                    <ReturningModal memberID={ this.memberID } />  
                 </Col>
             </div>
         );

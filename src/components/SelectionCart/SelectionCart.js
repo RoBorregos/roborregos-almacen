@@ -21,7 +21,7 @@ class SelectionCart extends Component {
         this.doAPICall = this.doAPICall.bind(this);
         this.handleClose = this.props.handleClose;
         this.components = props.components;
-        this.userID= this.props.userID;
+        this.userID= props.userID;
 
         this.state = {
             handleChange: false,
