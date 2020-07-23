@@ -83,8 +83,7 @@ class Profile extends Component {
             for (let i = 0; i < componentsArray.length; i++) {
                 let style = (countComponents % 2 === 0) ? "oddRow" : "evenRow";
                 componentsList.push(
-                    <div>
-                        <Row className={ style }>
+                    <Row className={ style }>
                             <Col xs='6'>
                                 <Col className="reservations">{componentsArray[i].componentID}</Col>
                             </Col>
@@ -102,8 +101,7 @@ class Profile extends Component {
                                     <Button className='rem-button'>x</Button>
                                 </Col>
                             </Col>
-                        </Row>
-                    </div>
+                    </Row>
                 );
                 countComponents++;
             }
@@ -153,6 +151,11 @@ class Profile extends Component {
                                         </Col>
                                 </Row>
                                 {this.loadReserved()}
+                                <Row className="justify-content-center">
+                                    <Button className='checkout-button'>
+                                        Return components
+                                    </Button>  
+                                </Row>
                             </ModalBody>
                         </Modal>
                     </div>
