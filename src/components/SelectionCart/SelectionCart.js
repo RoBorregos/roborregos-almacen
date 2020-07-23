@@ -135,7 +135,7 @@ class SelectionCart extends Component {
                                 <Button className='subt-button' onClick={ () => this.handleAction(types.SUB_QUANTITY, component) }>-</Button>
                             </Col>
                             <Col xs='3' className='item-counter col-pd ver-center hor-center'>
-                            <div className="input-group-field" > { this.props.addedItems[component].quantity } </div>
+                                <div className="input-group-field" > { this.props.addedItems[component].quantity } </div>
                             </Col>
                             <Col xs='3' className='col-pd hor-center'>
                                 <Button className='add-button' onClick={ () => this.handleAction(types.ADD_QUANTITY, component) }>+</Button>

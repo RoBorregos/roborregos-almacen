@@ -3,6 +3,7 @@ import './Profile.css';
 import { Button, Col, Row } from 'react-bootstrap';
 import { Modal, ModalBody } from 'react-bootstrap';
 import React, { Component } from 'react';
+import { addQuantity, clearCart, removeItem, subtractQuantity, types } from '../../scripts/cartReducer';
 
 import ActiveComponents from '../../data/active_components.json';
 import ModalHeader from 'react-bootstrap/ModalHeader';
@@ -84,8 +85,23 @@ class Profile extends Component {
                 componentsList.push(
                     <div>
                         <Row className={ style }>
-                            <Col className="reservations">{componentsArray[i].componentID}</Col>
-                            <Col className="reservations">{componentsArray[i].quantity}</Col>
+                            <Col xs='6'>
+                                <Col className="reservations">{componentsArray[i].componentID}</Col>
+                            </Col>
+                            <Col xs='6'>
+                                <Col xs='3' className='col-pd hor-center'>
+                                    <Button className='subt-button'>-</Button>
+                                </Col>
+                                <Col xs='3' className='item-counter col-pd ver-center hor-center'>
+                                    <div className="input-group-field">{componentsArray[i].quantity}</div>
+                                </Col>
+                                <Col xs='3' className='col-pd hor-center'>
+                                    <Button className='add-button'>+</Button>
+                                </Col>
+                                <Col xs='3' className='col-pd hor-center'>
+                                    <Button className='rem-button'>x</Button>
+                                </Col>
+                            </Col>
                         </Row>
                     </div>
                 );
@@ -121,27 +137,25 @@ class Profile extends Component {
                 </Col>
                 <Col>
                     <Button onClick={this.handleShow}> Click here to return components </Button>
-                    <Modal className='return-modal'
-                    show={this.state.show}
-                    onHide={this.handleClose}
-                    >
-                        <ModalHeader className='returning_head' closeButton><h3>Reserved Components</h3></ModalHeader>
-                        <ModalBody>
-                            <Row className="justify-content-center">
-                                <Col className="headers justify-content-center">
-                                    <h4>Component</h4>
-                                </Col>
-                                <Col className="headers justify-content-center">
-                                    <h4>Quantity</h4>
-                                </Col>
-                            </Row>
-                            <Row className="justify-content-center">
-                                <Col>
-                                    {this.loadReserved()}
-                                </Col>
-                            </Row>
-                        </ModalBody>
-                    </Modal>
+                    <div onClick={e => e.stopPropagation()}>
+                        <Modal
+                        show={this.state.show}
+                        onHide={this.handleClose}
+                        >
+                            <ModalHeader className='returning_head' closeButton><h3>Reserved Components</h3></ModalHeader>
+                            <ModalBody>
+                                <Row className="justify-content-center">
+                                        <Col className="headers justify-content-center">
+                                            <h5>Component</h5>
+                                        </Col>
+                                        <Col className="headers justify-content-center">
+                                            <h5>Quantity</h5>
+                                        </Col>
+                                </Row>
+                                {this.loadReserved()}
+                            </ModalBody>
+                        </Modal>
+                    </div>
                 </Col>
             </div>
         );
