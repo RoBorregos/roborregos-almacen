@@ -15,13 +15,14 @@ class Profile extends Component {
 
         this.member = members.members[0]
         this.mock_reservations = props.mock_reservations;
+        this.active_components = ActiveComponents;
 
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
 
         this.loadMember = this.loadMember.bind(this);
         this.loadReservations = this.loadReservations.bind(this);
-
+        this.loadReserved = this.loadReserved.bind(this);
         this.state = {
             show: false
         }
@@ -71,11 +72,32 @@ class Profile extends Component {
         return componentsList;
     }
 
+    loadReserved() {
+
+        let componentsList = [];
+        let countComponents = 0;
+        for (let reserved = 0; reserved < this.active_components.reservations.length; reserved++) {
+            if (this.active_components.reservations[reserved].memberID !== this.member.memberID) continue;
+            let componentsArray = this.active_components.reservations[reserved].activeComponents;
+            for (let i = 0; i < componentsArray.length; i++) {
+                let style = (countComponents % 2 === 0) ? "oddRow" : "evenRow";
+                componentsList.push(
+                    <div>
+                        <Row className={ style }>
+                            <Col className="reservations">{componentsArray[i].componentID}</Col>
+                            <Col className="reservations">{componentsArray[i].quantity}</Col>
+                        </Row>
+                    </div>
+                );
+                countComponents++;
+            }
+        }
+        return componentsList;
+    }
+
     render() {
         return (
             <div className="profile_container">
-
-             
                 <Col >
                     <h1>Your Reservations</h1>
                 </Col>
@@ -107,9 +129,6 @@ class Profile extends Component {
                         <ModalBody>
                             <Row className="justify-content-center">
                                 <Col className="headers justify-content-center">
-                                    <h4>Date</h4>
-                                </Col>
-                                <Col className="headers justify-content-center">
                                     <h4>Component</h4>
                                 </Col>
                                 <Col className="headers justify-content-center">
@@ -118,7 +137,7 @@ class Profile extends Component {
                             </Row>
                             <Row className="justify-content-center">
                                 <Col>
-                                    {this.loadReservations()}
+                                    {this.loadReserved()}
                                 </Col>
                             </Row>
                         </ModalBody>
