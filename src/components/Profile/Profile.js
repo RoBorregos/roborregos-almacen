@@ -4,6 +4,7 @@ import { Button, Col, Row } from 'react-bootstrap';
 import { Modal, ModalBody } from 'react-bootstrap';
 import React, { Component } from 'react';
 
+import ActiveComponents from '../../data/active_components.json';
 import ModalHeader from 'react-bootstrap/ModalHeader';
 import { connect } from 'react-redux';
 import members from '../../data/members.json';

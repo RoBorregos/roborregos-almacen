@@ -1,11 +1,14 @@
-import React, { Component } from 'react';
-import { Col, Row, Button } from 'react-bootstrap';
 import './SelectionCart.css';
-import placeholder from 'images/placeholder-rectangle.png';
-import { connect } from 'react-redux';
-import Qr_code from '../QR_code/QR_code.js';
+
+import { Button, Col, Row } from 'react-bootstrap';
+import React, { Component } from 'react';
+import { addQuantity, clearCart, removeItem, subtractQuantity, types } from '../../scripts/cartReducer';
+
+import ActiveComponents from '../../data/active_components.json';
 import MockReservation from '../../data/mock_reservations.json';
-import { types, subtractQuantity, addQuantity, removeItem, clearCart } from '../../scripts/cartReducer';
+import Qr_code from '../QR_code/QR_code.js';
+import { connect } from 'react-redux';
+import placeholder from 'images/placeholder-rectangle.png';
 
 class SelectionCart extends Component {
 
@@ -52,13 +55,33 @@ class SelectionCart extends Component {
             'reservation': [
             ]
         };
+        let reservedComponents = {
+            'member_ID': this.userID,
+            'activeComponents': [
+            ]
+        }
         for(let id in addedItems) {
             data.reservation.push({
                 'componentID' : id,
                 'quantity' : addedItems[id].quantity,
             })
+            reservedComponents.activeComponents.push({
+                'componentID' : id,
+                'quantity' : addedItems[id].quantity,
+            })
         }
         MockReservation.reservations.push(data);
+        const hasReserve = ActiveComponents.reservations.find(item => {
+            return item.member_ID === this.userID;
+        })
+        if (hasReserve === true) for (let x in ActiveComponents.reservations) {
+            if (x.member_ID === this.userID) {
+                reservedComponents.activeComponents.forEach(e => {
+                    x.activeComponents.push(e); 
+                });
+            }
+        }
+        else ActiveComponents.reservations.push(reservedComponents);
     }
 
     handleAction(action, component) {
