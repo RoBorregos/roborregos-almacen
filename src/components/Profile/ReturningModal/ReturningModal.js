@@ -19,15 +19,38 @@ class ReturningModal extends Component {
         this.usr_index = ActiveComponents.reservations.findIndex( reservation => reservation.memberID === this.memberID );
         this.user_components = this.usr_index === -1? null : ActiveComponents.reservations[this.usr_index].activeComponents; 
         this.state = {
-            show: false
+            show: false,
+            components: this.user_components
         }
     }
 
+    handleIcrement( index ) {
+        let check = JSON.parse(localStorage.getItem('components'));
+        let temp = this.state.components;
+        if(temp[index].quantity < check[index].quantity){
+            temp[index].quantity++;
+        }
+        this.setState({components: temp});
+    }
+
+    handleDecrement( index ) {
+        let temp = this.state.components;
+        if (temp[index].quantity > 0){
+            temp[index].quantity--;
+        }
+        this.setState({components: temp});
+    }
+
     handleShow() {
+        let check = ActiveComponents.reservations[this.usr_index].activeComponents;
+        localStorage.setItem('components', JSON.stringify(check));
         this.setState({ show: true })
     }
     
     handleClose() {
+        let check = JSON.parse(localStorage.getItem('components'));
+        ActiveComponents.reservations[this.usr_index].activeComponents = check;
+        this.setState({components: check});
         this.setState({ show: false })
     }
 
@@ -39,17 +62,19 @@ class ReturningModal extends Component {
             componentsList.push(
                 <Row className={ style + ' container'}>
                         <Col xs='6' className='container pd-5'>
-                            <Col className='container'>{this.user_components[i].componentID}</Col>
+                            <Col className='container'>{this.state.components[i].componentID}</Col>
                         </Col>
                         <Col xs='6' className='container'>
                             <Col xs='2' className='col-pd hor-center align-items-center container'>
-                                <Button className='subt-button'>-</Button>
+                                <Button className='subt-button' onClick={() => this.handleDecrement(i)}>-</Button>
                             </Col>
                             <Col xs='4' className='item-counter col-pd ver-center hor-center container'>
-                                <div className="input-group-field">{this.user_components[i].quantity}</div>
+                                <div className="input-group-field">
+                                    {this.state.components[i].quantity}
+                                </div>
                             </Col>
                             <Col xs='2' className='col-pd hor-center align-items-center container'>
-                                <Button className='add-button'>+</Button>
+                                <Button className='add-button' onClick={() => this.handleIcrement(i)}>+</Button>
                             </Col>
                             <Col xs='4' className='col-pd hor-center align-items-center container'>
                                 <Checkbox className='checkbox' />
