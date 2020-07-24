@@ -1,17 +1,29 @@
-.returning_head {
+.container {       
+    padding: 0; 
+    align-items: center;
+    display: flex;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.returning_head{
     border-color: transparent;
 }
 
 .headers{
+    padding-left: 5px;
+    align-content: flex-start;
     color: black;
     background-color: darkgray;
 }
 
 .evenRow{
+    height: max-content;
     background-color: white;
 }
 
 .oddRow{
+    height: max-content;
     background-color: lightgray;
 }
 

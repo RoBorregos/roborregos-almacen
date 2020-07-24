@@ -34,25 +34,24 @@ class ReturningModal extends Component {
     loadReserved() {
         let componentsList = [];
         let countComponents = 0;
-
         for (let i = 0; i < this.user_components.length; i++) {
             let style = (countComponents % 2 === 0) ? "oddRow" : "evenRow";
             componentsList.push(
-                <Row className={ style }>
-                        <Col xs='6'>
-                            <Col className="reservations">{this.user_components[i].componentID}</Col>
+                <Row className={ style + ' container'}>
+                        <Col xs='6' className='container'>
+                            <Col className='container'>{this.user_components[i].componentID}</Col>
                         </Col>
-                        <Col xs='6' className='ver-center'>
-                            <Col xs='3' className='col-pd hor-center'>
+                        <Col xs='6' className='container'>
+                            <Col xs='2' className='col-pd hor-center align-items-center container'>
                                 <Button className='subt-button'>-</Button>
                             </Col>
-                            <Col xs='3' className='item-counter col-pd ver-center hor-center'>
+                            <Col xs='4' className='item-counter col-pd ver-center hor-center container'>
                                 <div className="input-group-field">{this.user_components[i].quantity}</div>
                             </Col>
-                            <Col xs='3' className='col-pd hor-center'>
+                            <Col xs='2' className='col-pd hor-center align-items-center container'>
                                 <Button className='add-button'>+</Button>
                             </Col>
-                            <Col xs='3' className='col-pd hor-center'>
+                            <Col xs='4' className='col-pd hor-center align-items-center container'>
                                 <Checkbox className='checkbox' />
                             </Col>
                         </Col>
@@ -73,13 +72,13 @@ class ReturningModal extends Component {
         }
         else return (
             <div>
-                <Row className="justify-content-center">
-                                <Col className="headers justify-content-center">
-                                    <h5>Component</h5>
-                                </Col>
-                                <Col className="headers justify-content-center">
-                                    <h5>Quantity</h5>
-                                </Col>
+                <Row className="justify-content-center container">
+                        <Col xs='6' className="headers align-left container">
+                            <h5>Component</h5>
+                        </Col>
+                        <Col xs='6' className="headers align-left container">
+                            <h5>Quantity</h5>
+                        </Col>
                 </Row>
                 {this.loadReserved()}
             </div>
@@ -100,7 +99,7 @@ class ReturningModal extends Component {
                     <ModalHeader className='returning_head' closeButton><h3>Reserved Components</h3></ModalHeader>
                     <ModalBody>
                         {this.checkComponents()} 
-                        <Row className="justify-content-center">
+                        <Row className="justify-content-center container">
                             <Button className='checkout-button'>
                                 Return components
                             </Button>  
