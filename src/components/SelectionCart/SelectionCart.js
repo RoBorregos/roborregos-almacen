@@ -56,7 +56,7 @@ class SelectionCart extends Component {
             ]
         };
         let reservedComponents = {
-            'member_ID': this.userID,
+            'memberID': this.userID,
             'activeComponents': [
             ]
         }
@@ -71,13 +71,16 @@ class SelectionCart extends Component {
             })
         }
         MockReservation.reservations.push(data);
-        const reserveIdx = ActiveComponents.reservations.findIndex(item => item.memberID === this.userID)
+        const reserveIdx = ActiveComponents.reservations.findIndex(item => item.memberID === this.userID);
         if (reserveIdx >= 0 ) {
             reservedComponents.activeComponents.forEach(e => {
                     ActiveComponents.reservations[reserveIdx].activeComponents.push(e);
             })
         }
-        else ActiveComponents.reservations.push(reservedComponents);
+        else {
+            ActiveComponents.reservations.push(reservedComponents)
+            
+        };
     }
 
     handleAction(action, component) {

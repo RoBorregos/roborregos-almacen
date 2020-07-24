@@ -15,9 +15,9 @@ class ReturningModal extends Component {
         this.memberID = props.memberID;
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.loadReserved = this.loadReserved.bind(this);
         this.usr_index = ActiveComponents.reservations.findIndex( reservation => reservation.memberID === this.memberID );
         this.user_components = this.usr_index === -1? null : ActiveComponents.reservations[this.usr_index].activeComponents; 
-        this.loadReserved = this.loadReserved.bind(this);
         this.state = {
             show: false
         }
@@ -34,6 +34,7 @@ class ReturningModal extends Component {
     loadReserved() {
         let componentsList = [];
         let countComponents = 0;
+
         for (let i = 0; i < this.user_components.length; i++) {
             let style = (countComponents % 2 === 0) ? "oddRow" : "evenRow";
             componentsList.push(
