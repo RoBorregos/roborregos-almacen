@@ -6,7 +6,11 @@
     margin-right: 0;
 }
 
-.returning_head{
+.pd-5 {
+    padding-left: 5px;
+}
+
+.returning_head {
     border-color: transparent;
 }
 

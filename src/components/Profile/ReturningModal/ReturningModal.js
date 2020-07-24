@@ -38,7 +38,7 @@ class ReturningModal extends Component {
             let style = (countComponents % 2 === 0) ? "oddRow" : "evenRow";
             componentsList.push(
                 <Row className={ style + ' container'}>
-                        <Col xs='6' className='container'>
+                        <Col xs='6' className='container pd-5'>
                             <Col className='container'>{this.user_components[i].componentID}</Col>
                         </Col>
                         <Col xs='6' className='container'>
