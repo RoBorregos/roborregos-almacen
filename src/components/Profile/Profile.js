@@ -63,14 +63,14 @@ class Profile extends Component {
                 </Col>
                 <Col>
                     <Col>
-                        <Row className="justify-content-center">
-                            <Col className="headers justify-content-center">
+                        <Row className="headers-p justify-content-center">
+                            <Col className="justify-content-center">
                                 <h2>Date</h2>
                             </Col>
-                            <Col className="headers justify-content-center">
+                            <Col className="justify-content-center">
                                 <h2>Component</h2>
                             </Col>
-                            <Col className="headers justify-content-center">
+                            <Col className="justify-content-center">
                                 <h2>Quantity</h2>
                             </Col>
                         </Row>

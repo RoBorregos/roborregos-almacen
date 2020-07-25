@@ -56,11 +56,9 @@ class ReturningModal extends Component {
 
     loadReserved() {
         let componentsList = [];
-        let countComponents = 0;
-        for (let i = 0; i < this.user_components.length; i++) {
-            let style = (countComponents % 2 === 0) ? "oddRow" : "evenRow";
+        for (let i = 0; i < this.state.components.length; i++) {
             componentsList.push(
-                <Row className={ style + ' container'}>
+                <Row className='sin_comp_backg_r container bottom-buffer'>
                         <Col xs='6' className='container pd-5'>
                             <Col className='container'>{this.state.components[i].componentID}</Col>
                         </Col>
@@ -82,7 +80,6 @@ class ReturningModal extends Component {
                         </Col>
                 </Row>
             );
-            countComponents++;
         }
         return componentsList;
     }
@@ -97,11 +94,11 @@ class ReturningModal extends Component {
         }
         else return (
             <div>
-                <Row className="justify-content-center container">
-                        <Col xs='6' className="headers align-left container">
+                <Row className="headers justify-content-center container bottom-buffer">
+                        <Col xs='6' className="align-left container pd-5">
                             <h5>Component</h5>
                         </Col>
-                        <Col xs='6' className="headers align-left container">
+                        <Col xs='6' className="align-left container pd-5">
                             <h5>Quantity</h5>
                         </Col>
                 </Row>

@@ -14,23 +14,35 @@
     border-color: transparent;
 }
 
-.headers{
-    padding-left: 5px;
-    align-content: flex-start;
+.headers {
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
+    width: 100%;
+    padding: 5px 5px 5px 5px;
+    border-radius: 12px;
     color: black;
     background-color: darkgray;
 }
 
-.evenRow{
+.sin_comp_backg_r {
+    background: linear-gradient( 45deg, rgb(169, 214, 228) 1%, rgba(42, 88, 102, 0.849) 100%);
+    height: -webkit-max-content;
+    height: -moz-max-content;
     height: max-content;
-    background-color: white;
+    width: 100%;
+    padding: 5px 5px 5px 5px;
+    border-radius: 12px;
 }
 
-.oddRow{
-    height: max-content;
-    background-color: lightgray;
-}
-
-.reservations{
+.reservations {
     color: black;
+}
+
+.round-corners {
+    border-radius: 5px;
+}
+
+.bottom-buffer{
+    margin-bottom:10px; 
 }
