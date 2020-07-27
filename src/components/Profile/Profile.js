@@ -11,30 +11,17 @@ class Profile extends Component {
         super(props);
         this.memberID = props.memberID ;
         this.mock_reservations = props.mock_reservations;
-        //this.loadMember = this.loadMember.bind(this);
         this.loadReservations = this.loadReservations.bind(this);
     }
 
     handleModalState() {
         this.modalEnabled = !this.modalEnabled;
     }
-/*
-    loadMember() {
-        return (
-            <div className="member">
-                <Row >
-                    <Col>{this.member.name}</Col>
-                    <Col>{this.member.mail}</Col>
-                    <Col>{this.member.memberID}</Col>
-                </Row>
-            </div>
-        );
-    }
-*/
-    loadReservations() {
 
+    loadReservations() {
         let componentsList = [];
         let countComponents = 0;
+        
         for (let reservations = 0; reservations < this.mock_reservations.length; reservations++) {
             let reservationArray = this.mock_reservations[reservations].reservation;
             for (let i = 0; i < reservationArray.length; i++) {
@@ -63,7 +50,7 @@ class Profile extends Component {
                 </Col>
                 <Col>
                     <Col>
-                        <Row className="headers-p justify-content-center">
+                        <Row className="first-row justify-content-center">
                             <Col className="justify-content-center">
                                 <h2>Date</h2>
                             </Col>

@@ -48,19 +48,19 @@ class SelectionCart extends Component {
     }
 
     doAPICall(addedItems) {
-        let data = {
+        const data = {
             'reservation_key': Math.floor( Math.random() * 100 ), 
             'member_ID': this.userID, 
             'date': this.getCurrentDate(),
             'reservation': [
             ]
         };
-        let reservedComponents = {
+        const reservedComponents = {
             'memberID': this.userID,
             'activeComponents': [
             ]
-        }
-        for(let id in addedItems) {
+        };
+        for (let id in addedItems) {
             data.reservation.push({
                 'componentID' : id,
                 'quantity' : addedItems[id].quantity,
@@ -71,16 +71,15 @@ class SelectionCart extends Component {
             })
         }
         MockReservation.reservations.push(data);
-        const reserveIdx = ActiveComponents.reservations.findIndex(item => item.memberID === this.userID);
-        if (reserveIdx >= 0 ) {
+        const reserveIndex = ActiveComponents.reservations.findIndex(item => item.memberID === this.userID);
+        if (reserveIndex >= 0 ) {
             reservedComponents.activeComponents.forEach(e => {
-                    ActiveComponents.reservations[reserveIdx].activeComponents.push(e);
+                    ActiveComponents.reservations[reserveIndex].activeComponents.push(e);
             })
         }
         else {
-            ActiveComponents.reservations.push(reservedComponents)
-            
-        };
+            ActiveComponents.reservations.push(reservedComponents);  
+        }
     }
 
     handleAction(action, component) {
