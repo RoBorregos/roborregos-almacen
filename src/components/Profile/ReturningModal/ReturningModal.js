@@ -49,7 +49,7 @@ class ReturningModal extends Component {
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
         const localStorageComponents = JSON.parse(localStorage.getItem('components'));
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
-        let temporaryComponents = this.state.components;
+        const temporaryComponents = this.state.components;
 
         if(temporaryComponents[index].quantity < localStorageComponents[index].quantity)
             temporaryComponents[index].quantity++;
