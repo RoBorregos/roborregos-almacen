@@ -19,13 +19,13 @@ class Profile extends Component {
     }
 
     loadReservations() {
-        let componentsList = [];
+        const componentsList = [];
         let countComponents = 0;
         
         for (let reservations = 0; reservations < this.mock_reservations.length; reservations++) {
-            let reservationArray = this.mock_reservations[reservations].reservation;
+            const reservationArray = this.mock_reservations[reservations].reservation;
             for (let i = 0; i < reservationArray.length; i++) {
-                let style = (countComponents % 2 === 0) ? "oddRow" : "evenRow";
+                const style = (countComponents % 2 === 0) ? "oddRow" : "evenRow";
                 componentsList.push(
                     <div>
                         <Row className={ style }>
