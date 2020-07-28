@@ -1,11 +1,14 @@
-import React, { Component } from 'react';
-import { Col, Row, Button } from 'react-bootstrap';
 import './SelectionCart.css';
-import placeholder from 'images/placeholder-rectangle.png';
-import { connect } from 'react-redux';
-import Qr_code from '../QR_code/QR_code.js';
+
+import { Button, Col, Row } from 'react-bootstrap';
+import React, { Component } from 'react';
+import { addQuantity, clearCart, removeItem, subtractQuantity, types } from '../../scripts/cartReducer';
+
+import ActiveComponents from '../../data/active_components.json';
 import MockReservation from '../../data/mock_reservations.json';
-import { types, subtractQuantity, addQuantity, removeItem, clearCart } from '../../scripts/cartReducer';
+import Qr_code from '../QR_code/QR_code.js';
+import { connect } from 'react-redux';
+import placeholder from 'images/placeholder-rectangle.png';
 
 class SelectionCart extends Component {
 
@@ -18,7 +21,7 @@ class SelectionCart extends Component {
         this.doAPICall = this.doAPICall.bind(this);
         this.handleClose = this.props.handleClose;
         this.components = props.components;
-        this.userID= this.props.userID;
+        this.userID= props.userID;
 
         this.state = {
             handleChange: false,
@@ -45,20 +48,38 @@ class SelectionCart extends Component {
     }
 
     doAPICall(addedItems) {
-        let data = {
+        const data = {
             'reservation_key': Math.floor( Math.random() * 100 ), 
             'member_ID': this.userID, 
             'date': this.getCurrentDate(),
             'reservation': [
             ]
         };
-        for(let id in addedItems) {
+        const reservedComponents = {
+            'memberID': this.userID,
+            'activeComponents': [
+            ]
+        };
+        for (let id in addedItems) {
             data.reservation.push({
+                'componentID' : id,
+                'quantity' : addedItems[id].quantity,
+            })
+            reservedComponents.activeComponents.push({
                 'componentID' : id,
                 'quantity' : addedItems[id].quantity,
             })
         }
         MockReservation.reservations.push(data);
+        const reserveIndex = ActiveComponents.reservations.findIndex(item => item.memberID === this.userID);
+        if (reserveIndex >= 0 ) {
+            reservedComponents.activeComponents.forEach(e => {
+                    ActiveComponents.reservations[reserveIndex].activeComponents.push(e);
+            })
+        }
+        else {
+            ActiveComponents.reservations.push(reservedComponents);  
+        }
     }
 
     handleAction(action, component) {
@@ -116,7 +137,7 @@ class SelectionCart extends Component {
                                 <Button className='subt-button' onClick={ () => this.handleAction(types.SUB_QUANTITY, component) }>-</Button>
                             </Col>
                             <Col xs='3' className='item-counter col-pd ver-center hor-center'>
-                            <div className="input-group-field" > { this.props.addedItems[component].quantity } </div>
+                                <div className="input-group-field" > { this.props.addedItems[component].quantity } </div>
                             </Col>
                             <Col xs='3' className='col-pd hor-center'>
                                 <Button className='add-button' onClick={ () => this.handleAction(types.ADD_QUANTITY, component) }>+</Button>

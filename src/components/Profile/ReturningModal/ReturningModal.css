@@ -1,0 +1,52 @@
+/* Click here to return components button */
+
+.button-row{
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.container {       
+    padding: 0; 
+    align-items: center;
+    display: flex;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* First column of modal */
+
+.headers {
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
+    width: 100%;
+    padding: 5px;
+    border-radius: 12px;
+    color: black;
+    background-color: darkgray;
+}
+
+/* Padding left 5 */
+
+.pad-left5 {
+    padding-left: 5px;
+}
+
+/* Header of returning modal */
+
+.returning_head {
+    border-color: transparent;
+}
+
+/* Single row */
+
+.sin_comp_backg_r {
+    background: linear-gradient( 45deg, rgb(169, 214, 228) 1%, rgba(42, 88, 102, 0.849) 100%);
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
+    width: 100%;
+    padding: 5px;
+    border-radius: 12px;
+    margin-bottom:10px; 
+}

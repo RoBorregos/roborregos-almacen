@@ -1,15 +1,17 @@
-import React, { Component } from 'react';
-import Login from "./components/Login/Login.js";
-import Profile from "./components/Profile/Profile.js";
-import Warehouse from "./components/Warehouse/Warehouse.js";
-import SelectionCart from "./components/SelectionCart/SelectionCart.js";
-import NavBar from "./components/NavBar/NavBar.js";
-import Footer from 'components/Footer/Footer.js';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import cookie from 'react-cookies'
-import routesData from 'data/routes.json';
-import mock_reservations from './data/mock_reservations.json';
 import './App.css';
+
+import React, { Component } from 'react';
+import { Route, BrowserRouter as Router } from 'react-router-dom';
+
+import Footer from 'components/Footer/Footer.js';
+import Login from "./components/Login/Login.js";
+import NavBar from "./components/NavBar/NavBar.js";
+import Profile from "./components/Profile/Profile.js";
+import SelectionCart from "./components/SelectionCart/SelectionCart.js";
+import Warehouse from "./components/Warehouse/Warehouse.js";
+import cookie from 'react-cookies'
+import mock_reservations from './data/mock_reservations.json';
+import routesData from 'data/routes.json';
 
 class App extends Component {
   constructor(props) {
@@ -57,7 +59,7 @@ class App extends Component {
           />
           <Route
             exact path='/profile'
-            component={ () => <Profile mock_reservations= { mock_reservations.reservations }/> }
+            component={ () => <Profile mock_reservations= { mock_reservations.reservations } memberID= { this.state.userID } /> }
           />
           <Route
             exact path='/selectionCart'

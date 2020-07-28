@@ -1,41 +1,31 @@
-import React, { Component } from 'react';
 import './Profile.css';
-import members from '../../data/members.json';
-import { connect } from 'react-redux';
-import { Row, Col } from 'react-bootstrap';
 
+import { Col, Row } from 'react-bootstrap';
+import React, { Component } from 'react';
+
+import ReturningModal from './ReturningModal/ReturningModal';
+import { connect } from 'react-redux';
 
 class Profile extends Component {
     constructor(props) {
         super(props);
-
-        this.member = members.members[0]
+        this.memberID = props.memberID ;
         this.mock_reservations = props.mock_reservations;
-
-        this.loadMember = this.loadMember.bind(this);
         this.loadReservations = this.loadReservations.bind(this);
     }
 
-    loadMember() {
-        return (
-            <div className="member">
-                <Row >
-                    <Col>{this.member.name}</Col>
-                    <Col>{this.member.mail}</Col>
-                    <Col>{this.member.memberID}</Col>
-                </Row>
-            </div>
-        );
+    handleModalState() {
+        this.modalEnabled = !this.modalEnabled;
     }
 
     loadReservations() {
-
-        let componentsList = [];
+        const componentsList = [];
         let countComponents = 0;
+        
         for (let reservations = 0; reservations < this.mock_reservations.length; reservations++) {
-            let reservationArray = this.mock_reservations[reservations].reservation;
+            const reservationArray = this.mock_reservations[reservations].reservation;
             for (let i = 0; i < reservationArray.length; i++) {
-                let style = (countComponents % 2 === 0) ? "oddRow" : "evenRow";
+                const style = (countComponents % 2 === 0) ? "oddRow" : "evenRow";
                 componentsList.push(
                     <div>
                         <Row className={ style }>
@@ -55,21 +45,19 @@ class Profile extends Component {
     render() {
         return (
             <div className="profile_container">
-
-             
                 <Col >
                     <h1>Your Reservations</h1>
                 </Col>
                 <Col>
                     <Col>
-                        <Row className="justify-content-center">
-                            <Col className="headers justify-content-center">
+                        <Row className="first-row justify-content-center">
+                            <Col className="justify-content-center">
                                 <h2>Date</h2>
                             </Col>
-                            <Col className="headers justify-content-center">
+                            <Col className="justify-content-center">
                                 <h2>Component</h2>
                             </Col>
-                            <Col className="headers justify-content-center">
+                            <Col className="justify-content-center">
                                 <h2>Quantity</h2>
                             </Col>
                         </Row>
@@ -78,7 +66,9 @@ class Profile extends Component {
                         {this.loadReservations()}
                     </Col>
                 </Col>
-
+                <Col>
+                    <ReturningModal memberID={ this.memberID } />  
+                </Col>
             </div>
         );
     }
