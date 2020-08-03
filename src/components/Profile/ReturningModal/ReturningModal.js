@@ -36,7 +36,8 @@ class ReturningModal extends Component {
             /** @type { boolean } */
             show: false,
             /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
-            components: this.user_components
+            components: this.user_components,
+            isActive: Array[this.user_components.length]
         }
     }
 
