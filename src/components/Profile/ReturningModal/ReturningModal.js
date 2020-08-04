@@ -25,6 +25,7 @@ class ReturningModal extends Component {
             ActiveComponents.reservations[this.user_index].activeComponents
         );
 
+        this.handleCheckBox = this.handleCheckBox.bind(this);
         this.handleIcrement = this.handleIcrement.bind(this);
         this.handleDecrement = this.handleDecrement.bind(this);
         this.handleShow = this.handleShow.bind(this);
@@ -37,8 +38,20 @@ class ReturningModal extends Component {
             show: false,
             /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
             components: this.user_components,
-            isActive: Array[this.user_components.length]
+            /** @type {!Array<{ boolean }>, ...}>}*/
+            isActive: new Array(this.user_components.length)
         }
+    }
+
+    /* 
+    When user clicks on the checkbox the components is confirmed that is going to be returned when clicks return components
+    button inside the modal
+    */
+   /** @param {index: number}*/
+    handleCheckBox( index ){
+        const copyOfChecked = this.state.isActive;
+        copyOfChecked[index] = !copyOfChecked[index];
+        this.setState({isActive: copyOfChecked});
     }
 
     /* 
@@ -129,7 +142,7 @@ class ReturningModal extends Component {
                                 </Button>
                             </Col>
                             <Col xs='4' className='col-pd hor-center align-items-center container'>
-                                <Checkbox className='checkbox' />
+                                <Checkbox className='checkbox' onClick= { () => this.handleCheckBox(componentIndex) }/>
                             </Col>
                         </Col>
                 </Row>
