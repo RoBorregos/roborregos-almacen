@@ -39,7 +39,7 @@ class ReturningModal extends Component {
             /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
             components: this.user_components,
             /** @type {!Array<{ boolean }>, ...}>}*/
-            isActive: new Array(this.user_components.length)
+            isActive: new Array(this.user_components != null? this.user_components.length : 0)
         }
     }
 
@@ -115,7 +115,7 @@ class ReturningModal extends Component {
 
         for (let componentIndex = 0; componentIndex < this.state.components.length; componentIndex++) { 
             componentsList.push(
-                <Row className='sin_comp_backg_r container bottom-buffer'>
+                <Row className='sin_comp_backg_r container bottom-buffer' key={componentIndex}>
                         <Col xs='6' className='container pad-left5'>
                             <Col className='container'>
                                 { this.state.components[componentIndex].componentID }
