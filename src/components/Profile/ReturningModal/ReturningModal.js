@@ -31,9 +31,11 @@ class ReturningModal extends Component {
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.loadReserved = this.loadReserved.bind(this);
-
+        this.checkOneActive = this.checkOneActive.bind(this);
         
         this.state = { 
+            /** @type { boolean } */
+            disabledButton: true,
             /** @type { boolean } */
             show: false,
             /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
@@ -43,15 +45,19 @@ class ReturningModal extends Component {
         }
     }
 
+    checkOneActive() {
+        return this.state.isActive.some(elem => elem === true);
+    }
+
     /* 
     When user clicks on the checkbox the components is confirmed that is going to be returned when clicks return components
     button inside the modal
     */
    /** @param {index: number}*/
-    handleCheckBox( index ){
+    handleCheckBox( index ) {
         const copyOfChecked = this.state.isActive;
         copyOfChecked[index] = !copyOfChecked[index];
-        this.setState({isActive: copyOfChecked});
+        this.setState({isActive: copyOfChecked, disabledButton: !this.checkOneActive()});
     }
 
     /* 
@@ -198,7 +204,7 @@ class ReturningModal extends Component {
                     <ModalBody>
                         { this.checkComponents() }
                         <Row className="justify-content-center container">
-                            <Button className='checkout-button'>
+                            <Button className='checkout-button' disabled={ this.state.disabledButton }>
                                 Return components
                             </Button>  
                         </Row>

@@ -3,19 +3,43 @@ import './Profile.css';
 import { Col, Row } from 'react-bootstrap';
 import React, { Component } from 'react';
 
+import ReturnedComponents from '../../data/returned_components.json'
 import ReturningModal from './ReturningModal/ReturningModal';
 import { connect } from 'react-redux';
 
 class Profile extends Component {
     constructor(props) {
         super(props);
-        this.memberID = props.memberID ;
+        this.memberID = props.memberID;
+        this.user_index = ReturnedComponents.records.findIndex( reservation => reservation.memberID === this.memberID );
+        this.returned_components = (
+            this.user_index === -1? 
+            null : 
+            ReturnedComponents.records[this.user_index].returnedComponents
+        );
         this.mock_reservations = props.mock_reservations;
         this.loadReservations = this.loadReservations.bind(this);
+        this.loadReturned = this.loadReturned.bind(this);
     }
 
     handleModalState() {
         this.modalEnabled = !this.modalEnabled;
+    }
+
+    loadReturned() {
+        return(
+            this.returned_components.map((component, index) => {
+                return (
+                    <div key={ index }>
+                        <Row className={ (index % 2 === 0 ? "oddRow" : "evenRow") }>
+                            <Col className="reservations">{component.dateReturned}</Col>
+                            <Col className="reservations">{component.componentID}</Col>
+                            <Col className="reservations">{component.quantity}</Col>
+                        </Row>
+                    </div>
+                )
+            })
+        )
     }
 
     loadReservations() {
@@ -24,7 +48,7 @@ class Profile extends Component {
                 if ( eachReservation.memberID === this.memberID ) {
                     return (
                         <div key={eachReservation.reservation_key}>
-                            {eachReservation.reservation.map((eachComponent, index) => {
+                            { eachReservation.reservation.map((eachComponent, index) => {
                             return (
                                 <div key={ index }>
                                     <Row className={ (index % 2 === 0 ? "oddRow" : "evenRow") }>
@@ -65,6 +89,27 @@ class Profile extends Component {
                     </Col>
                     <Col>
                         {this.loadReservations()}
+                    </Col>
+                </Col>
+                <Col >
+                    <h1>Your returned components</h1>
+                </Col>
+                <Col>
+                    <Col>
+                        <Row className="first-row justify-content-center">
+                            <Col className="justify-content-center">
+                                <h2>Date</h2>
+                            </Col>
+                            <Col className="justify-content-center">
+                                <h2>Component</h2>
+                            </Col>
+                            <Col className="justify-content-center">
+                                <h2>Quantity</h2>
+                            </Col>
+                        </Row>
+                    </Col>
+                    <Col>
+                        {this.loadReturned()}
                     </Col>
                 </Col>
                 <Col>
