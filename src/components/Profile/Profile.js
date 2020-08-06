@@ -26,8 +26,8 @@ class Profile extends Component {
                         <div key={eachReservation.reservation_key}>
                             {eachReservation.reservation.map((eachComponent, index) => {
                             return (
-                                <div>
-                                    <Row className={ (index % 2 === 0 ? "oddRow" : "evenRow") } key={ eachComponent.index }>
+                                <div key={ index }>
+                                    <Row className={ (index % 2 === 0 ? "oddRow" : "evenRow") }>
                                         <Col className="reservations">{eachReservation.date}</Col>
                                         <Col className="reservations">{eachComponent.componentID}</Col>
                                         <Col className="reservations">{eachComponent.quantity}</Col>
