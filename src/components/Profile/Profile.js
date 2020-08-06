@@ -18,31 +18,29 @@ class Profile extends Component {
         this.modalEnabled = !this.modalEnabled;
     }
 
-// THIS needs to be for only the same user with same ID
-
     loadReservations() {
-        const componentsList = [];
-        let countComponents = 0;
-        
-        for (let reservations = 0; reservations < this.mock_reservations.length; reservations++) {
-            if ( this.mock_reservations[reservations].memberID !== this.memberID ) continue;
-            const reservationArray = this.mock_reservations[reservations].reservation;
-            for (let i = 0; i < reservationArray.length; i++) {
-                const style = (countComponents % 2 === 0) ? "oddRow" : "evenRow";
-                componentsList.push(
-                    <div>
-                        <Row className={ style }>
-                            <Col className="reservations">{this.mock_reservations[reservations].date}</Col>
-                            <Col className="reservations">{reservationArray[i].componentID}</Col>
-                            <Col className="reservations">{reservationArray[i].quantity}</Col>
-                        </Row>
-                    </div>
-                );
-                countComponents++;
-            }
-
-        }
-        return componentsList;
+        return(
+            this.mock_reservations.map((eachReservation) => {
+                if ( eachReservation.memberID === this.memberID ) {
+                    return (
+                        <div key={eachReservation.reservation_key}>
+                            {eachReservation.reservation.map((eachComponent, index) => {
+                            return (
+                                <div>
+                                    <Row className={ (index % 2 === 0 ? "oddRow" : "evenRow") } key={ eachComponent.index }>
+                                        <Col className="reservations">{eachReservation.date}</Col>
+                                        <Col className="reservations">{eachComponent.componentID}</Col>
+                                        <Col className="reservations">{eachComponent.quantity}</Col>
+                                    </Row>
+                                </div>
+                            )
+                            })}   
+                        </div>
+                    )
+                }
+                return null;
+            })
+        )
     }
 
     render() {
