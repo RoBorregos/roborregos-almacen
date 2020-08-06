@@ -133,7 +133,7 @@ class Profile extends Component {
                     { this.loadReturned() }
                 </Col>
                 <Col>
-                    <ReturningModal memberID={ this.memberID } />  
+                    <ReturningModal memberID={ this.memberID } user_index={ this.user_index } />  
                 </Col>
             </div>
         );

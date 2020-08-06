@@ -7,6 +7,7 @@ import React, { Component } from 'react';
 import ActiveComponents from '../../../data/active_components.json';
 import Checkbox from '@material-ui/core/Checkbox';
 import ModalHeader from 'react-bootstrap/ModalHeader';
+import ReturnedComponents from '../../../data/returned_components.json'
 import { connect } from 'react-redux';
 
 class ReturningModal extends Component { 
@@ -25,15 +26,19 @@ class ReturningModal extends Component {
             ActiveComponents.reservations[this.user_index].activeComponents
         );
 
+        /** @type { number } */
+        this.user_index_returned = props.user_index;
+
+        this.checkOneActive = this.checkOneActive.bind(this);
         this.handleCheckBox = this.handleCheckBox.bind(this);
         this.handleIcrement = this.handleIcrement.bind(this);
         this.handleDecrement = this.handleDecrement.bind(this);
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.loadReserved = this.loadReserved.bind(this);
-        this.checkOneActive = this.checkOneActive.bind(this);
+        this.returnComponents = this.returnComponents.bind(this);
         
-        this.state = { 
+        this.state = {
             /** @type { boolean } */
             disabledButton: true,
             /** @type { boolean } */
@@ -47,6 +52,15 @@ class ReturningModal extends Component {
 
     checkOneActive() {
         return this.state.isActive.some(elem => elem === true);
+    }
+
+    getCurrentDate() {
+        const today = new Date();
+        const dd = today.getDate();
+        let mm= today.getMonth()+1;
+        mm = mm < 9 ? '0' + mm : mm;  
+        const yyyy = today.getFullYear();
+        return dd + '-' + mm + '-' + yyyy;
     }
 
     /* 
@@ -189,6 +203,36 @@ class ReturningModal extends Component {
             )
         } 
     }
+    // NEED to get from selection cart js format of push
+    returnComponents() {
+        const date = this.getCurrentDate();
+        let pushingComponents = [];
+        for(let returnedIndex = 0; returnedIndex < this.state.components.length; returnedIndex++){
+            if (this.state.isActive[returnedIndex] === true && this.state.components[returnedIndex].quantity > 0){
+                pushingComponents.push({
+                    'componentID': this.state.components[returnedIndex].componentID,
+                    'quantity': this.state.components[returnedIndex].quantity,
+                    'dateReturned': date
+                })
+            }
+        }
+        if (this.user_index_returned === -1){
+            ReturnedComponents.records.push({
+                'memberID': this.memberID,
+                'returnedComponents': pushingComponents
+            })
+        } else {
+            pushingComponents.forEach(e => {
+                ReturnedComponents.records[this.user_index_returned].returnedComponents.push({
+                    'componentID': e.componentID,
+                    'quantity': e.quantity,
+                    'dateReturned': date
+                })
+            })
+        }
+        console.log(ReturnedComponents);
+        this.handleClose();
+    }
 
     render() {
         return(
@@ -208,7 +252,7 @@ class ReturningModal extends Component {
                     <ModalBody>
                         { this.checkComponents() }
                         <Row className="justify-content-center container">
-                            <Button className='checkout-button' disabled={ this.state.disabledButton }>
+                            <Button className='checkout-button' disabled={ this.state.disabledButton } onClick={ () => this.returnComponents() }>
                                 Return components
                             </Button>  
                         </Row>
