@@ -208,9 +208,15 @@ class ReturningModal extends Component {
         } 
     }
     
+    /*
+    This method works when user clicks the button in the modal to return components, at the end modal closes
+    */
     returnComponents() {
+        /** @type { String } */
         const date = this.getCurrentDate();
+        /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
         let pushingComponents = [];
+        
         for(let returnedIndex = 0; returnedIndex < this.state.components.length; returnedIndex++){
             if (this.state.isActive[returnedIndex] === true && this.state.components[returnedIndex].quantity > 0){
                 pushingComponents.push({
