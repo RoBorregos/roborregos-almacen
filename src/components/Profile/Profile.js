@@ -30,11 +30,10 @@ class Profile extends Component {
     
     handleChangeReturned(){
         if(this.state.returned_user_index === -1) {
-            const new_returned_user_index = ReturnedComponents.records.findIndex( reservation => reservation.memberID === this.memberID );
-            this.setState({ returned_user_index: new_returned_user_index });
+            this.user_index = ReturnedComponents.records.findIndex( reservation => reservation.memberID === this.memberID );
         }
-        const newReturnedComponents = ReturnedComponents.records[this.state.returned_user_index].returnedComponents;
-        this.setState({ returnedComponents: newReturnedComponents });
+        this.returned_components = ReturnedComponents.records[this.user_index].returnedComponents;
+        this.setState({returned_user_index: this.user_index, returnedComponents: this.returned_components});
     }
 
     loadReturned() {
