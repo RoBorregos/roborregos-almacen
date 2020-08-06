@@ -17,17 +17,17 @@ class ReturningModal extends Component {
         this.memberID = props.memberID;
 
         /** @type { number } */
-        this.user_index = ActiveComponents.reservations.findIndex( reservation => reservation.memberID === this.memberID );
+        this.active_user_index = ActiveComponents.reservations.findIndex( reservation => reservation.memberID === this.memberID );
 
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
         this.user_components = (
-            this.user_index === -1? 
+            this.active_user_index === -1? 
             null : 
-            ActiveComponents.reservations[this.user_index].activeComponents
+            ActiveComponents.reservations[this.active_user_index].activeComponents
         );
 
         /** @type { number } */
-        this.user_index_returned = props.user_index;
+        this.user_index_returned = props.user_index_returned;
 
         this.checkOneActive = this.checkOneActive.bind(this);
         this.handleCheckBox = this.handleCheckBox.bind(this);
@@ -50,10 +50,16 @@ class ReturningModal extends Component {
         }
     }
 
+    /*
+    Check if there is at least one component active
+    */
     checkOneActive() {
         return this.state.isActive.some(elem => elem === true);
     }
 
+    /*
+    Returns current date "in dd/mm/yyyy" format
+    */
     getCurrentDate() {
         const today = new Date();
         const dd = today.getDate();
@@ -67,7 +73,7 @@ class ReturningModal extends Component {
     When user clicks on the checkbox the components is confirmed that is going to be returned when clicks return components
     button inside the modal
     */
-   /** @param {index: number}*/
+    /** @param {index: number}*/
     handleCheckBox( index ) {
         const copyOfChecked = this.state.isActive;
         copyOfChecked[index] = !copyOfChecked[index];
@@ -109,7 +115,7 @@ class ReturningModal extends Component {
     */
     handleShow() { 
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
-        const components = this.user_index === -1? null : ActiveComponents.reservations[this.user_index].activeComponents;
+        const components = this.active_user_index === -1? null : ActiveComponents.reservations[this.active_user_index].activeComponents;
 
         localStorage.setItem('components', JSON.stringify(components));
         this.setState({ show: true })
@@ -119,13 +125,12 @@ class ReturningModal extends Component {
     In case of closing the modal, set state to hidden and store components as they were initially 
     */
     handleClose() { 
-        if(this.user_index !== -1){
+        if(this.active_user_index !== -1){
             /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
             const localStorageComponents = JSON.parse(localStorage.getItem('components'));
-            ActiveComponents.reservations[this.user_index].activeComponents = localStorageComponents;
+            ActiveComponents.reservations[this.active_user_index].activeComponents = localStorageComponents;
             this.setState({ components: localStorageComponents, show: false })
-        } 
-        else {
+        } else {
             this.setState({show: false});
         }
     }
@@ -137,41 +142,41 @@ class ReturningModal extends Component {
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
         const componentsList = [];
 
-        for (let componentIndex = 0; componentIndex < this.state.components.length; componentIndex++) { 
+        this.state.components.map((component, index) => 
             componentsList.push(
-                <Row className='sin_comp_backg_r container bottom-buffer' key={componentIndex}>
+                <Row className='sin_comp_backg_r container bottom-buffer' key={ index }>
                         <Col xs='6' className='container pad-left5'>
                             <Col className='container'>
-                                { this.state.components[componentIndex].componentID }
+                                { component.componentID }
                             </Col>
                         </Col>
                         <Col xs='6' className='container'>
                             <Col xs='2' className='col-pd hor-center align-items-center container'>
                                 <Button className='subt-button' 
-                                onClick={ () => this.handleDecrement(componentIndex) }
+                                onClick={ () => this.handleDecrement(index) }
                                 >
                                 -
                                 </Button>
                             </Col>
                             <Col xs='4' className='item-counter col-pd ver-center hor-center container'>
                                 <div className="input-group-field">
-                                    { this.state.components[componentIndex].quantity }
+                                    { component.quantity }
                                 </div>
                             </Col>
                             <Col xs='2' className='col-pd hor-center align-items-center container'>
                                 <Button className='add-button' 
-                                onClick={ () => this.handleIcrement(componentIndex) }
+                                onClick={ () => this.handleIcrement(index) }
                                 >
                                 +
                                 </Button>
                             </Col>
                             <Col xs='4' className='col-pd hor-center align-items-center container'>
-                                <Checkbox className='checkbox' onClick= { () => this.handleCheckBox(componentIndex) }/>
+                                <Checkbox className='checkbox' onClick= { () => this.handleCheckBox(index) }/>
                             </Col>
                         </Col>
                 </Row>
-            );
-        }
+            )
+        );
         return componentsList;
     }
 
@@ -180,14 +185,13 @@ class ReturningModal extends Component {
     we have to throw a message, other case show reserved components table 
     */
     checkComponents() {
-        if(this.user_index === -1 || this.user_components.length === 0){
+        if(this.active_user_index === -1 || this.user_components.length === 0){
             return (
                 <div>
                     <h3> You have not active reserved components currently </h3>
                 </div>
             )
-        }
-        else {
+        } else {
             return (
                 <div>
                     <Row className="headers justify-content-center container bottom-buffer">
@@ -252,7 +256,9 @@ class ReturningModal extends Component {
                     <ModalBody>
                         { this.checkComponents() }
                         <Row className="justify-content-center container">
-                            <Button className='checkout-button' disabled={ this.state.disabledButton } onClick={ () => this.returnComponents() }>
+                            <Button className='checkout-button' 
+                            disabled={ this.state.disabledButton } 
+                            onClick={ () => this.returnComponents() }>
                                 Return components
                             </Button>  
                         </Row>
