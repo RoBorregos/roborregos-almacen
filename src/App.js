@@ -59,7 +59,9 @@ class App extends Component {
           />
           <Route
             exact path='/profile'
-            component={ () => <Profile mock_reservations= { mock_reservations.reservations } memberID= { this.state.userID } /> }
+            component={ () => <Profile mock_reservations= { mock_reservations.reservations } 
+              memberID= { this.state.userID }
+              /> }
           />
           <Route
             exact path='/selectionCart'

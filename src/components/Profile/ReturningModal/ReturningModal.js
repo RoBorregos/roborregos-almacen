@@ -203,7 +203,7 @@ class ReturningModal extends Component {
             )
         } 
     }
-    // NEED to get from selection cart js format of push
+    
     returnComponents() {
         const date = this.getCurrentDate();
         let pushingComponents = [];
@@ -230,8 +230,8 @@ class ReturningModal extends Component {
                 })
             })
         }
-        console.log(ReturnedComponents);
-        this.handleClose();
+        this.setState({show: false});
+        this.props.handleChangeReturned();
     }
 
     render() {

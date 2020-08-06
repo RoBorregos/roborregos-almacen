@@ -20,10 +20,21 @@ class Profile extends Component {
         this.mock_reservations = props.mock_reservations;
         this.loadReservations = this.loadReservations.bind(this);
         this.loadReturned = this.loadReturned.bind(this);
-    }
+        this.handleChangeReturned = this.handleChangeReturned.bind(this);
 
-    handleModalState() {
-        this.modalEnabled = !this.modalEnabled;
+        this.state = {
+            returned_user_index: this.user_index,
+            returnedComponents: this.returned_components
+        }
+    }
+    
+    handleChangeReturned(){
+        if(this.state.returned_user_index === -1) {
+            const new_returned_user_index = ReturnedComponents.records.findIndex( reservation => reservation.memberID === this.memberID );
+            this.setState({ returned_user_index: new_returned_user_index });
+        }
+        const newReturnedComponents = ReturnedComponents.records[this.state.returned_user_index].returnedComponents;
+        this.setState({ returnedComponents: newReturnedComponents });
     }
 
     loadReturned() {
@@ -45,7 +56,7 @@ class Profile extends Component {
                     </Col>
                     <Col>
                         {
-                            this.returned_components.map((component, index) => {
+                            this.state.returnedComponents.map((component, index) => {
                                 return (
                                     <div key={ index }>
                                         <Row className={ (index % 2 === 0 ? "oddRow" : "evenRow") }>
@@ -68,7 +79,7 @@ class Profile extends Component {
     }
 
     loadReservations() {
-        if(this.mock_reservations.findIndex((each) =>  each.memberID === this.memberID) !== -1){
+        if(this.mock_reservations.findIndex((each) =>  each.memberID === this.memberID) !== -1) {
             return(
                 <div>
                     <Col>
@@ -89,7 +100,7 @@ class Profile extends Component {
                             this.mock_reservations.map((eachReservation) => {
                             if( eachReservation.memberID === this.memberID ) {
                                 return (
-                                    <div key={eachReservation.reservation_key}>
+                                    <div key={ eachReservation.reservation_key }>
                                         { eachReservation.reservation.map((eachComponent, index) => {
                                         return (
                                             <div key={ index }>
@@ -133,7 +144,9 @@ class Profile extends Component {
                     { this.loadReturned() }
                 </Col>
                 <Col>
-                    <ReturningModal memberID={ this.memberID } user_index={ this.user_index } />  
+                    <ReturningModal memberID={ this.memberID } 
+                    user_index={ this.user_index }
+                    handleChangeReturned={ this.handleChangeReturned }/>  
                 </Col>
             </div>
         );
