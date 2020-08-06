@@ -95,7 +95,7 @@ class ReturningModal extends Component {
     */
     handleShow() { 
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
-        const components = ActiveComponents.reservations[this.user_index].activeComponents;
+        const components = this.user_index === -1? null : ActiveComponents.reservations[this.user_index].activeComponents;
 
         localStorage.setItem('components', JSON.stringify(components));
         this.setState({ show: true })
@@ -105,11 +105,15 @@ class ReturningModal extends Component {
     In case of closing the modal, set state to hidden and store components as they were initially 
     */
     handleClose() { 
-        /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
-        const localStorageComponents = JSON.parse(localStorage.getItem('components'));
-
-        ActiveComponents.reservations[this.user_index].activeComponents = localStorageComponents;
-        this.setState({ components: localStorageComponents, show: false })
+        if(this.user_index !== -1){
+            /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
+            const localStorageComponents = JSON.parse(localStorage.getItem('components'));
+            ActiveComponents.reservations[this.user_index].activeComponents = localStorageComponents;
+            this.setState({ components: localStorageComponents, show: false })
+        } 
+        else {
+            this.setState({show: false});
+        }
     }
 
     /*
