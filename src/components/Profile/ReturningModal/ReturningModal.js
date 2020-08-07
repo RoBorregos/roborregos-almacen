@@ -11,7 +11,7 @@ import ReturnedComponents from '../../../data/returned_components.json'
 import { connect } from 'react-redux';
 
 class ReturningModal extends Component { 
-    constructor(props) { 
+    constructor(props) {
         super(props);
         /** @type { string } */
         this.memberID = props.memberID;
@@ -31,14 +31,17 @@ class ReturningModal extends Component {
 
         this.checkOneActive = this.checkOneActive.bind(this);
         this.handleCheckBox = this.handleCheckBox.bind(this);
-        this.handleIcrement = this.handleIcrement.bind(this);
-        this.handleDecrement = this.handleDecrement.bind(this);
-        this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.handleDecrement = this.handleDecrement.bind(this);
+        this.handleIcrement = this.handleIcrement.bind(this);
+        this.handleModalList = this.handleModalList.bind(this);
+        this.handleShow = this.handleShow.bind(this);
         this.loadReserved = this.loadReserved.bind(this);
         this.returnComponents = this.returnComponents.bind(this);
         
         this.state = {
+            /** @type { number } */
+            user_index_returned: this.user_index_returned,
             /** @type { boolean } */
             disabledButton: true,
             /** @type { boolean } */
@@ -49,14 +52,19 @@ class ReturningModal extends Component {
             isActive: new Array(this.user_components != null? this.user_components.length : 0).fill(false)
         }
     }
-    UNSAFE_componentWillUpdate(){
-        console.log('hello');
-    }
     /*
     Check if there is at least one component active
     */
     checkOneActive() {
         return this.state.isActive.some(elem => elem === true);
+    }
+
+    // If index has changed because user had not history then we should update the index
+    componentDidUpdate(prevProps) {
+        if (this.props.user_index_returned !== prevProps.user_index_returned) {
+          this.user_index_returned = this.props.user_index_returned;
+          this.setState({ user_index_returned: this.user_index_returned })
+        }
     }
 
     /*
@@ -106,21 +114,10 @@ class ReturningModal extends Component {
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
         const currentComponents = this.state.components;
 
-        if (currentComponents[index].quantity > 0)
+        if(currentComponents[index].quantity > 0)
             currentComponents[index].quantity--;
             
         this.setState({ components: currentComponents });
-    }
-
-    /* 
-    Set the state of the modal and stores user active components 
-    */
-    handleShow() { 
-        /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
-        const components = this.active_user_index === -1? null : ActiveComponents.reservations[this.active_user_index].activeComponents;
-
-        localStorage.setItem('components', JSON.stringify(components));
-        this.setState({ show: true })
     }
 
     /* 
@@ -130,10 +127,48 @@ class ReturningModal extends Component {
         if(this.active_user_index !== -1){
             /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
             const localStorageComponents = JSON.parse(localStorage.getItem('components'));
+            
             ActiveComponents.reservations[this.active_user_index].activeComponents = localStorageComponents;
             this.setState({ components: localStorageComponents})
         }
         this.setState({ show: false, disabledButton: true });
+    }
+
+    handleModalList() {
+        /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
+        const nextActiveComponents = [];
+        /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
+        const localStorageComponents = JSON.parse(localStorage.getItem('components'));
+        
+        this.state.components.forEach((component, index) => {
+            if(this.state.isActive[index] === false) {
+                nextActiveComponents.push(localStorageComponents[index]);
+            } else if(component.quantity < localStorageComponents[index].quantity) {
+                const auxComponent = localStorageComponents[index];
+                auxComponent.quantity -= component.quantity;
+                nextActiveComponents.push(auxComponent);
+            }
+        })
+        this.setState({
+            show: false, 
+            components: nextActiveComponents, 
+            isActive: new Array(nextActiveComponents.length).fill(false), 
+            disabledButton: true 
+        });
+        ActiveComponents.reservations[this.active_user_index].activeComponents = nextActiveComponents;
+        this.props.handleChangeReturned();
+    }
+
+
+    /* 
+    Set the state of the modal and stores user active components 
+    */
+   handleShow() { 
+        /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
+        const components = this.active_user_index === -1? null : ActiveComponents.reservations[this.active_user_index].activeComponents;
+
+        localStorage.setItem('components', JSON.stringify(components));
+        this.setState({ show: true })
     }
 
     /*
@@ -217,6 +252,7 @@ class ReturningModal extends Component {
         const date = this.getCurrentDate();
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
         let pushingComponents = [];
+        
         this.state.components.forEach((component, index) => {
             if(this.state.isActive[index] === true && component.quantity > 0){
                 pushingComponents.push({
@@ -227,7 +263,8 @@ class ReturningModal extends Component {
             }
             return null;
         })
-        if (this.user_index_returned === -1){
+        // When there is not a register of user in returned components JSON (index === -1)
+        if(this.state.user_index_returned === -1) {
             ReturnedComponents.records.push({
                 'memberID': this.memberID,
                 'returnedComponents': pushingComponents
@@ -241,27 +278,7 @@ class ReturningModal extends Component {
                 })
             })
         }
-        /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
-        const nextActiveComponents = [];
-        /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
-        const localStorageComponents = JSON.parse(localStorage.getItem('components'));
-        console.log(localStorageComponents);
-        console.log(this.state.isActive);
-        this.state.components.forEach((component, index) => {
-            if (this.state.isActive[index] === false) {
-                nextActiveComponents.push(localStorageComponents[index]);
-            } else if (component.quantity < localStorageComponents[index].quantity) {
-                const auxComponent = localStorageComponents[index];
-                auxComponent.quantity -= component.quantity;
-                nextActiveComponents.push(auxComponent);
-            }
-        })
-        this.setState({ show: false, 
-            components: nextActiveComponents, 
-            isActive: new Array(nextActiveComponents.length).fill(false), 
-            disabledButton: true });
-        ActiveComponents.reservations[this.active_user_index].activeComponents = nextActiveComponents;
-        this.props.handleChangeReturned();
+        this.handleModalList();
     }
 
     render() {
