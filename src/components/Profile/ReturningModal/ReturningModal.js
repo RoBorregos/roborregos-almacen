@@ -46,7 +46,7 @@ class ReturningModal extends Component {
             /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
             components: this.user_components,
             /** @type {!Array<{ boolean }>, ...}>}*/
-            isActive: new Array(this.user_components != null? this.user_components.length : 0)
+            isActive: new Array(this.user_components != null? this.user_components.length : 0).fill(false)
         }
     }
 
@@ -216,16 +216,16 @@ class ReturningModal extends Component {
         const date = this.getCurrentDate();
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
         let pushingComponents = [];
-        
-        for(let returnedIndex = 0; returnedIndex < this.state.components.length; returnedIndex++){
-            if (this.state.isActive[returnedIndex] === true && this.state.components[returnedIndex].quantity > 0){
+       this.state.components.forEach((component, index) => {
+            if(this.state.isActive[index] === true && component.quantity > 0){
                 pushingComponents.push({
-                    'componentID': this.state.components[returnedIndex].componentID,
-                    'quantity': this.state.components[returnedIndex].quantity,
+                    'componentID': component.componentID,
+                    'quantity': component.quantity,
                     'dateReturned': date
                 })
             }
-        }
+            return null;
+        })
         if (this.user_index_returned === -1){
             ReturnedComponents.records.push({
                 'memberID': this.memberID,
@@ -240,7 +240,24 @@ class ReturningModal extends Component {
                 })
             })
         }
-        this.setState({show: false});
+        /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
+        const nextActiveComponents = [];
+        /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
+        const localStorageComponents = JSON.parse(localStorage.getItem('components'));
+        console.log(localStorageComponents);
+        this.state.components.forEach((component, index) => {
+            console.log(this.state.isActive[index]);
+            if (this.state.isActive[index] === false) {
+                nextActiveComponents.push(localStorageComponents[index]);
+            } else if (component.quantity < localStorageComponents[index].quantity) {
+                const auxComponent = localStorageComponents[index];
+                auxComponent.quantity -= component.quantity;
+                nextActiveComponents.push(auxComponent);
+            }
+        })
+        this.setState({ show: false });
+        ActiveComponents.reservations[this.active_user_index].activeComponents = nextActiveComponents;
+        console.log(ActiveComponents.reservations)
         this.props.handleChangeReturned();
     }
 
