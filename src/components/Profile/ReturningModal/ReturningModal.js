@@ -49,7 +49,9 @@ class ReturningModal extends Component {
             isActive: new Array(this.user_components != null? this.user_components.length : 0).fill(false)
         }
     }
-
+    UNSAFE_componentWillUpdate(){
+        console.log('hello');
+    }
     /*
     Check if there is at least one component active
     */
@@ -124,15 +126,14 @@ class ReturningModal extends Component {
     /* 
     In case of closing the modal, set state to hidden and store components as they were initially 
     */
-    handleClose() { 
+    handleClose() {
         if(this.active_user_index !== -1){
             /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
             const localStorageComponents = JSON.parse(localStorage.getItem('components'));
             ActiveComponents.reservations[this.active_user_index].activeComponents = localStorageComponents;
-            this.setState({ components: localStorageComponents, show: false })
-        } else {
-            this.setState({show: false});
+            this.setState({ components: localStorageComponents})
         }
+        this.setState({ show: false, disabledButton: true });
     }
 
     /*
@@ -185,7 +186,7 @@ class ReturningModal extends Component {
     we have to throw a message, other case show reserved components table 
     */
     checkComponents() {
-        if(this.active_user_index === -1 || this.user_components.length === 0){
+        if(this.active_user_index === -1 || this.state.components.length === 0){
             return (
                 <div>
                     <h3> You have not active reserved components currently </h3>
@@ -216,7 +217,7 @@ class ReturningModal extends Component {
         const date = this.getCurrentDate();
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
         let pushingComponents = [];
-       this.state.components.forEach((component, index) => {
+        this.state.components.forEach((component, index) => {
             if(this.state.isActive[index] === true && component.quantity > 0){
                 pushingComponents.push({
                     'componentID': component.componentID,
@@ -245,8 +246,8 @@ class ReturningModal extends Component {
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
         const localStorageComponents = JSON.parse(localStorage.getItem('components'));
         console.log(localStorageComponents);
+        console.log(this.state.isActive);
         this.state.components.forEach((component, index) => {
-            console.log(this.state.isActive[index]);
             if (this.state.isActive[index] === false) {
                 nextActiveComponents.push(localStorageComponents[index]);
             } else if (component.quantity < localStorageComponents[index].quantity) {
@@ -255,9 +256,11 @@ class ReturningModal extends Component {
                 nextActiveComponents.push(auxComponent);
             }
         })
-        this.setState({ show: false });
+        this.setState({ show: false, 
+            components: nextActiveComponents, 
+            isActive: new Array(nextActiveComponents.length).fill(false), 
+            disabledButton: true });
         ActiveComponents.reservations[this.active_user_index].activeComponents = nextActiveComponents;
-        console.log(ActiveComponents.reservations)
         this.props.handleChangeReturned();
     }
 
