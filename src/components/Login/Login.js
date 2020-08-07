@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Col, Row, Button } from 'react-bootstrap';
 import RoBorregosLogo from '../../images/white_logo.png';
-import membersData from '../../data/members.json';
+import { loginAPI } from '../../scripts/apiScripts.js';
+
 import './Login.css';
 
 class Login extends Component {
@@ -26,15 +27,13 @@ class Login extends Component {
         this.setState({ userPassword: event.target.value });
     }
 
-    handleLogin() {
-        let users = membersData.members;
-        for (let i = 0; i < users.length; i++) {
-            if (users[i].memberID === this.state.userID && users[i].password === this.state.userPassword) {
-                this.onSuccess(this.state.userID);
-                return;
-            }
+    async handleLogin() {
+        const sessionDetails = await loginAPI(this.state.userID,this.state.userPassword);
+        if(sessionDetails.username != ''){
+            this.onSuccess(sessionDetails.username,sessionDetails.token);
+        }else{
+            alert("Username or Password Invalid");
         }
-        alert("Username or Password Invalid");
     }
     render() {
         return (

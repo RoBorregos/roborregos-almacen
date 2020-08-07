@@ -9,9 +9,10 @@ import NavBar from "./components/NavBar/NavBar.js";
 import Profile from "./components/Profile/Profile.js";
 import SelectionCart from "./components/SelectionCart/SelectionCart.js";
 import Warehouse from "./components/Warehouse/Warehouse.js";
-import cookie from 'react-cookies'
+import cookie from 'react-cookies';
 import mock_reservations from './data/mock_reservations.json';
 import routesData from 'data/routes.json';
+import { logoutAPI } from './scripts/apiScripts.js';
 
 class App extends Component {
   constructor(props) {
@@ -21,19 +22,23 @@ class App extends Component {
     this.onLogout = this.onLogout.bind(this);
     
     this.state = {
-      userID: ""
+      userId: '',
+      userToken: ''
     };
     
   }
 
-  onLogin(userId) {
-    this.setState({ userId:userId })
-    cookie.save('userId', userId, { path: '/' })
+  onLogin(userId,userToken) {
+    cookie.save('userId', userId, { path: '/' });
+    cookie.save('userToken', userToken, { path: '/' });
+    this.setState({ userId:userId, userToken:userToken });
   }
   
-  onLogout() {
-    this.setState({userID:""});
-    cookie.remove('userId', { path: '/' })
+  async onLogout() {
+    await logoutAPI(this.state.userId);
+    cookie.remove('userId', { path: '/' });
+    cookie.remove('userToken', { path: '/' });
+    this.setState({userId:'', userToken:''});
   }
   
   render() {
@@ -41,17 +46,18 @@ class App extends Component {
     
     window.onbeforeunload = () => { window.scrollTo(0, 0); }
     
-    if(this.state.userID !== cookie.load('userId')){
-      this.setState({ userID:cookie.load('userId') });
+    if(this.state.userId !== cookie.load('userId') && typeof cookie.load('userId') !== 'undefined' ) {
+      this.setState({ userId:cookie.load('userId') });
     }
-    if (!this.state.userID)
+    
+    if (!this.state.userId)
       return <Login onLogin={ this.onLogin } />;
 
     return (
       <Router>
         <div className="app-container">
 
-          <NavBar userID={ this.state.userID } onLogout={ this.onLogout } routes={ routesData.routes } />
+          <NavBar userId={ this.state.userId } onLogout={ this.onLogout } routes={ routesData.routes } />
 
           <Route
             exact path='/'
@@ -59,7 +65,7 @@ class App extends Component {
           />
           <Route
             exact path='/profile'
-            component={ () => <Profile mock_reservations= { mock_reservations.reservations } memberID= { this.state.userID } /> }
+            component={ () => <Profile mock_reservations= { mock_reservations.reservations } memberID= { this.state.userId } /> }
           />
           <Route
             exact path='/selectionCart'
