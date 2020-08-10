@@ -287,16 +287,28 @@ class ReturningModal extends Component {
                 onHide={ this.handleClose }
                 >
                     <ModalHeader className='returning_head' closeButton>
-                        <h3>Reserved Components</h3>
+                        <h3>Return</h3>
                     </ModalHeader>
                     <ModalBody>
                         { this.checkComponents() }
-                        <Row className="justify-content-center container">
-                            <Button className='checkout-button' 
-                            disabled={ this.state.disabledButton } 
-                            onClick={ () => this.returnComponents() }>
-                                Return components
-                            </Button>  
+                        <Row className="justify-content-center container button-row">
+                                <Col xs={3}>
+                                </Col>
+                                <Col xs={3}>
+                                    <Button className='checkout-button' 
+                                    disabled={ this.state.disabledButton } 
+                                    onClick={ () => this.returnComponents() }>
+                                        Return
+                                    </Button>  
+                                </Col>
+                                <Col xs={3}>
+                                     <Button className='checkout-button'
+                                    onClick={ () => this.handleClose() }>
+                                        Back
+                                    </Button>                
+                                </Col>
+                                <Col xs={3}>
+                                </Col>
                         </Row>
                     </ModalBody>
                 </Modal>

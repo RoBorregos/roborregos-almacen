@@ -2,6 +2,7 @@
 
 .button-row{
     justify-content: center;
+    text-align: center;
     padding-top: 20px;
 }
 
@@ -38,8 +39,13 @@
 /* Header of returning modal */
 
 .returning_head {
+    align-self: center;
     border-color: transparent;
 }
+
+.returning_head .close {
+    display:none;
+  }
 
 /* Single row */
 
