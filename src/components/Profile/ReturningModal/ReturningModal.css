@@ -17,6 +17,20 @@
     height: max-content;
 }
 
+.col-text-centered {
+    justify-content: center;
+}
+
+.ddropdown.is-open {
+    position: relative;
+    z-index: 100;
+}
+
+.ddropdown {
+    position: relative;
+    z-index: 1;
+}
+
 /* First column of modal */
 
 .headers {

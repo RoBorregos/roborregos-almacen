@@ -153,9 +153,10 @@ class ReturningModal extends Component {
    handleShow() {
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
         const components = this.active_user_index === -1? [] : this.user_components;
-
         this.setLocalStorage(components);
         this.setState({ show: true });
+        this.user_components.map((component) => component.quantity = 0);
+        this.setState({ components: this.user_components });
     }
 
     /*
@@ -176,21 +177,22 @@ class ReturningModal extends Component {
         
         this.state.components.map((component, index) => 
             componentsList.push(
-                <Row className='sin_comp_backg_r container bottom-buffer' key={ index }>
+                <Row className='container bottom-buffer' key={ index }>
                         <Col xs='8' className='container pad-left5'>
-                            <Col className='container'>
+                            <Col className='container pad-left5'>
                                 { component.componentID }
                             </Col>
                         </Col>
                         <Col xs='4' className='container'>
-                            <Col xs='6' className='item-counter col-pd ver-center hor-center container'>
+                            <Col xs='6' className='item-counter col-pd ver-center hor-center container pad-left5'>
                                 <div>
                                     { localStorageComponents[index].quantity }
                                 </div>
                             </Col>
-                            <Col xs='6' className='item-counter col-pd ver-center hor-center container'>
+                            <Col xs='6' className='item-counter col-pd ver-center hor-center container pad-left5'>
                                 <div>
-                                    <Dropdown
+                                    <Dropdown className='ddropdown'
+                                    
                                     placeholder={ String(this.state.components[index].quantity) }
                                     options={ this.generateNumbers( localStorageComponents[index].quantity ) }
                                     onChange={ (event) => this.handleDropdownChange(event.value, index) }
@@ -223,10 +225,10 @@ class ReturningModal extends Component {
                                 <h5>Items</h5>
                             </Col>
                             <Col xs='4' className="align-left container pad-left5">
-                                <Col xs='6' className="align-left container pad-left5">
+                                <Col xs='6' className="align-left container pad-left5 col-text-centered">
                                     <h5>Total</h5>
                                 </Col>
-                                <Col xs='6' className="align-left container pad-left5">
+                                <Col xs='6' className="align-left container pad-left5 col-text-centered">
                                     <h5>All</h5>
                                 </Col>
                             </Col>
