@@ -39,7 +39,6 @@ class ReturningModal extends Component {
         this.returnComponents = this.returnComponents.bind(this);
         this.setJsonActiveComponents = this.setJsonActiveComponents.bind(this);   
         this.setLocalStorage = this.setLocalStorage.bind(this);
-
         this.state = {
             /** @type { number } */
             user_index_returned: this.user_index_returned,
@@ -106,8 +105,9 @@ class ReturningModal extends Component {
     handleDropdownChange( newValue, index ) {
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
         const currentComponents = this.state.components;
-        currentComponents[index].quantity = parseInt(newValue);    
-        this.setState({ components: currentComponents });
+        currentComponents[index].quantity = parseInt(newValue);
+        const anyGreaterThanOne = (currentComponents.filter(x => x.quantity > 0).length > 0);
+        this.setState({ components: currentComponents, disabledButton: !anyGreaterThanOne });
     }
 
     /* 
@@ -119,7 +119,6 @@ class ReturningModal extends Component {
             const localStorageComponents = this.getLocalStoredComponents();
             this.setJsonActiveComponents(localStorageComponents);
             this.user_components = localStorageComponents;
-            this.setState({ components: this.user_components });
         }
         this.setState({ show: false, disabledButton: true });
     }
@@ -131,19 +130,19 @@ class ReturningModal extends Component {
         const localStorageComponents = this.getLocalStoredComponents();
         
         this.state.components.forEach((component, index) => {
-            if (component.quantity < localStorageComponents[index].quantity && component.quantity > 0) {
+            if (component.quantity < localStorageComponents[index].quantity) {
                 const auxComponent = localStorageComponents[index];
                 auxComponent.quantity -= component.quantity;
                 nextActiveComponents.push(auxComponent);
             }
         })
-        this.setState({
-            show: false, 
-            components: nextActiveComponents,
-            disabledButton: true 
-        });
+        this.user_components = nextActiveComponents;
         this.setJsonActiveComponents(nextActiveComponents);
         this.props.handleChangeReturned();
+        this.setState({
+            show: false,
+            disabledButton: true 
+        });
     }
 
 
@@ -154,9 +153,9 @@ class ReturningModal extends Component {
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
         const components = this.active_user_index === -1? [] : this.user_components;
         this.setLocalStorage(components);
-        this.setState({ show: true });
-        this.user_components.map((component) => component.quantity = 0);
-        this.setState({ components: this.user_components });
+        const auxiliar = this.user_components;
+        auxiliar.map((component) => component.quantity = 0);
+        this.setState({ components: auxiliar, show:true });
     }
 
     /*
@@ -186,15 +185,14 @@ class ReturningModal extends Component {
                         <Col xs='4' className='container'>
                             <Col xs='6' className='item-counter col-pd ver-center hor-center container pad-left5'>
                                 <div>
-                                    { localStorageComponents[index].quantity }
+                                    {  localStorageComponents[index] === null? 0 : localStorageComponents[index].quantity }
                                 </div>
                             </Col>
                             <Col xs='6' className='item-counter col-pd ver-center hor-center container pad-left5'>
                                 <div>
                                     <Dropdown className='ddropdown'
-                                    
                                     placeholder={ String(this.state.components[index].quantity) }
-                                    options={ this.generateNumbers( localStorageComponents[index].quantity ) }
+                                    options={ this.generateNumbers( localStorageComponents[index] === null? 0 : localStorageComponents[index].quantity ) }
                                     onChange={ (event) => this.handleDropdownChange(event.value, index) }
                                     />
                                 </div>
@@ -256,8 +254,7 @@ class ReturningModal extends Component {
                     'dateReturned': date
                 })
             }
-            return null;
-        })
+        });
         // When there is not a register of user in returned components JSON (index === -1)
         if (this.state.user_index_returned === -1) {
             ReturnedComponents.records.push({
