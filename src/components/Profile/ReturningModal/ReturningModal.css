@@ -11,6 +11,9 @@
     display: flex;
     margin-left: 0;
     margin-right: 0;
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
 }
 
 /* First column of modal */

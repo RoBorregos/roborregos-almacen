@@ -1,11 +1,12 @@
 import './ReturningModal.css';
+import 'react-dropdown/style.css';
 
 import { Button, Col, Row } from 'react-bootstrap';
 import { Modal, ModalBody } from 'react-bootstrap';
 import React, { Component } from 'react';
 
 import ActiveComponents from '../../../data/active_components.json';
-import Checkbox from '@material-ui/core/Checkbox';
+import Dropdown from 'react-dropdown';
 import ModalHeader from 'react-bootstrap/ModalHeader';
 import ReturnedComponents from '../../../data/returned_components.json'
 import { connect } from 'react-redux';
@@ -28,17 +29,16 @@ class ReturningModal extends Component {
 
         /** @type { number } */
         this.user_index_returned = props.user_index_returned;
-
-        this.checkForSingleActiveComponent = this.checkForSingleActiveComponent.bind(this);
-        this.handleCheckBox = this.handleCheckBox.bind(this);
+        
+        this.getLocalStoredComponents = this.getLocalStoredComponents.bind(this);
         this.handleClose = this.handleClose.bind(this);
-        this.handleDecrement = this.handleDecrement.bind(this);
-        this.handleIcrement = this.handleIcrement.bind(this);
+        this.handleDropdownChange = this.handleDropdownChange.bind(this);
         this.handleModalList = this.handleModalList.bind(this);
         this.handleShow = this.handleShow.bind(this);
         this.loadReserved = this.loadReserved.bind(this);
         this.returnComponents = this.returnComponents.bind(this);
-        this.setJsonActiveComponents = this.setJsonActiveComponents.bind(this);        
+        this.setJsonActiveComponents = this.setJsonActiveComponents.bind(this);   
+        this.setLocalStorage = this.setLocalStorage.bind(this);
 
         this.state = {
             /** @type { number } */
@@ -48,10 +48,24 @@ class ReturningModal extends Component {
             /** @type { boolean } */
             show: false,
             /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
-            components: this.user_components,
-            /** @type {!Array<{ boolean }>, ...}>}*/
-            isActive: new Array(this.user_components.length > 0? this.user_components.length : 0).fill(false)
+            components: this.user_components
         }
+    }
+
+    generateNumbers( quantity ){
+        const quantitys = [];
+        for (let i = 0; i <= quantity; i++) {
+            quantitys.push({
+                key: String(i),
+                text: String(i),
+                value: String(i)
+            });
+        }
+        return quantitys;
+    }
+
+    setLocalStorage( components ) {
+        localStorage.setItem('components', JSON.stringify(components));
     }
 
     /*
@@ -61,13 +75,6 @@ class ReturningModal extends Component {
     setJsonActiveComponents( nextComponents ) {
         ActiveComponents.reservations[this.active_user_index].activeComponents = nextComponents;
     }
-    
-    /*
-    * Check if there is at least one component active
-    */
-    checkForSingleActiveComponent() {
-        return this.state.isActive.some(elem => elem === true);
-    }
 
     // If index has changed because user had not history then we should update the index
     componentDidUpdate(prevProps) {
@@ -75,6 +82,10 @@ class ReturningModal extends Component {
           this.user_index_returned = this.props.user_index_returned;
           this.setState({ user_index_returned: this.user_index_returned })
         }
+    }
+
+    getLocalStoredComponents() {
+        return JSON.parse(localStorage.getItem('components'));
     }
 
     /*
@@ -90,43 +101,12 @@ class ReturningModal extends Component {
     }
 
     /* 
-    When user clicks on the checkbox the components is confirmed that is going to be returned when clicks return components
-    button inside the modal
-    */
-    /** @param {index:number}*/
-    handleCheckBox( index ) {
-        const copyOfChecked = this.state.isActive;
-        copyOfChecked[index] = !copyOfChecked[index];
-        this.setState({isActive: copyOfChecked, disabledButton: !this.checkForSingleActiveComponent()});
-    }
-
-    /* 
-    Index of the component that is going to modify its quantity (state)
-    It's necessary to check that we have not excced our components max reserved quantity 
-    */
-    /** @param {index: Number}*/
-    handleIcrement( index ) { 
-        /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
-        const localStorageComponents = JSON.parse(localStorage.getItem('components'));
-        /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
-        const temporaryComponents = this.state.components;
-
-        if (temporaryComponents[index].quantity < localStorageComponents[index].quantity)
-            temporaryComponents[index].quantity++;
-
-        this.setState({ components: temporaryComponents });
-    }
-
-    /* 
     Index is the index of the component that is going to modify its quantity (state) 
     */
-    handleDecrement( index ) { 
+    handleDropdownChange( newValue, index ) {
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
         const currentComponents = this.state.components;
-
-        if (currentComponents[index].quantity > 0)
-            currentComponents[index].quantity--;
-            
+        currentComponents[index].quantity = parseInt(newValue);    
         this.setState({ components: currentComponents });
     }
 
@@ -136,9 +116,10 @@ class ReturningModal extends Component {
     handleClose() {
         if (this.active_user_index !== -1){
             /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
-            const localStorageComponents = JSON.parse(localStorage.getItem('components'));
+            const localStorageComponents = this.getLocalStoredComponents();
             this.setJsonActiveComponents(localStorageComponents);
-            this.setState({ components: localStorageComponents})
+            this.user_components = localStorageComponents;
+            this.setState({ components: this.user_components });
         }
         this.setState({ show: false, disabledButton: true });
     }
@@ -147,12 +128,10 @@ class ReturningModal extends Component {
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
         const nextActiveComponents = [];
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
-        const localStorageComponents = JSON.parse(localStorage.getItem('components'));
+        const localStorageComponents = this.getLocalStoredComponents();
         
         this.state.components.forEach((component, index) => {
-            if (this.state.isActive[index] === false) {
-                nextActiveComponents.push(localStorageComponents[index]);
-            } else if (component.quantity < localStorageComponents[index].quantity) {
+            if (component.quantity < localStorageComponents[index].quantity && component.quantity > 0) {
                 const auxComponent = localStorageComponents[index];
                 auxComponent.quantity -= component.quantity;
                 nextActiveComponents.push(auxComponent);
@@ -160,8 +139,7 @@ class ReturningModal extends Component {
         })
         this.setState({
             show: false, 
-            components: nextActiveComponents, 
-            isActive: new Array(nextActiveComponents.length).fill(false), 
+            components: nextActiveComponents,
             disabledButton: true 
         });
         this.setJsonActiveComponents(nextActiveComponents);
@@ -172,12 +150,12 @@ class ReturningModal extends Component {
     /* 
     Set the state of the modal and stores user active components 
     */
-   handleShow() { 
+   handleShow() {
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
         const components = this.active_user_index === -1? [] : this.user_components;
 
-        localStorage.setItem('components', JSON.stringify(components));
-        this.setState({ show: true })
+        this.setLocalStorage(components);
+        this.setState({ show: true });
     }
 
     /*
@@ -186,37 +164,38 @@ class ReturningModal extends Component {
     loadReserved() {
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
         const componentsList = [];
-
+        if (this.getLocalStoredComponents().length < this.user_components.length) {
+            const optional = this.getLocalStoredComponents();
+            for (let i = this.getLocalStoredComponents().length-1; i < this.user_components.length; i++) {
+                optional.push(this.user_components[i]);
+            }
+            this.setLocalStorage(optional);
+        }
+        /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
+        const localStorageComponents = this.getLocalStoredComponents();
+        
         this.state.components.map((component, index) => 
             componentsList.push(
                 <Row className='sin_comp_backg_r container bottom-buffer' key={ index }>
-                        <Col xs='6' className='container pad-left5'>
+                        <Col xs='8' className='container pad-left5'>
                             <Col className='container'>
                                 { component.componentID }
                             </Col>
                         </Col>
-                        <Col xs='6' className='container'>
-                            <Col xs='2' className='col-pd hor-center align-items-center container'>
-                                <Button className='subt-button' 
-                                onClick={ () => this.handleDecrement(index) }
-                                >
-                                -
-                                </Button>
-                            </Col>
-                            <Col xs='4' className='item-counter col-pd ver-center hor-center container'>
-                                <div className="input-group-field">
-                                    { component.quantity }
+                        <Col xs='4' className='container'>
+                            <Col xs='6' className='item-counter col-pd ver-center hor-center container'>
+                                <div>
+                                    { localStorageComponents[index].quantity }
                                 </div>
                             </Col>
-                            <Col xs='2' className='col-pd hor-center align-items-center container'>
-                                <Button className='add-button' 
-                                onClick={ () => this.handleIcrement(index) }
-                                >
-                                +
-                                </Button>
-                            </Col>
-                            <Col xs='4' className='col-pd hor-center align-items-center container'>
-                                <Checkbox className='checkbox' onClick= { () => this.handleCheckBox(index) }/>
+                            <Col xs='6' className='item-counter col-pd ver-center hor-center container'>
+                                <div>
+                                    <Dropdown
+                                    placeholder={ String(this.state.components[index].quantity) }
+                                    options={ this.generateNumbers( localStorageComponents[index].quantity ) }
+                                    onChange={ (event) => this.handleDropdownChange(event.value, index) }
+                                    />
+                                </div>
                             </Col>
                         </Col>
                 </Row>
@@ -240,11 +219,16 @@ class ReturningModal extends Component {
             return (
                 <div>
                     <Row className="headers justify-content-center container bottom-buffer">
-                            <Col xs='6' className="align-left container pad-left5">
-                                <h5>Component</h5>
+                            <Col xs='8' className="align-left container pad-left5">
+                                <h5>Items</h5>
                             </Col>
-                            <Col xs='6' className="align-left container pad-left5">
-                                <h5>Quantity</h5>
+                            <Col xs='4' className="align-left container pad-left5">
+                                <Col xs='6' className="align-left container pad-left5">
+                                    <h5>Total</h5>
+                                </Col>
+                                <Col xs='6' className="align-left container pad-left5">
+                                    <h5>All</h5>
+                                </Col>
                             </Col>
                     </Row>
                     { this.loadReserved() }
@@ -263,7 +247,7 @@ class ReturningModal extends Component {
         let pushingComponents = [];
         
         this.state.components.forEach((component, index) => {
-            if (this.state.isActive[index] === true && component.quantity > 0){
+            if (component.quantity > 0) {
                 pushingComponents.push({
                     'componentID': component.componentID,
                     'quantity': component.quantity,
