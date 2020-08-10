@@ -22,14 +22,14 @@ class ReturningModal extends Component {
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
         this.user_components = (
             this.active_user_index === -1? 
-            null : 
+            [] : 
             ActiveComponents.reservations[this.active_user_index].activeComponents
         );
 
         /** @type { number } */
         this.user_index_returned = props.user_index_returned;
 
-        this.checkOneActive = this.checkOneActive.bind(this);
+        this.checkForSingleActiveComponent = this.checkForSingleActiveComponent.bind(this);
         this.handleCheckBox = this.handleCheckBox.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleDecrement = this.handleDecrement.bind(this);
@@ -38,7 +38,8 @@ class ReturningModal extends Component {
         this.handleShow = this.handleShow.bind(this);
         this.loadReserved = this.loadReserved.bind(this);
         this.returnComponents = this.returnComponents.bind(this);
-        
+        this.setJsonActiveComponents = this.setJsonActiveComponents.bind(this);        
+
         this.state = {
             /** @type { number } */
             user_index_returned: this.user_index_returned,
@@ -49,13 +50,22 @@ class ReturningModal extends Component {
             /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
             components: this.user_components,
             /** @type {!Array<{ boolean }>, ...}>}*/
-            isActive: new Array(this.user_components != null? this.user_components.length : 0).fill(false)
+            isActive: new Array(this.user_components.length > 0? this.user_components.length : 0).fill(false)
         }
     }
+
     /*
-    Check if there is at least one component active
+    * Set the new active components list for the user
     */
-    checkOneActive() {
+   /** @param {nextComponents:!Array<{componentID:String, quantity: number}>, ...}>}*/
+    setJsonActiveComponents( nextComponents ) {
+        ActiveComponents.reservations[this.active_user_index].activeComponents = nextComponents;
+    }
+    
+    /*
+    * Check if there is at least one component active
+    */
+    checkForSingleActiveComponent() {
         return this.state.isActive.some(elem => elem === true);
     }
 
@@ -83,25 +93,25 @@ class ReturningModal extends Component {
     When user clicks on the checkbox the components is confirmed that is going to be returned when clicks return components
     button inside the modal
     */
-    /** @param {index: number}*/
+    /** @param {index:number}*/
     handleCheckBox( index ) {
         const copyOfChecked = this.state.isActive;
         copyOfChecked[index] = !copyOfChecked[index];
-        this.setState({isActive: copyOfChecked, disabledButton: !this.checkOneActive()});
+        this.setState({isActive: copyOfChecked, disabledButton: !this.checkForSingleActiveComponent()});
     }
 
     /* 
     Index of the component that is going to modify its quantity (state)
     It's necessary to check that we have not excced our components max reserved quantity 
     */
-    /** @param {index: number}*/
+    /** @param {index: Number}*/
     handleIcrement( index ) { 
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
         const localStorageComponents = JSON.parse(localStorage.getItem('components'));
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
         const temporaryComponents = this.state.components;
 
-        if(temporaryComponents[index].quantity < localStorageComponents[index].quantity)
+        if (temporaryComponents[index].quantity < localStorageComponents[index].quantity)
             temporaryComponents[index].quantity++;
 
         this.setState({ components: temporaryComponents });
@@ -114,7 +124,7 @@ class ReturningModal extends Component {
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
         const currentComponents = this.state.components;
 
-        if(currentComponents[index].quantity > 0)
+        if (currentComponents[index].quantity > 0)
             currentComponents[index].quantity--;
             
         this.setState({ components: currentComponents });
@@ -124,11 +134,10 @@ class ReturningModal extends Component {
     In case of closing the modal, set state to hidden and store components as they were initially 
     */
     handleClose() {
-        if(this.active_user_index !== -1){
+        if (this.active_user_index !== -1){
             /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
             const localStorageComponents = JSON.parse(localStorage.getItem('components'));
-            
-            ActiveComponents.reservations[this.active_user_index].activeComponents = localStorageComponents;
+            this.setJsonActiveComponents(localStorageComponents);
             this.setState({ components: localStorageComponents})
         }
         this.setState({ show: false, disabledButton: true });
@@ -141,9 +150,9 @@ class ReturningModal extends Component {
         const localStorageComponents = JSON.parse(localStorage.getItem('components'));
         
         this.state.components.forEach((component, index) => {
-            if(this.state.isActive[index] === false) {
+            if (this.state.isActive[index] === false) {
                 nextActiveComponents.push(localStorageComponents[index]);
-            } else if(component.quantity < localStorageComponents[index].quantity) {
+            } else if (component.quantity < localStorageComponents[index].quantity) {
                 const auxComponent = localStorageComponents[index];
                 auxComponent.quantity -= component.quantity;
                 nextActiveComponents.push(auxComponent);
@@ -155,7 +164,7 @@ class ReturningModal extends Component {
             isActive: new Array(nextActiveComponents.length).fill(false), 
             disabledButton: true 
         });
-        ActiveComponents.reservations[this.active_user_index].activeComponents = nextActiveComponents;
+        this.setJsonActiveComponents(nextActiveComponents);
         this.props.handleChangeReturned();
     }
 
@@ -165,7 +174,7 @@ class ReturningModal extends Component {
     */
    handleShow() { 
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
-        const components = this.active_user_index === -1? null : ActiveComponents.reservations[this.active_user_index].activeComponents;
+        const components = this.active_user_index === -1? [] : this.user_components;
 
         localStorage.setItem('components', JSON.stringify(components));
         this.setState({ show: true })
@@ -221,7 +230,7 @@ class ReturningModal extends Component {
     we have to throw a message, other case show reserved components table 
     */
     checkComponents() {
-        if(this.active_user_index === -1 || this.state.components.length === 0){
+        if (this.active_user_index === -1 || this.state.components.length === 0){
             return (
                 <div>
                     <h3> You have not active reserved components currently </h3>
@@ -254,7 +263,7 @@ class ReturningModal extends Component {
         let pushingComponents = [];
         
         this.state.components.forEach((component, index) => {
-            if(this.state.isActive[index] === true && component.quantity > 0){
+            if (this.state.isActive[index] === true && component.quantity > 0){
                 pushingComponents.push({
                     'componentID': component.componentID,
                     'quantity': component.quantity,
@@ -264,7 +273,7 @@ class ReturningModal extends Component {
             return null;
         })
         // When there is not a register of user in returned components JSON (index === -1)
-        if(this.state.user_index_returned === -1) {
+        if (this.state.user_index_returned === -1) {
             ReturnedComponents.records.push({
                 'memberID': this.memberID,
                 'returnedComponents': pushingComponents

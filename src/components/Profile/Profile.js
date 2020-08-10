@@ -17,15 +17,12 @@ class Profile extends Component {
             reservation => reservation.memberID === this.memberID 
         );
         /** @type {!Array<{componentID: String, quantity: number, dateReturned: String}>, ...}>}*/
-        this.returned_components = (
-            this.user_index_returned === -1? 
-            null : 
-            ReturnedComponents.records[this.user_index_returned].returnedComponents
-        );
+        this.returned_components = ( this.user_index_returned === -1? [] : this.getReturnedComponents() );
         
         this.handleChangeReturned = this.handleChangeReturned.bind(this);
         this.loadReservations = this.loadReservations.bind(this);
-        this.loadReturned = this.loadReturned.bind(this);
+        this.loadReturnedComponentsTable = this.loadReturnedComponentsTable.bind(this);
+        this.getReturnedComponents = this.getReturnedComponents.bind(this);
         this.mock_reservations = props.mock_reservations;
 
         this.state = {
@@ -35,26 +32,33 @@ class Profile extends Component {
             returnedComponents: this.returned_components
         }
     }
+
+    /*
+    *  This function returns the returned components of an specific user based on its index
+    */
+    getReturnedComponents(){
+        return ReturnedComponents.records[this.user_index_returned].returnedComponents;
+    }
     
     /*
-    This function is used to track the change when user clicks in modal button
+    *  This function is used to track the change when user clicks in modal button
     */
     handleChangeReturned() {
-        if(this.state.returned_user_index === -1) {
+        if (this.state.returned_user_index === -1) {
             this.user_index_returned = ReturnedComponents.records.findIndex(
                  reservation => reservation.memberID === this.memberID 
             );
         }
-        this.returned_components = ReturnedComponents.records[this.user_index_returned].returnedComponents;
+        this.returned_components = this.getReturnedComponents();
         this.setState({ returned_user_index: this.user_index_returned, 
             returnedComponents: this.returned_components });
     }
 
     /*
-    Loads mock reservations in a table
+    *  Loads mock reservations in a table
     */
     loadReservations() {
-        if(this.mock_reservations.findIndex((each) =>  each.memberID === this.memberID) !== -1) {
+        if (this.mock_reservations.findIndex((each) =>  each.memberID === this.memberID) !== -1) {
             return(
                 <div>
                     <Col>
@@ -73,16 +77,16 @@ class Profile extends Component {
                     <Col>
                         {
                             this.mock_reservations.map((eachReservation) => {
-                            if( eachReservation.memberID === this.memberID ) {
+                            if ( eachReservation.memberID === this.memberID ) {
                                 return (
                                     <div key={ eachReservation.reservation_key }>
                                         { eachReservation.reservation.map((eachComponent, index) => {
                                         return (
                                             <div key={ index }>
                                                 <Row className={ (index % 2 === 0 ? "oddRow" : "evenRow") }>
-                                                    <Col className="reservations">{eachReservation.date}</Col>
-                                                    <Col className="reservations">{eachComponent.componentID}</Col>
-                                                    <Col className="reservations">{eachComponent.quantity}</Col>
+                                                    <Col className="reservations">{ eachReservation.date }</Col>
+                                                    <Col className="reservations">{ eachComponent.componentID }</Col>
+                                                    <Col className="reservations">{ eachComponent.quantity }</Col>
                                                 </Row>
                                             </div>
                                         )
@@ -97,17 +101,15 @@ class Profile extends Component {
                 </div>
             )
         } else {
-            return (
-                <h3>You have not done any reservations</h3>
-            )
+            return ( <h3>You have not done any reservations</h3> );
         }
     }
 
     /*
-    Returns the table that contains returned components
+    *  Returns the table that contains returned components
     */
-   loadReturned() {
-    if(this.user_index_returned !== -1) {
+   loadReturnedComponentsTable()  {
+    if (this.user_index_returned !== -1) {
         return (
             <div>
                 <Col>
@@ -141,7 +143,7 @@ class Profile extends Component {
             </div>
         )
     } else {
-        return ( <h3>You have not returned any component</h3> )
+        return ( <h3>You have not returned any component</h3> );
     }
 }
 
@@ -158,7 +160,7 @@ class Profile extends Component {
                     <h1>Your returned components</h1>
                 </Col>
                 <Col>
-                    { this.loadReturned() }
+                    { this.loadReturnedComponentsTable() }
                 </Col>
                 <Col>
                     <ReturningModal memberID={ this.memberID } 
