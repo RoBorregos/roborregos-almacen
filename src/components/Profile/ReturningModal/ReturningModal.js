@@ -187,7 +187,7 @@ class ReturningModal extends Component {
                         </Col>
                         <Col xs='4' className='container'>
                             <Col xs='6' className='item-counter col-pd ver-center hor-center container pad-left5'>
-                                <div>
+                                <div className="current-gray">
                                     { localStorageComponents[index].quantity }
                                 </div>
                             </Col>
@@ -231,16 +231,18 @@ class ReturningModal extends Component {
         } else {
             return (
                 <div>
-                    <Row className="headers justify-content-center container bottom-buffer">
-                            <Col xs='8' className="align-left container pad-left5">
-                                <h5>Items</h5>
+                    <Row className="justify-content-center container bottom-buffer title-row">
+                            <Col xs='8' className="align-left container pad-left10">
+                                <h5 className="quit-bottom">Items</h5>
                             </Col>
                             <Col xs='4' className="align-left container pad-left5">
                                 <Col xs='6' className="align-left container pad-left5 col-text-centered">
-                                    <h5>Total</h5>
+                                    <h5 className="quit-bottom">Total</h5>
                                 </Col>
                                 <Col xs='6' className="align-left container pad-left5 col-text-centered">
-                                    <h5>All</h5>
+                                    <div className="allRow">
+                                        <h5 className="quit-bottom">All</h5>
+                                    </div>
                                 </Col>
                             </Col>
                     </Row>
@@ -294,10 +296,11 @@ class ReturningModal extends Component {
                         Click here to return components 
                     </Button>
                 </Row>
-                <Modal
+                <Modal className='returning-modal'
                 show={ this.state.show }
                 onHide={ this.handleClose }
                 >
+                    <div className='topBlack'></div>
                     <ModalHeader className='returning_head' closeButton>
                         <h3>Return</h3>
                     </ModalHeader>
