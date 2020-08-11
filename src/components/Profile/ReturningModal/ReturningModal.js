@@ -124,6 +124,7 @@ class ReturningModal extends Component {
     }
 
     handleModalList() {
+        
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
         const nextActiveComponents = [];
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
@@ -138,10 +139,12 @@ class ReturningModal extends Component {
         })
         this.user_components = nextActiveComponents;
         this.setJsonActiveComponents(nextActiveComponents);
+        this.setLocalStorage(nextActiveComponents);
         this.props.handleChangeReturned();
         this.setState({
             show: false,
-            disabledButton: true 
+            disabledButton: true,
+            components: this.user_components
         });
     }
 
@@ -185,14 +188,14 @@ class ReturningModal extends Component {
                         <Col xs='4' className='container'>
                             <Col xs='6' className='item-counter col-pd ver-center hor-center container pad-left5'>
                                 <div>
-                                    {  localStorageComponents[index] === null? 0 : localStorageComponents[index].quantity }
+                                    { localStorageComponents[index].quantity }
                                 </div>
                             </Col>
                             <Col xs='6' className='item-counter col-pd ver-center hor-center container pad-left5'>
                                 <div>
                                     <Dropdown className='ddropdown'
                                     placeholder={ String(this.state.components[index].quantity) }
-                                    options={ this.generateNumbers( localStorageComponents[index] === null? 0 : localStorageComponents[index].quantity ) }
+                                    options={ this.generateNumbers( localStorageComponents[index].quantity ) }
                                     onChange={ (event) => this.handleDropdownChange(event.value, index) }
                                     />
                                 </div>
@@ -209,7 +212,17 @@ class ReturningModal extends Component {
     we have to throw a message, other case show reserved components table 
     */
     checkComponents() {
-        if (this.active_user_index === -1 || this.state.components.length === 0){
+        if (this.getLocalStoredComponents().length === 0) {
+            this.setLocalStorage(this.user_components);
+        } 
+        else if (this.getLocalStoredComponents().length < this.state.components.length) {
+            const optional = this.getLocalStoredComponents();
+            for (let i = this.getLocalStoredComponents().length-1; i < this.user_components.length; i++) {
+                optional.push(this.user_components[i]);
+            }
+            this.setLocalStorage(optional);
+        }
+        if (this.active_user_index === -1 || this.user_components.length === 0){
             return (
                 <div>
                     <h3> You have not active reserved components currently </h3>
