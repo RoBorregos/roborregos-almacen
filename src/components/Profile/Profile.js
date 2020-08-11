@@ -5,6 +5,8 @@ import React, { Component } from 'react';
 
 import ReturnedComponents from '../../data/returned_components.json'
 import ReturningModal from './ReturningModal/ReturningModal';
+import Tab from 'react-bootstrap/Tab'
+import Tabs from 'react-bootstrap/Tabs'
 import { connect } from 'react-redux';
 
 class Profile extends Component {
@@ -60,17 +62,17 @@ class Profile extends Component {
     loadReservations() {
         if (this.mock_reservations.findIndex((each) =>  each.memberID === this.memberID) !== -1) {
             return(
-                <div>
+                <div className="rows-container">
                     <Col>
-                        <Row className="first-row justify-content-center">
+                        <Row className="justify-content-center">
                             <Col className="justify-content-center">
-                                <h2>Date</h2>
+                                Date
                             </Col>
                             <Col className="justify-content-center">
-                                <h2>Component</h2>
+                                Component
                             </Col>
                             <Col className="justify-content-center">
-                                <h2>Quantity</h2>
+                                Quantity
                             </Col>
                         </Row>
                     </Col>
@@ -83,10 +85,10 @@ class Profile extends Component {
                                         { eachReservation.reservation.map((eachComponent, index) => {
                                         return (
                                             <div key={ index }>
-                                                <Row className={ (index % 2 === 0 ? "oddRow" : "evenRow") }>
-                                                    <Col className="reservations">{ eachReservation.date }</Col>
-                                                    <Col className="reservations">{ eachComponent.componentID }</Col>
-                                                    <Col className="reservations">{ eachComponent.quantity }</Col>
+                                                <Row>
+                                                    <Col>{ eachReservation.date }</Col>
+                                                    <Col>{ eachComponent.componentID }</Col>
+                                                    <Col>{ eachComponent.quantity }</Col>
                                                 </Row>
                                             </div>
                                         )
@@ -111,17 +113,17 @@ class Profile extends Component {
    loadReturnedComponentsTable()  {
     if (this.user_index_returned !== -1) {
         return (
-            <div>
+            <div className="rows-container">
                 <Col>
-                    <Row className="first-row justify-content-center">
+                    <Row className="justify-content-center">
                         <Col className="justify-content-center">
-                            <h2>Date</h2>
+                            Date
                         </Col>
                         <Col className="justify-content-center">
-                            <h2>Component</h2>
+                            Component
                         </Col>
                         <Col className="justify-content-center">
-                            <h2>Quantity</h2>
+                            Quantity
                         </Col>
                     </Row>
                 </Col>
@@ -130,10 +132,10 @@ class Profile extends Component {
                         this.state.returnedComponents.map((component, index) => {
                             return (
                                 <div key={ index }>
-                                    <Row className={ (index % 2 === 0 ? "oddRow" : "evenRow") }>
-                                        <Col className="reservations">{ component.dateReturned }</Col>
-                                        <Col className="reservations">{ component.componentID }</Col>
-                                        <Col className="reservations">{ component.quantity }</Col>
+                                    <Row>
+                                        <Col>{ component.dateReturned }</Col>
+                                        <Col>{ component.componentID }</Col>
+                                        <Col>{ component.quantity }</Col>
                                     </Row>
                                 </div>
                             )
@@ -147,26 +149,27 @@ class Profile extends Component {
     }
 }
 
-    render() {
+render() {
         return (
-            <div className="profile_container">
-                <Col >
-                    <h1>Your Reservations</h1>
-                </Col>
-                <Col>
-                    { this.loadReservations() }
-                </Col>
-                <Col >
-                    <h1>Your returned components</h1>
-                </Col>
-                <Col>
-                    { this.loadReturnedComponentsTable() }
-                </Col>
-                <Col>
-                    <ReturningModal memberID={ this.memberID } 
-                    user_index_returned={ this.user_index_returned }
-                    handleChangeReturned={ this.handleChangeReturned }/>  
-                </Col>
+            <div className="profile_container"> 
+                <h2 className="blue-title">Your Reservations</h2>
+                <Tabs className="tabs-container" defaultActiveKey="reservations">
+                    <Tab eventKey="reservations" title="History">
+                        <Col className="quit-hor-pads">
+                            { this.loadReservations() }
+                        </Col>
+                    </Tab>
+                    <Tab eventKey="archive" title="Current">
+                        <Col className="quit-hor-pads">
+                            { this.loadReturnedComponentsTable() }
+                        </Col>
+                        <Col>
+                            <ReturningModal memberID={ this.memberID } 
+                            user_index_returned={ this.user_index_returned }
+                            handleChangeReturned={ this.handleChangeReturned }/>  
+                        </Col>
+                    </Tab>
+                </Tabs>
             </div>
         );
     }

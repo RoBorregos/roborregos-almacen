@@ -292,8 +292,8 @@ class ReturningModal extends Component {
         return(
             <div onClick={ e => e.stopPropagation() }>
                 <Row className='button-row'>
-                    <Button onClick={ () => this.handleShow() }> 
-                        Click here to return components 
+                    <Button className="return-button" onClick={ () => this.handleShow() }> 
+                        Return components 
                     </Button>
                 </Row>
                 <Modal className='returning-modal'

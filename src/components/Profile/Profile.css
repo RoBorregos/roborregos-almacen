@@ -1,25 +1,54 @@
 .profile_container {
-    color: white;
     min-height: 100%;
-    background: linear-gradient( 45deg, rgba(20, 18, 19, 0.9) 30%, rgba(0, 94, 105, 0.9) 100%);
+    background: #1C2329;
     padding-top: 55px;
     font-size: 25px;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 10%;
 }
 
-.reservations {
-    color: black;
+.tabs-container {
+    padding-top: 4%;
 }
 
-.evenRow {
-    background-color: white;
+.tabs-container > a {
+    background: rgba(2,2,6,0.58);
+    color: #FFF;
 }
 
-.oddRow {
-    background-color: lightgray;
+.tabs-container > a.nav-item.nav-link.active {
+    background: #000;
+    color: #FFF;
 }
 
 .first-row {
-    color: black;
     background-color: darkgray;
 }
 
+.quit-hor-pads {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.rows-container {
+    background: #000;
+    color: #FFF;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    border-radius: 0 20px 20px 20px;
+    padding-left: 20px;
+}
+
+.nav-tabs {
+    border-bottom: 0;
+  }
+
+.tab-link {
+    background: #000;
+    color: #FFF;
+}
+
+.blue-title {
+    color: #00D9FF;
+}
