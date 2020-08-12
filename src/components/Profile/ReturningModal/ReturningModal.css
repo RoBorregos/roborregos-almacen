@@ -1,20 +1,21 @@
-/* Click here to return components button */
+.allRow {
+    text-align: center;
+    width: 100%;
+    background-color: #33E1FF;
+    color: white;
+    border-radius: 2px;
+    margin-left: 6px;
+    margin-right: 8px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
+}
 
-.button-row{
+.button-row {
     justify-content: center;
     text-align: center;
     padding-top: 20px;
 }
 
-.modal-content {
-    min-width: 600px;
-    border-radius: 20px;
-    background: #464646;
-    color: white;
-    border: 0;
-}
-
-.title-row {
+.blue-letters {
     color: #33E1FF;
 }
 
@@ -33,24 +34,36 @@
     justify-content: center;
 }
 
-.ddropdown.is-open {
-    position: relative;
-    z-index: 100;
+.current-gray {
+    color: #B0B0B0;
 }
 
-.allRow {
-    text-align: center;
-    width: 100%;
-    background-color: #33E1FF;
+.checkout-button {
+    border-radius: 50px; 
+    background-color: #000;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
     color: white;
-    border-radius: 2px;
-    margin-left: 6px;
-    margin-right: 8px;
+    font-size: 20px;
+    width: 130px;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
 }
 
-.current-gray {
-    color: #B0B0B0;
+.modal-content {
+    min-width: 600px;
+    border-radius: 20px;
+    background: #464646;
+    color: white;
+    border: 0;
+}
+
+.title-row {
+    color: #33E1FF;
+}
+
+
+.dropdown.is-open {
+    position: relative;
+    z-index: 100;
 }
 
 .quit-bottom {
@@ -68,20 +81,8 @@
     color: #000;
 }
 
-/* First column of modal */
-
-.pad-left10{
+.pad-left10 {
     padding-left: 10px;
-}
-
-.checkout-button {
-    border-radius: 50px; 
-    background-color: #000;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
-    color: white;
-    font-size: 20px;
-    width: 130px;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
 }
 
 .return-button {
@@ -121,13 +122,9 @@
     background-color: darkgray;
 }
 
-/* Padding left 5 */
-
 .pad-left5 {
     padding-left: 5px;
 }
-
-/* Header of returning modal */
 
 .topBlack {
     height: 30px;
@@ -148,17 +145,4 @@
 
 .returning_head .close {
     display:none;
-  }
-
-/* Single row */
-
-.sin_comp_backg_r {
-    background: linear-gradient( 45deg, rgb(169, 214, 228) 1%, rgba(42, 88, 102, 0.849) 100%);
-    height: -webkit-max-content;
-    height: -moz-max-content;
-    height: max-content;
-    width: 100%;
-    padding: 5px;
-    border-radius: 12px;
-    margin-bottom:10px; 
 }

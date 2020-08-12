@@ -177,11 +177,13 @@ class ReturningModal extends Component {
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
         const localStorageComponents = this.getLocalStoredComponents();
         
-        this.state.components.map((component, index) => 
+        this.state.components.forEach((component, index) => {
             componentsList.push(
                 <Row className='container bottom-buffer' key={ index }>
                         <Col xs='8' className='container pad-left5'>
-                            <Col className='container pad-left5'>
+                            <Col className={'container pad-left5'+
+                            (this.state.components[index].quantity? ' blue-letters' : '')
+                            }>
                                 { component.componentID }
                             </Col>
                         </Col>
@@ -193,7 +195,7 @@ class ReturningModal extends Component {
                             </Col>
                             <Col xs='6' className='item-counter col-pd ver-center hor-center container pad-left5'>
                                 <div>
-                                    <Dropdown className='ddropdown'
+                                    <Dropdown className='dropdown'
                                     placeholder={ String(this.state.components[index].quantity) }
                                     options={ this.generateNumbers( localStorageComponents[index].quantity ) }
                                     onChange={ (event) => this.handleDropdownChange(event.value, index) }
@@ -203,7 +205,7 @@ class ReturningModal extends Component {
                         </Col>
                 </Row>
             )
-        );
+            });
         return componentsList;
     }
 
