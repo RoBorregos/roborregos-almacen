@@ -3,6 +3,7 @@ import './Profile.css';
 import { Col, Row } from 'react-bootstrap';
 import React, { Component } from 'react';
 
+import Mock_reservations from '../../data/mock_reservations.json'
 import ReturnedComponents from '../../data/returned_components.json'
 import ReturningModal from './ReturningModal/ReturningModal';
 import Tab from 'react-bootstrap/Tab'
@@ -153,8 +154,8 @@ render() {
         return (
             <div className="profile_container"> 
                 <h2 className="blue-title">Your Reservations</h2>
-                <Tabs className="tabs-container" defaultActiveKey="reservations">
-                    <Tab eventKey="archive" title="Active">
+                <Tabs className="tabs-container" defaultActiveKey="archive">
+                    <Tab eventKey="archive" title="Returned">
                         <Col className="quit-hor-pads">
                             { this.loadReturnedComponentsTable() }
                         </Col>
