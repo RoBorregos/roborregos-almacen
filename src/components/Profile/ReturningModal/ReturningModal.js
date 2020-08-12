@@ -46,12 +46,17 @@ class ReturningModal extends Component {
             disabledButton: true,
             /** @type { boolean } */
             show: false,
-            /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
+            /** @type {!Array<{componentID:String, quantity: number}>} */
             components: this.user_components
         }
     }
 
+    /*
+    * Generates an array that its propertys are for dropdown menu
+    */
+    /** @param {number} quantity */
     generateNumbers( quantity ){
+        /** @type {!Array<{key: string, text:string, value: string}>} */
         const quantitys = [];
         for (let i = 0; i <= quantity; i++) {
             quantitys.push({
@@ -63,6 +68,10 @@ class ReturningModal extends Component {
         return quantitys;
     }
 
+    /*
+    * Sets the components in local storage
+    */
+    /** @param {!Array<{componentID:String, quantity: number}>} components */
     setLocalStorage( components ) {
         localStorage.setItem('components', JSON.stringify(components));
     }
@@ -82,13 +91,16 @@ class ReturningModal extends Component {
           this.setState({ user_index_returned: this.user_index_returned })
         }
     }
-
+    
+    /*
+    * Gets local stored components
+    */
     getLocalStoredComponents() {
         return JSON.parse(localStorage.getItem('components'));
     }
 
     /*
-    Returns current date "in dd/mm/yyyy" format
+    * Returns current date "in dd/mm/yyyy" format
     */
     getCurrentDate() {
         const today = new Date();
@@ -100,8 +112,10 @@ class ReturningModal extends Component {
     }
 
     /* 
-    Index is the index of the component that is going to modify its quantity (state) 
+    * Index is the index of the component that is going to modify its quantity (state) 
     */
+    /** @param {number} newValue
+    * @param {number} index */
     handleDropdownChange( newValue, index ) {
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
         const currentComponents = this.state.components;
@@ -111,7 +125,7 @@ class ReturningModal extends Component {
     }
 
     /* 
-    In case of closing the modal, set state to hidden and store components as they were initially 
+    * In case of closing the modal, set state to hidden and store components as they were initially 
     */
     handleClose() {
         if (this.active_user_index !== -1){
@@ -123,15 +137,18 @@ class ReturningModal extends Component {
         this.setState({ show: false, disabledButton: true });
     }
 
+    /* 
+    * Method that updates the components in returning modal
+    */
     handleModalList() {
-        
-        /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
+        /** @type {!Array<{componentID:String, quantity: number}>} */
         const nextActiveComponents = [];
-        /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
+        /** @type {!Array<{componentID:String, quantity: number}>} */
         const localStorageComponents = this.getLocalStoredComponents();
         
         this.state.components.forEach((component, index) => {
             if (component.quantity < localStorageComponents[index].quantity) {
+                /** @type {{componentID:String, quantity: number}} */
                 const auxComponent = localStorageComponents[index];
                 auxComponent.quantity -= component.quantity;
                 nextActiveComponents.push(auxComponent);
@@ -150,29 +167,31 @@ class ReturningModal extends Component {
 
 
     /* 
-    Set the state of the modal and stores user active components 
+    * Set the state of the modal and stores user active components 
     */
-   handleShow() {
-        /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
+    handleShow() {
+        /** @type {!Array<{componentID:String, quantity: number}>} */
         const components = this.active_user_index === -1? [] : this.user_components;
         this.setLocalStorage(components);
-        const auxiliar = this.user_components;
-        auxiliar.map((component) => component.quantity = 0);
-        this.setState({ components: auxiliar, show:true });
+        /** @type {!Array<{componentID:String, quantity: number}>} */
+        const copyOfComponents = this.user_components;
+        copyOfComponents.map((component) => component.quantity = 0);
+        this.setState({ components: copyOfComponents, show:true });
     }
 
     /*
     Loads all components in an array of rows, each row is a component
     */
     loadReserved() {
-        /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
+        /** @type {!Array<{componentID:String, quantity: number}>} */
         const componentsList = [];
         if (this.getLocalStoredComponents().length < this.user_components.length) {
-            const optional = this.getLocalStoredComponents();
-            for (let i = this.getLocalStoredComponents().length-1; i < this.user_components.length; i++) {
-                optional.push(this.user_components[i]);
+            /** @type {!Array<{componentID:String, quantity: number}>} */
+            const newLocalComponents = this.getLocalStoredComponents();
+            for (let diff = this.getLocalStoredComponents().length-1; diff < this.user_components.length; diff++) {
+                newLocalComponents.push(this.user_components[diff]);
             }
-            this.setLocalStorage(optional);
+            this.setLocalStorage(newLocalComponents);
         }
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
         const localStorageComponents = this.getLocalStoredComponents();
@@ -210,14 +229,15 @@ class ReturningModal extends Component {
     }
 
     /* 
-    In case that our user has no components or has not ever made a reservation, 
-    we have to throw a message, other case show reserved components table 
+    * In case that our user has no components or has not ever made a reservation, 
+    * we have to throw a message, other case show reserved components table 
     */
     checkComponents() {
         if (this.getLocalStoredComponents().length === 0) {
             this.setLocalStorage(this.user_components);
         } 
         else if (this.getLocalStoredComponents().length < this.state.components.length) {
+            /** @type {!Array<{componentID:String, quantity: number}>} */
             const optional = this.getLocalStoredComponents();
             for (let i = this.getLocalStoredComponents().length-1; i < this.user_components.length; i++) {
                 optional.push(this.user_components[i]);
@@ -255,13 +275,13 @@ class ReturningModal extends Component {
     }
     
     /*
-    This method works when user clicks the button in the modal to return components, at the end modal closes
+    * This method works when user clicks the button in the modal to return components, at the end modal closes
     */
     returnComponents() {
         /** @type { String } */
         const date = this.getCurrentDate();
-        /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
-        let pushingComponents = [];
+        /** @type {!Array<{componentID:String, quantity: number}>} */
+        const pushingComponents = [];
         
         this.state.components.forEach((component, index) => {
             if (component.quantity > 0) {
@@ -272,7 +292,6 @@ class ReturningModal extends Component {
                 })
             }
         });
-        // When there is not a register of user in returned components JSON (index === -1)
         if (this.state.user_index_returned === -1) {
             ReturnedComponents.records.push({
                 'memberID': this.memberID,
