@@ -3,7 +3,6 @@ import './Profile.css';
 import { Col, Row } from 'react-bootstrap';
 import React, { Component } from 'react';
 
-import Mock_reservations from '../../data/mock_reservations.json'
 import ReturnedComponents from '../../data/returned_components.json'
 import ReturningModal from './ReturningModal/ReturningModal';
 import Tab from 'react-bootstrap/Tab'
@@ -19,7 +18,7 @@ class Profile extends Component {
         this.user_index_returned = ReturnedComponents.records.findIndex( 
             reservation => reservation.memberID === this.memberID 
         );
-        /** @type {!Array<{componentID: String, quantity: number, dateReturned: String}>, ...}>}*/
+        /** @type {!Array<{componentID: String, quantity: number, dateReturned: String}>} */
         this.returned_components = ( this.user_index_returned === -1? [] : this.getReturnedComponents() );
         
         this.handleChangeReturned = this.handleChangeReturned.bind(this);
@@ -31,7 +30,7 @@ class Profile extends Component {
         this.state = {
             /** @type { number } */
             returned_user_index: this.user_index_returned,
-            /** @type {!Array<{componentID: String, quantity: number, dateReturned: String}>, ...}>}*/
+            /** @type {!Array<{componentID: String, quantity: number, dateReturned: String}>} */
             returnedComponents: this.returned_components
         }
     }
@@ -111,46 +110,46 @@ class Profile extends Component {
     /*
     *  Returns the table that contains returned components
     */
-   loadReturnedComponentsTable()  {
-    if (this.user_index_returned !== -1) {
-        return (
-            <div className="rows-container">
-                <Col>
-                    <Row className="first-row justify-content-center">
-                        <Col className="justify-content-center">
-                            Date
-                        </Col>
-                        <Col className="justify-content-center">
-                            Component
-                        </Col>
-                        <Col className="justify-content-center">
-                            Quantity
-                        </Col>
-                    </Row>
-                </Col>
-                <Col>
-                    {
-                        this.state.returnedComponents.map((component, index) => {
-                            return (
-                                <div key={ index }>
-                                    <Row>
-                                        <Col>{ component.dateReturned }</Col>
-                                        <Col>{ component.componentID }</Col>
-                                        <Col>{ component.quantity }</Col>
-                                    </Row>
-                                </div>
-                            )
-                        })
-                    }
-                </Col>
-            </div>
-        )
-    } else {
-        return ( <h3>You have not returned any component</h3> );
+    loadReturnedComponentsTable()  {
+        if (this.user_index_returned !== -1) {
+            return (
+                <div className="rows-container">
+                    <Col>
+                        <Row className="first-row justify-content-center">
+                            <Col className="justify-content-center">
+                                Date
+                            </Col>
+                            <Col className="justify-content-center">
+                                Component
+                            </Col>
+                            <Col className="justify-content-center">
+                                Quantity
+                            </Col>
+                        </Row>
+                    </Col>
+                    <Col>
+                        {
+                            this.state.returnedComponents.map((component, index) => {
+                                return (
+                                    <div key={ index }>
+                                        <Row>
+                                            <Col>{ component.dateReturned }</Col>
+                                            <Col>{ component.componentID }</Col>
+                                            <Col>{ component.quantity }</Col>
+                                        </Row>
+                                    </div>
+                                )
+                            })
+                        }
+                    </Col>
+                </div>
+            )
+        } else {
+            return ( <h3>You have not returned any component</h3> );
+        }
     }
-}
 
-render() {
+    render() {
         return (
             <div className="profile_container"> 
                 <h2 className="blue-title">Your Reservations</h2>
