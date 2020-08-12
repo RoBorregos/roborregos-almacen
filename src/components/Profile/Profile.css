@@ -2,28 +2,45 @@
     min-height: 100%;
     background: #1C2329;
     padding-top: 55px;
-    font-size: 25px;
+    font-size: 20px;
     padding-left: 5%;
     padding-right: 5%;
-    padding-top: 10%;
+    padding-top: 8%;
 }
 
 .tabs-container {
-    padding-top: 4%;
+    padding-top: 3%;
+    margin-left: 45px;
 }
 
 .tabs-container > a {
     background: rgba(2,2,6,0.58);
     color: #FFF;
+    border-color: transparent;
+}
+
+.tabs-container > a.nav-link {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    height: 36px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    min-width: 120px;
+    margin-left: -45px;
 }
 
 .tabs-container > a.nav-item.nav-link.active {
     background: #000;
     color: #FFF;
+    border-color: transparent;
+    z-index: 1000;
 }
 
 .first-row {
-    background-color: darkgray;
+    padding-bottom: 1.5%;
 }
 
 .quit-hor-pads {
@@ -34,19 +51,22 @@
 .rows-container {
     background: #000;
     color: #FFF;
-    padding-bottom: 20px;
+    padding-bottom: 3%;
     padding-top: 20px;
     border-radius: 0 20px 20px 20px;
     padding-left: 20px;
 }
 
 .nav-tabs {
+    margin-bottom: 1px;
     border-bottom: 0;
   }
 
 .tab-link {
     background: #000;
     color: #FFF;
+    border-left: 1px solid red;
+    border-right: 1px solid red;
 }
 
 .blue-title {

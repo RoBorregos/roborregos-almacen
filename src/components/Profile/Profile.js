@@ -64,7 +64,7 @@ class Profile extends Component {
             return(
                 <div className="rows-container">
                     <Col>
-                        <Row className="justify-content-center">
+                        <Row className="first-row justify-content-center">
                             <Col className="justify-content-center">
                                 Date
                             </Col>
@@ -115,7 +115,7 @@ class Profile extends Component {
         return (
             <div className="rows-container">
                 <Col>
-                    <Row className="justify-content-center">
+                    <Row className="first-row justify-content-center">
                         <Col className="justify-content-center">
                             Date
                         </Col>
@@ -154,12 +154,7 @@ render() {
             <div className="profile_container"> 
                 <h2 className="blue-title">Your Reservations</h2>
                 <Tabs className="tabs-container" defaultActiveKey="reservations">
-                    <Tab eventKey="reservations" title="History">
-                        <Col className="quit-hor-pads">
-                            { this.loadReservations() }
-                        </Col>
-                    </Tab>
-                    <Tab eventKey="archive" title="Current">
+                    <Tab eventKey="archive" title="Active">
                         <Col className="quit-hor-pads">
                             { this.loadReturnedComponentsTable() }
                         </Col>
@@ -167,6 +162,11 @@ render() {
                             <ReturningModal memberID={ this.memberID } 
                             user_index_returned={ this.user_index_returned }
                             handleChangeReturned={ this.handleChangeReturned }/>  
+                        </Col>
+                    </Tab>
+                    <Tab eventKey="reservations" title="History">
+                        <Col className="quit-hor-pads">
+                            { this.loadReservations() }
                         </Col>
                     </Tab>
                 </Tabs>
