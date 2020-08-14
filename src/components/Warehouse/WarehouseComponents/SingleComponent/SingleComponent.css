@@ -3,10 +3,11 @@
     width: 100px;
 
     font-size: 10px; /*Fix to fit dinamically*/
+    color: white;
 }
 
 .single_component_back{
-    background: linear-gradient( 45deg, rgba(46, 204, 113, 1) 1%, rgba(28, 131, 172, 0.849) 100%), url(../../../../images/github_pattern.svg) top left/auto repeat fixed;
+    background: linear-gradient( 45deg, rgb(11, 15, 19) 1%, rgb(11, 15, 19) 100%), url(../../../../images/github_pattern.svg) top left/auto repeat fixed;
     height: max-content;
     width: max-content;
     padding: 20px 20px 20px 20px;
@@ -27,7 +28,7 @@
    width: 200px;
 }
  .single_component_modal .modal-content{
-    background: linear-gradient( 45deg, rgba(46, 204, 113, 1) 1%, rgba(28, 131, 172, 1) 100%);
+    background: rgb(11, 15, 19);
  }
  .single_component_modal .modal-header {
     border-bottom: 0 none;
