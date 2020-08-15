@@ -1,38 +1,49 @@
 import './ReturningModal.css';
+import 'react-dropdown/style.css';
 
 import { Button, Col, Row } from 'react-bootstrap';
 import { Modal, ModalBody } from 'react-bootstrap';
 import React, { Component } from 'react';
 
 import ActiveComponents from '../../../data/active_components.json';
-import Checkbox from '@material-ui/core/Checkbox';
+import Dropdown from 'react-dropdown';
 import ModalHeader from 'react-bootstrap/ModalHeader';
+import ReturnedComponents from '../../../data/returned_components.json'
 import { connect } from 'react-redux';
 
 class ReturningModal extends Component { 
-    constructor(props) { 
+    constructor(props) {
         super(props);
         /** @type { string } */
         this.memberID = props.memberID;
 
         /** @type { number } */
-        this.user_index = ActiveComponents.reservations.findIndex( reservation => reservation.memberID === this.memberID );
+        this.active_user_index = ActiveComponents.reservations.findIndex( reservation => reservation.memberID === this.memberID );
 
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
         this.user_components = (
-            this.user_index === -1? 
-            null : 
-            ActiveComponents.reservations[this.user_index].activeComponents
+            this.active_user_index === -1? 
+            [] : 
+            ActiveComponents.reservations[this.active_user_index].activeComponents
         );
 
-        this.handleIcrement = this.handleIcrement.bind(this);
-        this.handleDecrement = this.handleDecrement.bind(this);
-        this.handleShow = this.handleShow.bind(this);
-        this.handleClose = this.handleClose.bind(this);
-        this.loadReserved = this.loadReserved.bind(this);
-
+        /** @type { number } */
+        this.user_index_returned = props.user_index_returned;
         
-        this.state = { 
+        this.getLocalStoredComponents = this.getLocalStoredComponents.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.handleDropdownChange = this.handleDropdownChange.bind(this);
+        this.handleModalList = this.handleModalList.bind(this);
+        this.handleShow = this.handleShow.bind(this);
+        this.loadReserved = this.loadReserved.bind(this);
+        this.returnComponents = this.returnComponents.bind(this);
+        this.setJsonActiveComponents = this.setJsonActiveComponents.bind(this);   
+        this.setLocalStorage = this.setLocalStorage.bind(this);
+        this.state = {
+            /** @type { number } */
+            user_index_returned: this.user_index_returned,
+            /** @type { boolean } */
+            disabledButton: true,
             /** @type { boolean } */
             show: false,
             /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
@@ -40,56 +51,114 @@ class ReturningModal extends Component {
         }
     }
 
-    /* 
-    Index of the component that is going to modify its quantity (state)
-    It's necessary to check that we have not excced our components max reserved quantity 
+    generateNumbers( quantity ){
+        const quantitys = [];
+        for (let i = 0; i <= quantity; i++) {
+            quantitys.push({
+                key: String(i),
+                text: String(i),
+                value: String(i)
+            });
+        }
+        return quantitys;
+    }
+
+    setLocalStorage( components ) {
+        localStorage.setItem('components', JSON.stringify(components));
+    }
+
+    /*
+    * Set the new active components list for the user
     */
-    /** @param {index: number}*/
-    handleIcrement( index ) { 
-        /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
-        const localStorageComponents = JSON.parse(localStorage.getItem('components'));
-        /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
-        const temporaryComponents = this.state.components;
+   /** @param {nextComponents:!Array<{componentID:String, quantity: number}>, ...}>}*/
+    setJsonActiveComponents( nextComponents ) {
+        ActiveComponents.reservations[this.active_user_index].activeComponents = nextComponents;
+    }
 
-        if(temporaryComponents[index].quantity < localStorageComponents[index].quantity)
-            temporaryComponents[index].quantity++;
+    // If index has changed because user had not history then we should update the index
+    componentDidUpdate(prevProps) {
+        if (this.props.user_index_returned !== prevProps.user_index_returned) {
+          this.user_index_returned = this.props.user_index_returned;
+          this.setState({ user_index_returned: this.user_index_returned })
+        }
+    }
 
-        this.setState({ components: temporaryComponents });
+    getLocalStoredComponents() {
+        return JSON.parse(localStorage.getItem('components'));
+    }
+
+    /*
+    Returns current date "in dd/mm/yyyy" format
+    */
+    getCurrentDate() {
+        const today = new Date();
+        const dd = today.getDate();
+        let mm= today.getMonth()+1;
+        mm = mm < 9 ? '0' + mm : mm;  
+        const yyyy = today.getFullYear();
+        return dd + '-' + mm + '-' + yyyy;
     }
 
     /* 
     Index is the index of the component that is going to modify its quantity (state) 
     */
-    handleDecrement( index ) { 
+    handleDropdownChange( newValue, index ) {
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
         const currentComponents = this.state.components;
-
-        if (currentComponents[index].quantity > 0)
-            currentComponents[index].quantity--;
-            
-        this.setState({ components: currentComponents });
-    }
-
-    /* 
-    Set the state of the modal and stores user active components 
-    */
-    handleShow() { 
-        /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
-        const components = ActiveComponents.reservations[this.user_index].activeComponents;
-
-        localStorage.setItem('components', JSON.stringify(components));
-        this.setState({ show: true })
+        currentComponents[index].quantity = parseInt(newValue);
+        const anyGreaterThanOne = (currentComponents.filter(x => x.quantity > 0).length > 0);
+        this.setState({ components: currentComponents, disabledButton: !anyGreaterThanOne });
     }
 
     /* 
     In case of closing the modal, set state to hidden and store components as they were initially 
     */
-    handleClose() { 
-        /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
-        const localStorageComponents = JSON.parse(localStorage.getItem('components'));
+    handleClose() {
+        if (this.active_user_index !== -1){
+            /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
+            const localStorageComponents = this.getLocalStoredComponents();
+            this.setJsonActiveComponents(localStorageComponents);
+            this.user_components = localStorageComponents;
+        }
+        this.setState({ show: false, disabledButton: true });
+    }
 
-        ActiveComponents.reservations[this.user_index].activeComponents = localStorageComponents;
-        this.setState({ components: localStorageComponents, show: false })
+    handleModalList() {
+        
+        /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
+        const nextActiveComponents = [];
+        /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
+        const localStorageComponents = this.getLocalStoredComponents();
+        
+        this.state.components.forEach((component, index) => {
+            if (component.quantity < localStorageComponents[index].quantity) {
+                const auxComponent = localStorageComponents[index];
+                auxComponent.quantity -= component.quantity;
+                nextActiveComponents.push(auxComponent);
+            }
+        })
+        this.user_components = nextActiveComponents;
+        this.setJsonActiveComponents(nextActiveComponents);
+        this.setLocalStorage(nextActiveComponents);
+        this.props.handleChangeReturned();
+        this.setState({
+            show: false,
+            disabledButton: true,
+            components: this.user_components
+        });
+    }
+
+
+    /* 
+    Set the state of the modal and stores user active components 
+    */
+   handleShow() {
+        /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
+        const components = this.active_user_index === -1? [] : this.user_components;
+        this.setLocalStorage(components);
+        const auxiliar = this.user_components;
+        auxiliar.map((component) => component.quantity = 0);
+        this.setState({ components: auxiliar, show:true });
     }
 
     /*
@@ -98,42 +167,43 @@ class ReturningModal extends Component {
     loadReserved() {
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
         const componentsList = [];
-
-        for (let componentIndex = 0; componentIndex < this.state.components.length; componentIndex++) { 
+        if (this.getLocalStoredComponents().length < this.user_components.length) {
+            const optional = this.getLocalStoredComponents();
+            for (let i = this.getLocalStoredComponents().length-1; i < this.user_components.length; i++) {
+                optional.push(this.user_components[i]);
+            }
+            this.setLocalStorage(optional);
+        }
+        /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
+        const localStorageComponents = this.getLocalStoredComponents();
+        
+        this.state.components.map((component, index) => 
             componentsList.push(
-                <Row className='sin_comp_backg_r container bottom-buffer'>
-                        <Col xs='6' className='container pad-left5'>
-                            <Col className='container'>
-                                { this.state.components[componentIndex].componentID }
+                <Row className='container bottom-buffer' key={ index }>
+                        <Col xs='8' className='container pad-left5'>
+                            <Col className='container pad-left5'>
+                                { component.componentID }
                             </Col>
                         </Col>
-                        <Col xs='6' className='container'>
-                            <Col xs='2' className='col-pd hor-center align-items-center container'>
-                                <Button className='subt-button' 
-                                onClick={ () => this.handleDecrement(componentIndex) }
-                                >
-                                -
-                                </Button>
-                            </Col>
-                            <Col xs='4' className='item-counter col-pd ver-center hor-center container'>
-                                <div className="input-group-field">
-                                    { this.state.components[componentIndex].quantity }
+                        <Col xs='4' className='container'>
+                            <Col xs='6' className='item-counter col-pd ver-center hor-center container pad-left5'>
+                                <div className="current-gray">
+                                    { localStorageComponents[index].quantity }
                                 </div>
                             </Col>
-                            <Col xs='2' className='col-pd hor-center align-items-center container'>
-                                <Button className='add-button' 
-                                onClick={ () => this.handleIcrement(componentIndex) }
-                                >
-                                +
-                                </Button>
-                            </Col>
-                            <Col xs='4' className='col-pd hor-center align-items-center container'>
-                                <Checkbox className='checkbox' />
+                            <Col xs='6' className='item-counter col-pd ver-center hor-center container pad-left5'>
+                                <div>
+                                    <Dropdown className='ddropdown'
+                                    placeholder={ String(this.state.components[index].quantity) }
+                                    options={ this.generateNumbers( localStorageComponents[index].quantity ) }
+                                    onChange={ (event) => this.handleDropdownChange(event.value, index) }
+                                    />
+                                </div>
                             </Col>
                         </Col>
                 </Row>
-            );
-        }
+            )
+        );
         return componentsList;
     }
 
@@ -142,28 +212,80 @@ class ReturningModal extends Component {
     we have to throw a message, other case show reserved components table 
     */
     checkComponents() {
-        if(this.user_index === -1 || this.user_components.length === 0){
+        if (this.getLocalStoredComponents().length === 0) {
+            this.setLocalStorage(this.user_components);
+        } 
+        else if (this.getLocalStoredComponents().length < this.state.components.length) {
+            const optional = this.getLocalStoredComponents();
+            for (let i = this.getLocalStoredComponents().length-1; i < this.user_components.length; i++) {
+                optional.push(this.user_components[i]);
+            }
+            this.setLocalStorage(optional);
+        }
+        if (this.active_user_index === -1 || this.user_components.length === 0){
             return (
                 <div>
                     <h3> You have not active reserved components currently </h3>
                 </div>
             )
-        }
-        else {
+        } else {
             return (
                 <div>
-                    <Row className="headers justify-content-center container bottom-buffer">
-                            <Col xs='6' className="align-left container pad-left5">
-                                <h5>Component</h5>
+                    <Row className="justify-content-center container bottom-buffer title-row">
+                            <Col xs='8' className="align-left container pad-left10">
+                                <h5 className="quit-bottom">Items</h5>
                             </Col>
-                            <Col xs='6' className="align-left container pad-left5">
-                                <h5>Quantity</h5>
+                            <Col xs='4' className="align-left container pad-left5">
+                                <Col xs='6' className="align-left container pad-left5 col-text-centered">
+                                    <h5 className="quit-bottom">Total</h5>
+                                </Col>
+                                <Col xs='6' className="align-left container pad-left5 col-text-centered">
+                                    <div className="allRow">
+                                        <h5 className="quit-bottom">All</h5>
+                                    </div>
+                                </Col>
                             </Col>
                     </Row>
                     { this.loadReserved() }
                 </div>
             )
         } 
+    }
+    
+    /*
+    This method works when user clicks the button in the modal to return components, at the end modal closes
+    */
+    returnComponents() {
+        /** @type { String } */
+        const date = this.getCurrentDate();
+        /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
+        let pushingComponents = [];
+        
+        this.state.components.forEach((component, index) => {
+            if (component.quantity > 0) {
+                pushingComponents.push({
+                    'componentID': component.componentID,
+                    'quantity': component.quantity,
+                    'dateReturned': date
+                })
+            }
+        });
+        // When there is not a register of user in returned components JSON (index === -1)
+        if (this.state.user_index_returned === -1) {
+            ReturnedComponents.records.push({
+                'memberID': this.memberID,
+                'returnedComponents': pushingComponents
+            })
+        } else {
+            pushingComponents.forEach(e => {
+                ReturnedComponents.records[this.user_index_returned].returnedComponents.push({
+                    'componentID': e.componentID,
+                    'quantity': e.quantity,
+                    'dateReturned': date
+                })
+            })
+        }
+        this.handleModalList();
     }
 
     render() {
@@ -174,19 +296,34 @@ class ReturningModal extends Component {
                         Click here to return components 
                     </Button>
                 </Row>
-                <Modal
+                <Modal className='returning-modal'
                 show={ this.state.show }
                 onHide={ this.handleClose }
                 >
+                    <div className='topBlack'></div>
                     <ModalHeader className='returning_head' closeButton>
-                        <h3>Reserved Components</h3>
+                        <h3>Return</h3>
                     </ModalHeader>
                     <ModalBody>
                         { this.checkComponents() }
-                        <Row className="justify-content-center container">
-                            <Button className='checkout-button'>
-                                Return components
-                            </Button>  
+                        <Row className="justify-content-center container button-row">
+                                <Col xs={3}>
+                                </Col>
+                                <Col xs={3}>
+                                    <Button className='checkout-button' 
+                                    disabled={ this.state.disabledButton } 
+                                    onClick={ () => this.returnComponents() }>
+                                        Return
+                                    </Button>  
+                                </Col>
+                                <Col xs={3}>
+                                     <Button className='checkout-button'
+                                    onClick={ () => this.handleClose() }>
+                                        Back
+                                    </Button>                
+                                </Col>
+                                <Col xs={3}>
+                                </Col>
                         </Row>
                     </ModalBody>
                 </Modal>

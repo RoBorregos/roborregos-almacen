@@ -2,7 +2,19 @@
 
 .button-row{
     justify-content: center;
+    text-align: center;
     padding-top: 20px;
+}
+
+.modal-content {
+    min-width: 600px;
+    border-radius: 15px;
+    background: #464646;
+    color: white;
+}
+
+.title-row {
+    color: #33E1FF;
 }
 
 .container {       
@@ -11,9 +23,75 @@
     display: flex;
     margin-left: 0;
     margin-right: 0;
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
+}
+
+.col-text-centered {
+    justify-content: center;
+}
+
+.ddropdown.is-open {
+    position: relative;
+    z-index: 100;
+}
+
+.allRow {
+    text-align: center;
+    width: 100%;
+    background-color: #33E1FF;
+    color: white;
+    border-radius: 2px;
+    margin-left: 5px;
+    margin-right: 8px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
+}
+
+.current-gray {
+    color: #B0B0B0;
+}
+
+.quit-bottom {
+    margin-bottom: 0;
+}
+
+.ddropdown {
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    color: #000;
+}
+
+.Dropdown-menu {
+    color: #000;
 }
 
 /* First column of modal */
+
+.pad-left10{
+    padding-left: 10px;
+}
+
+.checkout-button {
+    border-radius: 50px; 
+    background-color: #000;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
+    color: white;
+    font-size: 20px;
+    width: 130px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
+}
+
+.checkout-button:hover {
+    background-color: #FFF;
+    color: black;
+}
+
+.checkout-button:disabled {
+    background-color: #FFF;
+    color: rgb(49, 49, 49);
+}
 
 .headers {
     height: -webkit-max-content;
@@ -34,9 +112,25 @@
 
 /* Header of returning modal */
 
-.returning_head {
-    border-color: transparent;
+.topBlack {
+    height: 30px;
+    width: 100%;
+    background: #000;
 }
+
+.returning_head {
+    background: #000;
+    align-self: center;
+    border-color: transparent;
+    border-radius: 0 0 50px 50px;
+    width: 50%;
+    justify-content: center;
+    margin-top: -30px;
+}
+
+.returning_head .close {
+    display:none;
+  }
 
 /* Single row */
 
