@@ -24,8 +24,8 @@
             ]
         },
         {
-            "reservation_key": 1,
-            "memberID": "A00123456",
+            "reservation_key": 2,
+            "memberID": "A00789101",
             "date": "22-06-2020",
             "reservation": [
                 {

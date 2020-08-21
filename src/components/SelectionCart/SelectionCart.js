@@ -50,7 +50,7 @@ class SelectionCart extends Component {
     doAPICall(addedItems) {
         const data = {
             'reservation_key': Math.floor( Math.random() * 100 ), 
-            'member_ID': this.userID, 
+            'memberID': this.userID, 
             'date': this.getCurrentDate(),
             'reservation': [
             ]
