@@ -1,0 +1,14 @@
+{
+    "records": [
+        {
+            "memberID": "A00123456",
+            "returnedComponents": [
+                {
+                    "componentID": "component_ID1",
+                    "quantity": 1,
+                    "dateReturned": "22-05-2020"
+                }
+            ]
+        }
+    ]
+}

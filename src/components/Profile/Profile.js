@@ -3,52 +3,64 @@ import './Profile.css';
 import { Col, Row } from 'react-bootstrap';
 import React, { Component } from 'react';
 
+import ReturnedComponents from '../../data/returned_components.json'
 import ReturningModal from './ReturningModal/ReturningModal';
 import { connect } from 'react-redux';
 
 class Profile extends Component {
     constructor(props) {
         super(props);
-        this.memberID = props.memberID ;
-        this.mock_reservations = props.mock_reservations;
-        this.loadReservations = this.loadReservations.bind(this);
-    }
-
-    handleModalState() {
-        this.modalEnabled = !this.modalEnabled;
-    }
-
-    loadReservations() {
-        const componentsList = [];
-        let countComponents = 0;
+        /** @type { String } */
+        this.memberID = props.memberID;
+        /** @type { number } */
+        this.user_index_returned = ReturnedComponents.records.findIndex( 
+            reservation => reservation.memberID === this.memberID 
+        );
+        /** @type {!Array<{componentID: String, quantity: number, dateReturned: String}>, ...}>}*/
+        this.returned_components = ( this.user_index_returned === -1? [] : this.getReturnedComponents() );
         
-        for (let reservations = 0; reservations < this.mock_reservations.length; reservations++) {
-            const reservationArray = this.mock_reservations[reservations].reservation;
-            for (let i = 0; i < reservationArray.length; i++) {
-                const style = (countComponents % 2 === 0) ? "oddRow" : "evenRow";
-                componentsList.push(
-                    <div>
-                        <Row className={ style }>
-                            <Col className="reservations">{this.mock_reservations[reservations].date}</Col>
-                            <Col className="reservations">{reservationArray[i].componentID}</Col>
-                            <Col className="reservations">{reservationArray[i].quantity}</Col>
-                        </Row>
-                    </div>
-                );
-                countComponents++;
-            }
+        this.handleChangeReturned = this.handleChangeReturned.bind(this);
+        this.loadReservations = this.loadReservations.bind(this);
+        this.loadReturnedComponentsTable = this.loadReturnedComponentsTable.bind(this);
+        this.getReturnedComponents = this.getReturnedComponents.bind(this);
+        this.mock_reservations = props.mock_reservations;
 
+        this.state = {
+            /** @type { number } */
+            returned_user_index: this.user_index_returned,
+            /** @type {!Array<{componentID: String, quantity: number, dateReturned: String}>, ...}>}*/
+            returnedComponents: this.returned_components
         }
-        return componentsList;
     }
 
-    render() {
-        return (
-            <div className="profile_container">
-                <Col >
-                    <h1>Your Reservations</h1>
-                </Col>
-                <Col>
+    /*
+    *  This function returns the returned components of an specific user based on its index
+    */
+    getReturnedComponents(){
+        return ReturnedComponents.records[this.user_index_returned].returnedComponents;
+    }
+    
+    /*
+    *  This function is used to track the change when user clicks in modal button
+    */
+    handleChangeReturned() {
+        if (this.state.returned_user_index === -1) {
+            this.user_index_returned = ReturnedComponents.records.findIndex(
+                 reservation => reservation.memberID === this.memberID 
+            );
+        }
+        this.returned_components = this.getReturnedComponents();
+        this.setState({ returned_user_index: this.user_index_returned, 
+            returnedComponents: this.returned_components });
+    }
+
+    /*
+    *  Loads mock reservations in a table
+    */
+    loadReservations() {
+        if (this.mock_reservations.findIndex((each) =>  each.memberID === this.memberID) !== -1) {
+            return(
+                <div>
                     <Col>
                         <Row className="first-row justify-content-center">
                             <Col className="justify-content-center">
@@ -63,11 +75,97 @@ class Profile extends Component {
                         </Row>
                     </Col>
                     <Col>
-                        {this.loadReservations()}
+                        {
+                            this.mock_reservations.map((eachReservation) => {
+                            if ( eachReservation.memberID === this.memberID ) {
+                                return (
+                                    <div key={ eachReservation.reservation_key }>
+                                        { eachReservation.reservation.map((eachComponent, index) => {
+                                        return (
+                                            <div key={ index }>
+                                                <Row className={ (index % 2 === 0 ? "oddRow" : "evenRow") }>
+                                                    <Col className="reservations">{ eachReservation.date }</Col>
+                                                    <Col className="reservations">{ eachComponent.componentID }</Col>
+                                                    <Col className="reservations">{ eachComponent.quantity }</Col>
+                                                </Row>
+                                            </div>
+                                        )
+                                        })}   
+                                    </div>
+                                )
+                            }
+                            return null;
+                            })
+                        }
                     </Col>
+                </div>
+            )
+        } else {
+            return ( <h3>You have not done any reservations</h3> );
+        }
+    }
+
+    /*
+    *  Returns the table that contains returned components
+    */
+   loadReturnedComponentsTable()  {
+    if (this.user_index_returned !== -1) {
+        return (
+            <div>
+                <Col>
+                    <Row className="first-row justify-content-center">
+                        <Col className="justify-content-center">
+                            <h2>Date</h2>
+                        </Col>
+                        <Col className="justify-content-center">
+                            <h2>Component</h2>
+                        </Col>
+                        <Col className="justify-content-center">
+                            <h2>Quantity</h2>
+                        </Col>
+                    </Row>
                 </Col>
                 <Col>
-                    <ReturningModal memberID={ this.memberID } />  
+                    {
+                        this.state.returnedComponents.map((component, index) => {
+                            return (
+                                <div key={ index }>
+                                    <Row className={ (index % 2 === 0 ? "oddRow" : "evenRow") }>
+                                        <Col className="reservations">{ component.dateReturned }</Col>
+                                        <Col className="reservations">{ component.componentID }</Col>
+                                        <Col className="reservations">{ component.quantity }</Col>
+                                    </Row>
+                                </div>
+                            )
+                        })
+                    }
+                </Col>
+            </div>
+        )
+    } else {
+        return ( <h3>You have not returned any component</h3> );
+    }
+}
+
+    render() {
+        return (
+            <div className="profile_container">
+                <Col >
+                    <h1>Your Reservations</h1>
+                </Col>
+                <Col>
+                    { this.loadReservations() }
+                </Col>
+                <Col >
+                    <h1>Your returned components</h1>
+                </Col>
+                <Col>
+                    { this.loadReturnedComponentsTable() }
+                </Col>
+                <Col>
+                    <ReturningModal memberID={ this.memberID } 
+                    user_index_returned={ this.user_index_returned }
+                    handleChangeReturned={ this.handleChangeReturned }/>  
                 </Col>
             </div>
         );
