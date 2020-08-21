@@ -7,65 +7,78 @@ const BACK_HOST_NAME = process.env.REACT_APP_BACK_API_HOST_NAME;
 const doFetch = async (queryString,methodValue,withResponse) => {
   const USER_TOKEN = typeof cookie.load('userToken') === 'undefined' ? '' : cookie.load('userToken');
   
-  if(!BACK_AVAILABLE || !USER_TOKEN) {
+  if (!BACK_AVAILABLE || !USER_TOKEN) {
     return {status:false,msg:'Backend not Available.',data:{}};
   }
 
   return fetch(BACK_HOST_NAME+queryString, {
     method: methodValue,
     headers: {
-      'Authorization':'Token token='+API_KEY+',member_token='+USER_TOKEN
+      'Authorization':`Token token=${API_KEY},member_token=${USER_TOKEN}`
     }
   }).then((response) => {
-      if(response.status !== 200) {
+      if (response.status !== 200) {
         return false;
-      }else {
-        if(withResponse){
+      } else {
+        if (withResponse) {
           return response.json();
         }
         return true;
       }
   }).then((responseData) => {
-    if(!responseData) {
+    if (!responseData) {
       return {status:false,msg:'Failed.',data:{}};
-    }else {
+    } else {
+      return {status:true,msg:'Successful.',data:responseData};
+    }
+  });
+};
+
+const doLoginFetch = async (queryString,methodValue,withResponse) => {
+  const defaultData={username:'User',token:''};
+  if (!BACK_AVAILABLE) {
+    return {status:false,msg:'Backend not Available.',data:defaultData};
+  }
+
+  return fetch(BACK_HOST_NAME+queryString, {
+    method: methodValue,
+    headers: {
+      'Authorization':`Token token=${API_KEY}`
+    }
+  }).then((response) => {
+      if (response.status !== 200) {
+        return false;
+      } else {
+        if (withResponse) {
+          return response.json();
+        }
+        return true;
+      }
+  }).then((responseData) => {
+    if (!responseData) {
+      return {status:false,msg:'Failed.',data:defaultData};
+    } else {
       return {status:true,msg:'Successful.',data:responseData};
     }
   });
 };
 
 export const loginAPI = async (username,password) => {
-  const queryString='sign_in?username='+username+'&password='+password;
-  
-  if(!BACK_AVAILABLE) {
-    return {username:'User',token:''};
-  }
-
-  return fetch(BACK_HOST_NAME+queryString, {
-      method: 'POST',
-      headers: {
-          'Authorization':'Token token='+API_KEY
-      }
-    }).then((response) => {
-        if(response.status !== 200) {
-          return {username:'',token:''};
-        }else {
-          return response.json();
-        }
-    }).then((responseData) => {
-        return responseData;
-    })
+  const queryString=`sign_in?username=${username}&password=${password}`;
+  const methodValue='POST';
+  const withResponse=true;
+  return await doLoginFetch(queryString,methodValue,withResponse);
 };
 
 export const logoutAPI = async (username) => {
-  const queryString='sign_out?username='+username;
+  const queryString=`sign_out?username=${username}`;
   const methodValue='POST';
   const withResponse=false;
   return await doFetch(queryString,methodValue,withResponse);
 };
 
 export const getMemberInfo = async (username) => {
-  const queryString='members/actions/showByUsername?username='+username;
+  const queryString=`members/actions/showByUsername?username=${username}`;
   const methodValue='GET';
   const withResponse=true;
   return await doFetch(queryString,methodValue,withResponse);
@@ -86,14 +99,14 @@ export const getComponents = async () => {
 };
 
 export const getCurrentReservations = async (username) => {
-  const queryString='reservations/actions/showCurrentByUsername?username='+username;
+  const queryString=`reservations/actions/showCurrentByUsername?username=${username}`;
   const methodValue='GET';
   const withResponse=true;
   return await doFetch(queryString,methodValue,withResponse);
 };
 
 export const getHistoryReservations = async (username) => {
-  const queryString='reservations/actions/showHistoryByUsername?username='+username;
+  const queryString=`reservations/actions/showHistoryByUsername?username=${username}`;
   const methodValue='GET';
   const withResponse=true;
   return await doFetch(queryString,methodValue,withResponse);
