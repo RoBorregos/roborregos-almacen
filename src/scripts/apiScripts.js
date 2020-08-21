@@ -1,13 +1,13 @@
 import cookie from 'react-cookies'
 
-export const BACK_AVAILABLE = ( process.env.REACT_APP_BACK_API_AVAILABLE == 'true' ? true : false ); 
-export const API_KEY = process.env.REACT_APP_BACK_API_KEY;
-export const BACK_HOST_NAME = process.env.REACT_APP_BACK_API_HOST_NAME;
+const BACK_AVAILABLE = ( process.env.REACT_APP_BACK_API_AVAILABLE == 'true' ? true : false ); 
+const API_KEY = process.env.REACT_APP_BACK_API_KEY;
+const BACK_HOST_NAME = process.env.REACT_APP_BACK_API_HOST_NAME;
                              
 export const loginAPI = async (username,password) => {
-  const query_string='?username='+username+'&password='+password;
+  const query_string=`?username=${username}&password='${password}`;
   
-  if(!BACK_AVAILABLE) {
+  if (!BACK_AVAILABLE) {
     return {username:'User',token:''};
   }
 
@@ -17,9 +17,9 @@ export const loginAPI = async (username,password) => {
           'Authorization':'Token token='+API_KEY
       }
     }).then((response) => {
-        if(response.status !== 200) {
+        if (response.status !== 200) {
           return {username:'',token:''};
-        }else {
+        } else {
           return response.json();
         }
     }).then((responseData) => {
@@ -29,9 +29,9 @@ export const loginAPI = async (username,password) => {
 
 export const logoutAPI = async (username) => {
   const USER_TOKEN = typeof cookie.load('userToken') === 'undefined' ? '' : cookie.load('userToken');
-  const query_string='?username='+username;
+  const query_string=`?username=${username}`;
   
-  if(!BACK_AVAILABLE || !USER_TOKEN) {
+  if (!BACK_AVAILABLE || !USER_TOKEN) {
     return {success:true};
   }
 

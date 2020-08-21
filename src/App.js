@@ -46,7 +46,7 @@ class App extends Component {
     
     window.onbeforeunload = () => { window.scrollTo(0, 0); }
     
-    if(this.state.userId !== cookie.load('userId') && typeof cookie.load('userId') !== 'undefined' ) {
+    if (this.state.userId !== cookie.load('userId') && typeof cookie.load('userId') !== 'undefined' ) {
       this.setState({ userId:cookie.load('userId') });
     }
     
