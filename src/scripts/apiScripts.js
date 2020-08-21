@@ -1,17 +1,47 @@
 import cookie from 'react-cookies'
 
-export const BACK_AVAILABLE = ( process.env.REACT_APP_BACK_API_AVAILABLE == 'true' ? true : false ); 
-export const API_KEY = process.env.REACT_APP_BACK_API_KEY;
-export const BACK_HOST_NAME = process.env.REACT_APP_BACK_API_HOST_NAME;
-                             
+const BACK_AVAILABLE = ( process.env.REACT_APP_BACK_API_AVAILABLE === 'true' ? true : false ); 
+const API_KEY = process.env.REACT_APP_BACK_API_KEY;
+const BACK_HOST_NAME = process.env.REACT_APP_BACK_API_HOST_NAME;
+              
+const doFetch = async (queryString,methodValue,withResponse) => {
+  const USER_TOKEN = typeof cookie.load('userToken') === 'undefined' ? '' : cookie.load('userToken');
+  
+  if(!BACK_AVAILABLE || !USER_TOKEN) {
+    return {status:false,msg:'Backend not Available.',data:{}};
+  }
+
+  return fetch(BACK_HOST_NAME+queryString, {
+    method: methodValue,
+    headers: {
+      'Authorization':'Token token='+API_KEY+',member_token='+USER_TOKEN
+    }
+  }).then((response) => {
+      if(response.status !== 200) {
+        return false;
+      }else {
+        if(withResponse){
+          return response.json();
+        }
+        return true;
+      }
+  }).then((responseData) => {
+    if(!responseData) {
+      return {status:false,msg:'Failed.',data:{}};
+    }else {
+      return {status:true,msg:'Successful.',data:responseData};
+    }
+  });
+};
+
 export const loginAPI = async (username,password) => {
-  const query_string='?username='+username+'&password='+password;
+  const queryString='sign_in?username='+username+'&password='+password;
   
   if(!BACK_AVAILABLE) {
     return {username:'User',token:''};
   }
 
-  return fetch(BACK_HOST_NAME+'sign_in'+query_string, {
+  return fetch(BACK_HOST_NAME+queryString, {
       method: 'POST',
       headers: {
           'Authorization':'Token token='+API_KEY
@@ -28,23 +58,45 @@ export const loginAPI = async (username,password) => {
 };
 
 export const logoutAPI = async (username) => {
-  const USER_TOKEN = typeof cookie.load('userToken') === 'undefined' ? '' : cookie.load('userToken');
-  const query_string='?username='+username;
-  
-  if(!BACK_AVAILABLE || !USER_TOKEN) {
-    return {success:true};
-  }
-
-  return fetch(BACK_HOST_NAME+'sign_out'+query_string, {
-      method: 'POST',
-      headers: {
-          'Authorization':'Token token='+API_KEY+',member_token='+USER_TOKEN
-      }
-    }).then((response) => {
-        if(response.status !== 200) {
-          return {success:false};
-        }else {
-          return {success:true};
-        }
-    });
+  const queryString='sign_out?username='+username;
+  const methodValue='POST';
+  const withResponse=false;
+  return await doFetch(queryString,methodValue,withResponse);
 };
+
+export const getMemberInfo = async (username) => {
+  const queryString='members/actions/showByUsername?username='+username;
+  const methodValue='GET';
+  const withResponse=true;
+  return await doFetch(queryString,methodValue,withResponse);
+};
+
+export const getCategories = async () => {
+  const queryString='component_categories';
+  const methodValue='GET';
+  const withResponse=true;
+  return await doFetch(queryString,methodValue,withResponse);
+};
+
+export const getComponents = async () => {
+  const queryString='components';
+  const methodValue='GET';
+  const withResponse=true;
+  return await doFetch(queryString,methodValue,withResponse);
+};
+
+export const getCurrentReservations = async (username) => {
+  const queryString='reservations/actions/showCurrentByUsername?username='+username;
+  const methodValue='GET';
+  const withResponse=true;
+  return await doFetch(queryString,methodValue,withResponse);
+};
+
+export const getHistoryReservations = async (username) => {
+  const queryString='reservations/actions/showHistoryByUsername?username='+username;
+  const methodValue='GET';
+  const withResponse=true;
+  return await doFetch(queryString,methodValue,withResponse);
+};
+
+
