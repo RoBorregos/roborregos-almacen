@@ -13,7 +13,6 @@
     background: rgb(11, 15, 19);
 }
 .minus_button{ 
-    display: flex;
     width: 32px;
     height: 32px;
     padding-left: 10px;
@@ -25,7 +24,6 @@
     margin-inline-end: auto;
 }
 .plus_button{
-    display: flex;
     width: 32px;
     height: 32px;
     padding-left: 10px;
