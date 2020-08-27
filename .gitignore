@@ -23,3 +23,6 @@ yarn-debug.log*
 yarn-error.log*
 
 .bash_history
+
+# environment variables
+.env
