@@ -9,24 +9,52 @@
     border-radius: 8px;
     text-align: center;
     flex-grow: 0.9;
-    box-shadow: 0 0 3px #7b4397;    
-    background-image: rgb(11, 15, 19);
+    box-shadow: 0 0 5px rgb(0, 217, 255);    
+    background: rgb(11, 15, 19);
 }
 .minus_button{ 
+    display: flex;
+    width: 32px;
+    height: 32px;
+    padding-left: 10px;
+    justify-content: center;
     border-radius: 50%; 
     background-color: transparent;
     border: transparent;
-    padding: 0.25em 0.25em 0em 0.25em;
+    padding: 0.25em;
     margin-inline-end: auto;
 }
 .plus_button{
+    display: flex;
+    width: 32px;
+    height: 32px;
+    padding-left: 10px;
+    justify-content: center;
     border-radius: 50%; 
     background-color: transparent;
     border: transparent;
-    padding: 0.25em 0.8em;
+    padding: 0.25em;
     margin-inline-start: auto;
 }
 .reserve_button{
     margin-top: 50px;
     align-self: center;
+    background-color: rgba(0, 217, 255, 0.5);
+    border: rgb(0, 217, 255);
+}
+
+.reserve_button:hover{
+    background-color: rgba(0, 217, 255, 0.8);
+}
+
+.reserve_button:disabled{
+    background-color: rgba(0, 217, 255, 0.5)
+}
+
+.minus_button:hover{
+    background-color: rgba(0, 217, 255, 0.8);
+}
+
+.plus_button:hover{
+    background-color: rgba(0, 217, 255, 0.8);
 }
