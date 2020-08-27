@@ -34,6 +34,7 @@
 
 .login_input_ID{
     margin-top: 40px;
+    color: white;
 	position:relative;
 	font-size: 1.5em;
 	background: rgba(2,2,6);
@@ -43,7 +44,7 @@
 }
 .login_input_Password{
     margin-top: 20px;
-    color:black;
+    color:white;
 	position:relative;
 	font-size: 1.5em;
 	background: rgba(2,2,6);
