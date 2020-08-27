@@ -1,5 +1,5 @@
 .singleComponentModal_container{
-    color: black;
+    color: white;
    
 }
 .component_data{
@@ -10,17 +10,19 @@
     text-align: center;
     flex-grow: 0.9;
     box-shadow: 0 0 3px #7b4397;    
-    background-image: 
-    linear-gradient(#7b4397  , #dc2430),
-    linear-gradient(#7b4397, #dc2430);
+    background-image: rgb(11, 15, 19);
 }
 .minus_button{ 
-    border-radius: 50%;
-    padding: 0.25em 0.8em;
+    border-radius: 50%; 
+    background-color: transparent;
+    border: transparent;
+    padding: 0.25em 0.25em 0em 0.25em;
     margin-inline-end: auto;
 }
-.plus_button{ 
-    border-radius: 50%;
+.plus_button{
+    border-radius: 50%; 
+    background-color: transparent;
+    border: transparent;
     padding: 0.25em 0.8em;
     margin-inline-start: auto;
 }

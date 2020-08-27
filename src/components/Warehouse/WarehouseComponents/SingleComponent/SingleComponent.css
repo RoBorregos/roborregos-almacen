@@ -32,6 +32,7 @@
  }
  .single_component_modal .modal-header {
     border-bottom: 0 none;
+    color: rgb(0, 217, 255);
 }
 .single_component_modal .modal-header .close{
     outline: none;

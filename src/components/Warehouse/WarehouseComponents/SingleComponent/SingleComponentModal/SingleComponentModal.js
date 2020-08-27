@@ -4,6 +4,8 @@ import placeholder from 'images/placeholder-rectangle.png';
 import './SingleComponentModal.css';
 import { connect } from 'react-redux';
 import { addToCart } from './../../../../../scripts/cartReducer';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 
 class SingleComponentModal extends Component {
     constructor(props) {
@@ -88,16 +90,17 @@ class SingleComponentModal extends Component {
                             <p>
                                 Already in Cart : { this.getAlreadyInCart() }
                             </p>
-                            <p>How many you want to add?</p>
                             <div className="inline_section d-flex justify-content-center">
-                                <Button
-                                    className="minus_button"
-                                    onClick={ this.handleDecrement }> -
+                                <Button 
+                                    className='minus_button' 
+                                    onClick={this.handleDecrement }>
+                                    <FontAwesomeIcon icon={faMinus} className='mr-2' />
                                 </Button>
                                 <div className="input-group-field" > { this.state.quantity }</div>
                                 <Button
                                     className="plus_button"
-                                    onClick={ this.handleIncrement }> +
+                                    onClick={ this.handleIncrement }> 
+                                    <FontAwesomeIcon icon={faPlus} className='mr-2' />
                                 </Button>
                             </div>
                         </div>
