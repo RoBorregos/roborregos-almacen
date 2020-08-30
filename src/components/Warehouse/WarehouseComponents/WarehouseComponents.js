@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import SingleComponent from './SingleComponent/SingleComponent.js';
 import { connect } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSort, faSearch } from '@fortawesome/free-solid-svg-icons';
 import './WarehouseComponents.css';
 
 class WarehouseComponents extends Component {
@@ -110,7 +112,8 @@ class WarehouseComponents extends Component {
                 <Col xs='10' sm='10' md='10' lg='10' xl='10'>
                     <Row className='warehousecomponent-search' >
                         <Col>
-                            <span className='warehousecomponent-search-title'>Filter by component type:</span>
+                            <div>
+                                <FontAwesomeIcon icon={faSort} className='warehousecomponent-sortandsearch-icons' />
                             <select className="search_filter" onChange={ this.handleChange } value={ this.state.value }>
                                 <option value="All"> All </option>
                                 <option value="component"> Circuit Component </option>
@@ -118,16 +121,19 @@ class WarehouseComponents extends Component {
                                 <option value="motors"> Motors </option>
                                 <option value="microcontrollers"> Microcontrollers </option>
                             </select>
+                            </div>
                         </Col>
                         <Col>
-                            <span className="warehousecomponent-search-title">Search by component:</span>
+                            <div className='warehousecomponent-searchbox'>
+                                <FontAwesomeIcon icon={faSearch} className='warehousecomponent-sortandsearch-icons' />
                             <input
                                 className="component_search_filter"
                                 type="search"
-                                placeholder="Component Name"
+                                placeholder="Search component"
                                 value={ this.state.searchedComponentValue }
                                 onChange={ this.handleComponentSearch }>
                             </input>
+                            </div>
                         </Col>
                     </Row>
                     <Row>

@@ -1,5 +1,5 @@
 .singleComponentModal_container{
-    color: black;
+    color: white;
    
 }
 .component_data{
@@ -9,22 +9,50 @@
     border-radius: 8px;
     text-align: center;
     flex-grow: 0.9;
-    box-shadow: 0 0 3px #7b4397;    
-    background-image: 
-    linear-gradient(#7b4397  , #dc2430),
-    linear-gradient(#7b4397, #dc2430);
+    box-shadow: 0 0 5px rgb(0, 217, 255);    
+    background: rgb(11, 15, 19);
 }
 .minus_button{ 
-    border-radius: 50%;
-    padding: 0.25em 0.8em;
+    width: 32px;
+    height: 32px;
+    padding-left: 10px;
+    justify-content: center;
+    border-radius: 50%; 
+    background-color: transparent;
+    border: transparent;
+    padding: 0.25em;
     margin-inline-end: auto;
 }
-.plus_button{ 
-    border-radius: 50%;
-    padding: 0.25em 0.8em;
+.plus_button{
+    width: 32px;
+    height: 32px;
+    padding-left: 10px;
+    justify-content: center;
+    border-radius: 50%; 
+    background-color: transparent;
+    border: transparent;
+    padding: 0.25em;
     margin-inline-start: auto;
 }
 .reserve_button{
     margin-top: 50px;
     align-self: center;
+    background-color: rgba(0, 217, 255, 0.5);
+    border: rgb(0, 217, 255);
+}
+
+.reserve_button:hover{
+    background-color: rgba(0, 217, 255, 0.8);
+}
+
+.reserve_button:disabled{
+    background-color: rgba(0, 217, 255, 0.5)
+}
+
+.minus_button:hover{
+    background-color: rgba(0, 217, 255, 0.8);
+}
+
+.plus_button:hover{
+    background-color: rgba(0, 217, 255, 0.8);
 }
