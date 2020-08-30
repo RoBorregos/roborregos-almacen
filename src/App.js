@@ -53,8 +53,11 @@ class App extends Component {
     if (!this.state.userId)
       return <Login onLogin={ this.onLogin } />;
 
+    console.log(process.env)
     return (
-      <Router>
+      <Router
+        basename={ process.env.PUBLIC_URL }
+        >
         <div className="app-container">
 
           <NavBar userId={ this.state.userId } onLogout={ this.onLogout } routes={ routesData.routes } />

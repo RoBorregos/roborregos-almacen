@@ -233,7 +233,7 @@ class ReturningModal extends Component {
     * we have to throw a message, other case show reserved components table 
     */
     checkComponents() {
-        if (this.getLocalStoredComponents().length === 0) {
+        if (!this.getLocalStoredComponents() || this.getLocalStoredComponents().length === 0) {
             this.setLocalStorage(this.user_components);
         } 
         else if (this.getLocalStoredComponents().length < this.state.components.length) {
