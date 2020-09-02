@@ -103,7 +103,11 @@ class Profile extends Component {
                 </div>
             )
         } else {
-            return ( <h3>You have not done any reservations</h3> );
+            return ( 
+                <div className='rows-container'>
+                    <h3>You have not done any reservations</h3>
+                </div>
+            );
         }
     }
 
@@ -145,7 +149,11 @@ class Profile extends Component {
                 </div>
             )
         } else {
-            return ( <h3>You have not returned any component</h3> );
+            return ( 
+                <div className='rows-container'>
+                    <h3>You have not returned any component</h3>
+                </div>
+            );
         }
     }
 
