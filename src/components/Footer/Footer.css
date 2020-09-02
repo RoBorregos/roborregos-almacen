@@ -19,6 +19,7 @@
   height: 100%;
   object-fit: cover;
   object-position: top;
+  padding-left: 24px;
 }
 
 .col-logo {
@@ -85,8 +86,9 @@
 }
 
 .goback-text {
-  font-size: 18px;
   color: #00D9FF;
+  font-size: 20px;
+  padding-left: 4px;
 }
 
 .row-socialMedia{
@@ -99,7 +101,7 @@
 
 .mark-text {
   display: inline-block;
-  font-size: 18px;
+  font-size: 20px;
 }
 
 @media (max-width: 1170px) {
@@ -131,8 +133,7 @@
   }
 
   .footer-logo {
-    padding: 0;
-    width: 310px;
+    width: 300px;
     height: 100%;
   }
 

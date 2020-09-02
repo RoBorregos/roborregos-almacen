@@ -68,7 +68,7 @@ class Footer extends Component {
 
   setSizeAtributes(){
     this.setState({
-      icon_size : (window.innerWidth >= MOBILE_WIDTH) ? 40 : 35,
+      icon_size : (window.innerWidth >= MOBILE_WIDTH) ? 45 : 35,
       view_size_large: (window.innerWidth > MEDIUM_WIDTH) ? true : false,
     });
   }
@@ -78,7 +78,7 @@ class Footer extends Component {
       <div className='footer-container'>
         <Row className='footer-row'>
           <Col lg='4' className='col-logo'>
-            <img src={ logo } className='footer-logo' alt='logo' />
+            <img className='footer-logo' src={ logo } alt='logo' />
           </Col>
           <Col lg={{ span: 5, offset: 3 }}>
             <Row className= 'row-justify-right'>
@@ -89,7 +89,7 @@ class Footer extends Component {
                   color='inherit'
                   className='sitemap-link'
                 >
-                  <ExpandLessIcon style={{color: "#f083ab"}} />
+                  <ExpandLessIcon style={{color: "#f083ab", width: 42, height: 42}} />
                   <div className='goback-text'>
                     Back to top
                   </div>
