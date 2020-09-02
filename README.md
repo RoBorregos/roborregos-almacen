@@ -38,6 +38,12 @@ Developed by RoBorregos' members and colaborators, in order to administrate gene
 	$ yarn install
 	```
 
+3. You will need to create .env file. And fill its variables.
+
+	```bash
+	$ cp .sample-env .env
+	```
+
 ### Running the stack for development
 
 In your terminal, run:
