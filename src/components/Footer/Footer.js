@@ -80,15 +80,7 @@ class Footer extends Component {
           <Col lg='4' className='col-logo'>
             <img src={ logo } className='footer-logo' alt='logo' />
           </Col>
-          <Col lg='3' className='sitemap-container'>
-            <div className='sitemap-link'>
-              { sitemapLink('/Profile', 'Profile', true) }
-            </div>
-            <div className='sitemap-link'>
-              { sitemapLink('/', 'Warehouse', true) }
-            </div>
-          </Col>
-          <Col lg='5'>
+          <Col lg={{ span: 5, offset: 3 }}>
             <Row className= 'row-justify-right'>
               <div className='goback-button'>
                 <IconButton
@@ -145,17 +137,15 @@ class Footer extends Component {
             </Row>
             <Row noGutters className='sitemap-container'>
               <div>
-                { sitemapLink('/Profile', 'Profile', false) }
-                { sitemapLink('/', 'Warehouse', false) }
                 <div className='mark-text'>
                   RoBorregos 2020
                 </div>
               </div>
             </Row>
             <Row className='row-socialMedia'>
-              { sitemapIconButton('https://www.instagram.com/roborregos/', <WhatsappIcon style={{ fontSize: this.state.icon_size }} />) }
-              { sitemapIconButton('https://www.facebook.com/RoBorregos/', <FacebookIcon style={{ fontSize: this.state.icon_size }} />) }
-              { sitemapIconButton('https://github.com/RoBorregos/', <GitHubIcon style={{ fontSize: this.state.icon_size - 2, paddingBottom: '0.5vh' }} />) }
+              { sitemapIconButton('https://www.instagram.com/roborregos/', <WhatsappIcon style={{ fontSize: this.state.icon_size, color: "#4c6ef5" }} />) }
+              { sitemapIconButton('https://www.facebook.com/RoBorregos/', <FacebookIcon style={{ fontSize: this.state.icon_size, color: "#4eb39b" }} />) }
+              { sitemapIconButton('https://github.com/RoBorregos/', <GitHubIcon style={{ fontSize: this.state.icon_size - 5, color: "#4f72b8" }} />) }
             </Row>
           </Col>
         </Row>
