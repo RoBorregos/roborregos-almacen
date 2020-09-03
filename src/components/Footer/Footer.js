@@ -128,7 +128,7 @@ class Footer extends Component {
                   color='inherit'
                   className='sitemap-link'
                 >
-                  <ExpandLessIcon />
+                  <ExpandLessIcon style={{color: "#f083ab"}}/>
                   <div className='goback-text'>
                     Back to top
                   </div>
@@ -136,10 +136,8 @@ class Footer extends Component {
               </div>
             </Row>
             <Row noGutters className='sitemap-container'>
-              <div>
-                <div className='mark-text'>
-                  RoBorregos 2020
-                </div>
+              <div className='mark-text'>
+                  <a className='roborregos-link' href = 'http://roborregos.com'>RoBorregos 2020</a>
               </div>
             </Row>
             <Row className='row-socialMedia'>
