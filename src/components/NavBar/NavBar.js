@@ -1,13 +1,15 @@
-import React, { Component } from 'react';
-import { Navbar, Nav } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { Modal, ModalBody } from 'react-bootstrap';
-import SelectionCart from '../SelectionCart/SelectionCart.js'
-import ModalHeader from 'react-bootstrap/ModalHeader';
-import logo from 'images/white_logo.png';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import './NavBar.css';
+
+import { Modal, ModalBody } from 'react-bootstrap';
+import { Nav, Navbar } from 'react-bootstrap';
+import React, { Component } from 'react';
+import { faShoppingCart, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
+import ModalHeader from 'react-bootstrap/ModalHeader';
+import SelectionCart from '../SelectionCart/SelectionCart.js'
+import logo from 'images/white_logo.png';
 
 class NavBar extends Component {
   constructor(props) {
@@ -57,9 +59,9 @@ class NavBar extends Component {
         collapseOnSelect
         expand='lg'
         bg='navbar-color'
-        variant='dark'
         fixed='top'
         id='app-navbar'
+        className='navbar-color'
       >
         <Navbar.Brand
           as={Link}
