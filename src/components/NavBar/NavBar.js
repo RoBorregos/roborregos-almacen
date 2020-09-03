@@ -56,12 +56,12 @@ class NavBar extends Component {
   render() {
     return (
       <Navbar
-        collapseOnSelect
-        expand='lg'
-        bg='navbar-color'
-        fixed='top'
-        id='app-navbar'
-        className='navbar-color'
+      collapseOnSelect
+      expand='lg'
+      variant='light'
+      fixed='top'
+      id='app-navbar'
+      className='navbar-color'
       >
         <Navbar.Brand
           as={Link}
