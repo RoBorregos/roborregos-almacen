@@ -10,9 +10,9 @@ import Profile from "./components/Profile/Profile.js";
 import SelectionCart from "./components/SelectionCart/SelectionCart.js";
 import Warehouse from "./components/Warehouse/Warehouse.js";
 import cookie from 'react-cookies';
+import { logoutAPI } from './scripts/apiScripts.js';
 import mock_reservations from './data/mock_reservations.json';
 import routesData from 'data/routes.json';
-import { logoutAPI } from './scripts/apiScripts.js';
 
 class App extends Component {
   constructor(props) {
@@ -52,8 +52,7 @@ class App extends Component {
     
     if (!this.state.userId)
       return <Login onLogin={ this.onLogin } />;
-
-    console.log(process.env)
+      
     return (
       <Router
         basename={ process.env.PUBLIC_URL }
