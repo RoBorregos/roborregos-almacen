@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import QRCode from 'qrcode';
-import './QR_code.css';
+import './QrCode.css';
 
-class Qr_code extends Component {
+class QrCode extends Component {
 
     constructor(props) {
         super(props);
@@ -22,4 +22,4 @@ class Qr_code extends Component {
         )
     }
 }
-export default Qr_code;
+export default QrCode;
