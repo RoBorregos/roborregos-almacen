@@ -19,7 +19,6 @@ class ReturningModal extends Component {
 
         /** @type { number } */
         this.active_user_index = ActiveComponents.reservations.findIndex( reservation => reservation.memberID === this.memberID );
-
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
         this.user_components = (
             this.active_user_index === -1? 
@@ -33,6 +32,8 @@ class ReturningModal extends Component {
         this.getLocalStoredComponents = this.getLocalStoredComponents.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleDropdownChange = this.handleDropdownChange.bind(this);
+        this.handleDecrement = this.handleDecrement.bind(this);
+        this.handleIncrement = this.handleIncrement.bind(this);
         this.handleModalList = this.handleModalList.bind(this);
         this.handleShow = this.handleShow.bind(this);
         this.loadReserved = this.loadReserved.bind(this);
@@ -120,6 +121,25 @@ class ReturningModal extends Component {
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
         const currentComponents = this.state.components;
         currentComponents[index].quantity = parseInt(newValue);
+        const anyGreaterThanOne = (currentComponents.filter(x => x.quantity > 0).length > 0);
+        this.setState({ components: currentComponents, disabledButton: !anyGreaterThanOne });
+    }
+
+    handleIncrement( index ) {
+        const currentComponents = this.state.components;
+        const localComponents = this.getLocalStoredComponents();
+        if( currentComponents[index].quantity < localComponents[index].quantity ){
+            currentComponents[index].quantity++;
+        }
+        const anyGreaterThanOne = (currentComponents.filter(x => x.quantity > 0).length > 0);
+        this.setState({ components: currentComponents, disabledButton: !anyGreaterThanOne });
+    }
+
+    handleDecrement( index ) {
+        const currentComponents = this.state.components;
+        if( currentComponents[index].quantity > 0 ){
+            currentComponents[index].quantity--;
+        }
         const anyGreaterThanOne = (currentComponents.filter(x => x.quantity > 0).length > 0);
         this.setState({ components: currentComponents, disabledButton: !anyGreaterThanOne });
     }
@@ -213,13 +233,21 @@ class ReturningModal extends Component {
                                 </div>
                             </Col>
                             <Col xs={6} className='item-counter col-pd ver-center hor-center container pad-left5'>
-                                <div>
+                                <Button onClick={ () => this.handleDecrement(index) }>
+                                    -
+                                </Button>
+                                { this.state.components[index].quantity }
+                                <Button onClick={ () => this.handleIncrement(index) }>
+                                    +
+                                </Button>
+                                { /*<div>
                                     <Dropdown className='dropdown'
                                     placeholder={ String(this.state.components[index].quantity) }
                                     options={ this.generateNumbers( localStorageComponents[index].quantity ) }
                                     onChange={ (event) => this.handleDropdownChange(event.value, index) }
                                     />
-                                </div>
+                                </div> */ 
+                                }
                             </Col>
                         </Col>
                 </Row>
