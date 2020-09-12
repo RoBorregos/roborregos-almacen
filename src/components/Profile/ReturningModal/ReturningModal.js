@@ -199,20 +199,20 @@ class ReturningModal extends Component {
         this.state.components.forEach((component, index) => {
             componentsList.push(
                 <Row className='container bottom-buffer' key={ index }>
-                        <Col xs='8' className='container pad-left5'>
+                        <Col xs={6} className='container pad-left5'>
                             <Col className={'container pad-left5'+
                             (this.state.components[index].quantity? ' blue-letters' : '')
                             }>
                                 { component.componentID }
                             </Col>
                         </Col>
-                        <Col xs='4' className='container'>
-                            <Col xs='6' className='item-counter col-pd ver-center hor-center container pad-left5'>
+                        <Col xs={6} className='container'>
+                            <Col xs={6} className='item-counter col-pd ver-center hor-center container pad-left5'>
                                 <div className="current-gray">
                                     { localStorageComponents[index].quantity }
                                 </div>
                             </Col>
-                            <Col xs='6' className='item-counter col-pd ver-center hor-center container pad-left5'>
+                            <Col xs={6} className='item-counter col-pd ver-center hor-center container pad-left5'>
                                 <div>
                                     <Dropdown className='dropdown'
                                     placeholder={ String(this.state.components[index].quantity) }
@@ -254,14 +254,14 @@ class ReturningModal extends Component {
             return (
                 <div>
                     <Row className="justify-content-center container bottom-buffer title-row">
-                            <Col xs='8' className="align-left container pad-left10">
+                            <Col xs={6} className="align-left container pad-left10">
                                 <h5 className="quit-bottom">Items</h5>
                             </Col>
-                            <Col xs='4' className="align-left container pad-left5">
-                                <Col xs='6' className="align-left container pad-left5 col-text-centered">
+                            <Col xs={6} className="align-left container pad-left5">
+                                <Col xs={6} className="align-left container pad-left5 col-text-centered">
                                     <h5 className="quit-bottom">Total</h5>
                                 </Col>
-                                <Col xs='6' className="align-left container pad-left5 col-text-centered">
+                                <Col xs={6} className="align-left container pad-left5 col-text-centered">
                                     <div className="allRow">
                                         <h5 className="quit-bottom">All</h5>
                                     </div>
