@@ -31,7 +31,6 @@ class ReturningModal extends Component {
         
         this.getLocalStoredComponents = this.getLocalStoredComponents.bind(this);
         this.handleClose = this.handleClose.bind(this);
-        this.handleDropdownChange = this.handleDropdownChange.bind(this);
         this.handleDecrement = this.handleDecrement.bind(this);
         this.handleIncrement = this.handleIncrement.bind(this);
         this.handleModalList = this.handleModalList.bind(this);
@@ -50,23 +49,6 @@ class ReturningModal extends Component {
             /** @type {!Array<{componentID:String, quantity: number}>} */
             components: this.user_components
         }
-    }
-
-    /*
-    * Generates an array that its propertys are for dropdown menu
-    */
-    /** @param {number} quantity */
-    generateNumbers( quantity ){
-        /** @type {!Array<{key: string, text:string, value: string}>} */
-        const quantitys = [];
-        for (let i = 0; i <= quantity; i++) {
-            quantitys.push({
-                key: String(i),
-                text: String(i),
-                value: String(i)
-            });
-        }
-        return quantitys;
     }
 
     /*
@@ -110,19 +92,6 @@ class ReturningModal extends Component {
         mm = mm < 9 ? '0' + mm : mm;  
         const yyyy = today.getFullYear();
         return dd + '-' + mm + '-' + yyyy;
-    }
-
-    /* 
-    * Index is the index of the component that is going to modify its quantity (state) 
-    */
-    /** @param {number} newValue
-    * @param {number} index */
-    handleDropdownChange( newValue, index ) {
-        /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
-        const currentComponents = this.state.components;
-        currentComponents[index].quantity = parseInt(newValue);
-        const anyGreaterThanOne = (currentComponents.filter(x => x.quantity > 0).length > 0);
-        this.setState({ components: currentComponents, disabledButton: !anyGreaterThanOne });
     }
 
     handleIncrement( index ) {
@@ -240,14 +209,6 @@ class ReturningModal extends Component {
                                 <Button onClick={ () => this.handleIncrement(index) }>
                                     +
                                 </Button>
-                                { /*<div>
-                                    <Dropdown className='dropdown'
-                                    placeholder={ String(this.state.components[index].quantity) }
-                                    options={ this.generateNumbers( localStorageComponents[index].quantity ) }
-                                    onChange={ (event) => this.handleDropdownChange(event.value, index) }
-                                    />
-                                </div> */ 
-                                }
                             </Col>
                         </Col>
                 </Row>
