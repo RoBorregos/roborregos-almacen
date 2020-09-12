@@ -6,7 +6,6 @@ import { Modal, ModalBody } from 'react-bootstrap';
 import React, { Component } from 'react';
 
 import ActiveComponents from '../../../data/active_components.json';
-import Dropdown from 'react-dropdown';
 import ModalHeader from 'react-bootstrap/ModalHeader';
 import ReturnedComponents from '../../../data/returned_components.json'
 import { connect } from 'react-redux';
