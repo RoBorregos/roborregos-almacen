@@ -328,9 +328,7 @@ class ReturningModal extends Component {
                     <ModalBody>
                         { this.checkComponents() }
                         <Row className="justify-content-center container button-row">
-                                <Col xs={3}>
-                                </Col>
-                                <Col xs={3}>
+                                <Col xs={3} className='offset-6'>
                                     <Button className='checkout-button' 
                                     disabled={ this.state.disabledButton } 
                                     onClick={ () => this.returnComponents() }>
