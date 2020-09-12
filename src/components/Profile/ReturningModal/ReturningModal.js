@@ -187,25 +187,25 @@ class ReturningModal extends Component {
         this.state.components.forEach((component, index) => {
             componentsList.push(
                 <Row className='container bottom-buffer' key={ index }>
-                        <Col xs={6} className='container pad-left5'>
+                        <Col className='container pad-left5'>
                             <Col className={'container pad-left5'+
                             (this.state.components[index].quantity? ' blue-letters' : '')
                             }>
                                 { component.componentID }
                             </Col>
                         </Col>
-                        <Col xs={6} className='container'>
-                            <Col xs={6} className='item-counter col-pd ver-center hor-center container pad-left5'>
+                        <Col className='container'>
+                            <Col className='item-counter col-pd ver-center hor-center container pad-left5'>
                                 <div className="current-gray">
                                     { localStorageComponents[index].quantity }
                                 </div>
                             </Col>
-                            <Col xs={6} className='item-counter col-pd ver-center hor-center container pad-left5'>
-                                <Button onClick={ () => this.handleDecrement(index) }>
+                            <Col className='item-counter col-pd ver-center hor-center container pad-left5'>
+                                <Button onClick={ () => this.handleDecrement( index ) }>
                                     -
                                 </Button>
                                 { this.state.components[index].quantity }
-                                <Button onClick={ () => this.handleIncrement(index) }>
+                                <Button onClick={ () => this.handleIncrement( index ) }>
                                     +
                                 </Button>
                             </Col>
@@ -242,14 +242,14 @@ class ReturningModal extends Component {
             return (
                 <div>
                     <Row className="justify-content-center container bottom-buffer title-row">
-                            <Col xs={6} className="align-left container pad-left10">
+                            <Col className="align-left container pad-left10">
                                 <h5 className="quit-bottom">Items</h5>
                             </Col>
-                            <Col xs={6} className="align-left container pad-left5">
-                                <Col xs={6} className="align-left container pad-left5 col-text-centered">
+                            <Col className="align-left container pad-left5">
+                                <Col className="align-left container pad-left5 col-text-centered">
                                     <h5 className="quit-bottom">Total</h5>
                                 </Col>
-                                <Col xs={6} className="align-left container pad-left5 col-text-centered">
+                                <Col className="align-left container pad-left5 col-text-centered">
                                     <div className="allRow">
                                         <h5 className="quit-bottom">All</h5>
                                     </div>
@@ -328,8 +328,6 @@ class ReturningModal extends Component {
                                     onClick={ () => this.handleClose() }>
                                         Back
                                     </Button>                
-                                </Col>
-                                <Col xs={3}>
                                 </Col>
                         </Row>
                     </ModalBody>
