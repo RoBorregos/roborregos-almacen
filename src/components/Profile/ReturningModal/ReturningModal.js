@@ -274,8 +274,9 @@ class ReturningModal extends Component {
 
     selectAllAndReturn(){
         const currentComponents = this.state.components;
+        if( this.state.components.length === 0 ) return this.handleClose();
         const localComponents = this.getLocalStoredComponents();
-        currentComponents.forEach( (component, index) => {
+        currentComponents.forEach( ( component, index ) => {
             component.quantity = localComponents[index].quantity;
         })
         this.setState({ components: currentComponents });
@@ -329,7 +330,6 @@ class ReturningModal extends Component {
                 <Modal className='returning-modal'
                 show={ this.state.show }
                 onHide={ this.handleClose }
-                style={{ backgroundColor: 'rgba(121,134,136,0.59)' }}
                 >
                     <ModalHeader className='returning_head' closeButton>
                         <Col xs={ 6 } className='offset-3'>

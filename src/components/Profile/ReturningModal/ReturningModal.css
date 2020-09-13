@@ -125,6 +125,10 @@
     justify-content: center;
 }
 
+.returning-modal {
+    background-color: rgba(121,134,136,0.59);
+}
+
 .title-row {
     color: #33E1FF;
 }
