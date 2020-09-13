@@ -329,7 +329,6 @@ class ReturningModal extends Component {
                 <Modal className='returning-modal'
                 show={ this.state.show }
                 onHide={ this.handleClose }
-                closeButton
                 style={{ backgroundColor: 'rgba(121,134,136,0.59)' }}
                 >
                     <ModalHeader className='returning_head' closeButton>
