@@ -4,8 +4,10 @@ import 'react-dropdown/style.css';
 import { Button, Col, Row } from 'react-bootstrap';
 import { Modal, ModalBody } from 'react-bootstrap';
 import React, { Component } from 'react';
+import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import ActiveComponents from '../../../data/active_components.json';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ModalHeader from 'react-bootstrap/ModalHeader';
 import ReturnedComponents from '../../../data/returned_components.json'
 import { connect } from 'react-redux';
@@ -196,18 +198,18 @@ class ReturningModal extends Component {
                         </Col>
                         <Col className='container'>
                             <Col className='item-counter col-pd ver-center hor-center container pad-left5'>
-                                <div className="current-gray">
-                                    { localStorageComponents[index].quantity }
-                                </div>
+                                { localStorageComponents[index].quantity }
                             </Col>
                             <Col className='item-counter col-pd ver-center hor-center container pad-left5'>
-                                <Button onClick={ () => this.handleDecrement( index ) }>
-                                    -
-                                </Button>
-                                { this.state.components[index].quantity }
-                                <Button onClick={ () => this.handleIncrement( index ) }>
-                                    +
-                                </Button>
+                                <Col xs={4}>
+                                    <FontAwesomeIcon icon={ faMinus } style={{ color: '#33e1ff' }} onClick={ () => this.handleDecrement( index ) }></FontAwesomeIcon> 
+                                </Col>
+                                <Col xs={2} className='no-hor-padding'>
+                                    { this.state.components[index].quantity }
+                                </Col>
+                                <Col xs={4}>
+                                    <FontAwesomeIcon icon={ faPlus } style={{ color: '#fd7e14' }} onClick={ () => this.handleIncrement( index ) }></FontAwesomeIcon>
+                                </Col>
                             </Col>
                         </Col>
                 </Row>
@@ -241,18 +243,16 @@ class ReturningModal extends Component {
         } else {
             return (
                 <div>
-                    <Row className="justify-content-center container bottom-buffer title-row">
+                    <Row className="justify-content-center container bottom-buffer">
                             <Col className="align-left container pad-left10">
-                                <h5 className="quit-bottom">Items</h5>
+                                <h4 className="quit-bottom">Component</h4>
                             </Col>
                             <Col className="align-left container pad-left5">
                                 <Col className="align-left container pad-left5 col-text-centered">
-                                    <h5 className="quit-bottom">Total</h5>
+                                    <h4 className="quit-bottom">Reserved</h4>
                                 </Col>
                                 <Col className="align-left container pad-left5 col-text-centered">
-                                    <div className="allRow">
-                                        <h5 className="quit-bottom">All</h5>
-                                    </div>
+                                    <h4 className="quit-bottom">Quantity</h4>
                                 </Col>
                             </Col>
                     </Row>
@@ -308,10 +308,12 @@ class ReturningModal extends Component {
                 <Modal className='returning-modal'
                 show={ this.state.show }
                 onHide={ this.handleClose }
+                closeButton={ true }
                 >
-                    <div className='topBlack'></div>
                     <ModalHeader className='returning_head' closeButton>
-                        <h3>Return</h3>
+                        <Col xs={ 6 } className='offset-3'>
+                            <h2 className='title-row'>Return</h2>
+                        </Col>
                     </ModalHeader>
                     <ModalBody>
                         { this.checkComponents() }

@@ -5,7 +5,6 @@
 .allRow {
     text-align: center;
     width: 100%;
-    background-color: #33E1FF;
     color: white;
     border-radius: 2px;
     margin-left: 6px;
@@ -62,13 +61,6 @@
     color: #B0B0B0;
 }
 
-.ddropdown {
-    width: 100%;
-    position: relative;
-    z-index: 1;
-    color: #000;
-}
-
 .dropdown.is-open {
     position: relative;
     z-index: 100;
@@ -122,25 +114,29 @@
 }
 
 .returning_head .close {
-    display:none;
+    color: #FFF;
+    text-shadow: none;
+    font-size: 2rem;
 }.returning_head {
-    background: #000;
+    width: 95%;
+    text-align: center;
     align-self: center;
     border-color: transparent;
-    border-radius: 0 0 50px 50px;
-    width: 50%;
     justify-content: center;
-    margin-top: -30px;
 }
 
 .title-row {
     color: #33E1FF;
 }
 
-
 .topBlack {
     height: 30px;
     width: 100%;
     background: #000;
     border-radius: 20px 20px 0 0;
+}
+
+.no-hor-padding {
+    padding-left: 0;
+    padding-right: 0;
 }
