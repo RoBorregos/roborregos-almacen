@@ -76,6 +76,11 @@
     border: 0;
 }
 
+.no-hor-padding {
+    padding-left: 0;
+    padding-right: 0;
+}
+
 .pad-hor-15 {
     padding-right: 15px;
     padding-left: 15px;
@@ -138,9 +143,4 @@
     width: 100%;
     background: #000;
     border-radius: 20px 20px 0 0;
-}
-
-.no-hor-padding {
-    padding-left: 0;
-    padding-right: 0;
 }

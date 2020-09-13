@@ -19,7 +19,7 @@ class ReturningModal extends Component {
         this.memberID = props.memberID;
 
         /** @type { number } */
-        this.active_user_index = ActiveComponents.reservations.findIndex( reservation => reservation.memberID === this.memberID );
+        this.active_user_index = ActiveComponents.reservations.findIndex(reservation => reservation.memberID === this.memberID);
         /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
         this.user_components = (
             this.active_user_index === -1? 
@@ -31,18 +31,18 @@ class ReturningModal extends Component {
         this.user_index_returned = props.user_index_returned;
         
         this.checkComponentLimit = this.checkComponentLimit.bind(this);
-
         this.getLocalStoredComponents = this.getLocalStoredComponents.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleDecrement = this.handleDecrement.bind(this);
-        this.selectAllAndReturn = this.selectAllAndReturn.bind(this);
         this.handleIncrement = this.handleIncrement.bind(this);
         this.handleModalList = this.handleModalList.bind(this);
         this.handleShow = this.handleShow.bind(this);
         this.loadReserved = this.loadReserved.bind(this);
         this.returnComponents = this.returnComponents.bind(this);
+        this.selectAllAndReturn = this.selectAllAndReturn.bind(this);
         this.setJsonActiveComponents = this.setJsonActiveComponents.bind(this);   
         this.setLocalStorage = this.setLocalStorage.bind(this);
+        
         this.state = {
             /** @type { number } */
             user_index_returned: this.user_index_returned,
@@ -55,28 +55,34 @@ class ReturningModal extends Component {
         }
     }
 
-    checkComponentLimit( index ){
+    /*
+    * Checks if we have reached the max quantity that we can return in a single component.
+    */
+    /** @param { number } index */
+    checkComponentLimit(index) {
         const localComponents = this.getLocalStoredComponents();
         return localComponents[index].quantity > this.state.components[index].quantity;
     }
 
     /*
-    * Sets the components in local storage
+    * Sets the active components in local storage.
     */
     /** @param {!Array<{componentID:String, quantity: number}>} components */
-    setLocalStorage( components ) {
+    setLocalStorage(components) {
         localStorage.setItem('components', JSON.stringify(components));
     }
 
     /*
-    * Set the new active components list for the user
+    * Set the new active components list for the user.
     */
    /** @param {nextComponents:!Array<{componentID:String, quantity: number}>, ...}>}*/
-    setJsonActiveComponents( nextComponents ) {
+    setJsonActiveComponents(nextComponents) {
         ActiveComponents.reservations[this.active_user_index].activeComponents = nextComponents;
     }
 
-    // If index has changed because user had not history then we should update the index
+    /*
+    * If index has changed because user had not history then we should update the index.
+    */
     componentDidUpdate(prevProps) {
         if (this.props.user_index_returned !== prevProps.user_index_returned) {
           this.user_index_returned = this.props.user_index_returned;
@@ -85,14 +91,14 @@ class ReturningModal extends Component {
     }
     
     /*
-    * Gets local stored components
+    * Gets active components locally stored to check limit of returning.
     */
     getLocalStoredComponents() {
         return JSON.parse(localStorage.getItem('components'));
     }
 
     /*
-    * Returns current date "in dd/mm/yyyy" format
+    * Returns current date "in dd/mm/yyyy" format.
     */
     getCurrentDate() {
         const today = new Date();
@@ -103,21 +109,33 @@ class ReturningModal extends Component {
         return dd + '-' + mm + '-' + yyyy;
     }
 
-    handleIncrement( index ) {
+    /*
+    * Handle a quantity increment in the state of active component.
+    */
+    /** @param {number} index */
+    handleIncrement(index) {
+        /** @type {!Array<{componentID:String, quantity: number}>} */
         const currentComponents = this.state.components;
+        /** @type {!Array<{componentID:String, quantity: number}>} */
         const localComponents = this.getLocalStoredComponents();
-        if( currentComponents[index].quantity < localComponents[index].quantity ){
+        if (currentComponents[index].quantity < localComponents[index].quantity) {
             currentComponents[index].quantity++;
         }
         const anyGreaterThanOne = (currentComponents.filter(x => x.quantity > 0).length > 0);
         this.setState({ components: currentComponents, disabledButton: !anyGreaterThanOne });
     }
 
-    handleDecrement( index ) {
+    /*
+    * Handle a quantity decrement in the state of active component.
+    */
+    /** @param {number} index */
+    handleDecrement(index) {
+        /** @type {!Array<{componentID:String, quantity: number}>} */
         const currentComponents = this.state.components;
-        if( currentComponents[index].quantity > 0 ){
+        if (currentComponents[index].quantity > 0) {
             currentComponents[index].quantity--;
         }
+        /** @type {boolean} */
         const anyGreaterThanOne = (currentComponents.filter(x => x.quantity > 0).length > 0);
         this.setState({ components: currentComponents, disabledButton: !anyGreaterThanOne });
     }
@@ -126,7 +144,7 @@ class ReturningModal extends Component {
     * In case of closing the modal, set state to hidden and store components as they were initially 
     */
     handleClose() {
-        if (this.active_user_index !== -1){
+        if (this.active_user_index !== -1) {
             /** @type {!Array<{componentID:String, quantity: number}>, ...}>}*/
             const localStorageComponents = this.getLocalStoredComponents();
             this.setJsonActiveComponents(localStorageComponents);
@@ -165,7 +183,7 @@ class ReturningModal extends Component {
 
 
     /* 
-    * Set the state of the modal and stores user active components 
+    * Set the state of the modal and stores user active components.
     */
     handleShow() {
         /** @type {!Array<{componentID:String, quantity: number}>} */
@@ -178,7 +196,7 @@ class ReturningModal extends Component {
     }
 
     /*
-    Loads all components in an array of rows, each row is a component
+    * Loads all components in an array of rows, each row is a active component.
     */
     loadReserved() {
         /** @type {!Array<{componentID:String, quantity: number}>} */
@@ -210,15 +228,16 @@ class ReturningModal extends Component {
                             <Col className='item-counter col-pd ver-center hor-center container pad-left5'>
                                 <Col xs={4}>
                                     <FontAwesomeIcon icon={ faMinus } 
-                                    style={{ color: this.state.components[index].quantity>0? '#33e1ff' : '#2d2d2d' }} 
-                                    onClick={ () => this.handleDecrement( index ) }></FontAwesomeIcon> 
+                                    style={{ color: (this.state.components[index].quantity > 0? '#33e1ff' : '#2d2d2d') }} 
+                                    onClick={ () => this.handleDecrement(index) }></FontAwesomeIcon> 
                                 </Col>
                                 <Col xs={2} className='no-hor-padding'>
                                     { this.state.components[index].quantity }
                                 </Col>
                                 <Col xs={4}>
-                                    <FontAwesomeIcon icon={ faPlus } style={{ color: this.checkComponentLimit( index )? '#fd7e14' : '#2d2d2d' }} 
-                                    onClick={ () => this.handleIncrement( index ) }></FontAwesomeIcon>
+                                    <FontAwesomeIcon icon={ faPlus } 
+                                    style={{ color: this.checkComponentLimit(index)? '#fd7e14' : '#2d2d2d' }} 
+                                    onClick={ () => this.handleIncrement(index) }></FontAwesomeIcon>
                                 </Col>
                             </Col>
                         </Col>
@@ -244,7 +263,7 @@ class ReturningModal extends Component {
             }
             this.setLocalStorage(optional);
         }
-        if (this.active_user_index === -1 || this.user_components.length === 0){
+        if (this.active_user_index === -1 || this.user_components.length === 0) {
             return (
                 <div className='pad-hor-15'>
                     <h3 className='text-justify'> You have not active reserved components currently </h3>
@@ -272,13 +291,18 @@ class ReturningModal extends Component {
         } 
     }
 
-    selectAllAndReturn(){
+    /*
+    * Selects all the components as max quantity and return them.
+    */
+    selectAllAndReturn() {
+        /** @type {!Array<{componentID:String, quantity: number}>} */
         const currentComponents = this.state.components;
-        if( this.state.components.length === 0 ) return this.handleClose();
+        if (this.state.components.length === 0) return this.handleClose();
+        /** @type {!Array<{componentID:String, quantity: number}>} */
         const localComponents = this.getLocalStoredComponents();
-        currentComponents.forEach( ( component, index ) => {
-            component.quantity = localComponents[index].quantity;
-        })
+        currentComponents.forEach( (component, index) => {
+             component.quantity = localComponents[index].quantity; 
+        });
         this.setState({ components: currentComponents });
         this.returnComponents();
     }
