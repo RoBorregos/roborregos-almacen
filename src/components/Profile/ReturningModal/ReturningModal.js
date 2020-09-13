@@ -280,7 +280,6 @@ class ReturningModal extends Component {
             component.quantity = localComponents[index].quantity;
         })
         this.setState({ components: currentComponents });
-        console.log(this.state.components);
         this.returnComponents();
     }
     
