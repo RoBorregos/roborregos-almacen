@@ -35,6 +35,7 @@ class ReturningModal extends Component {
         this.getLocalStoredComponents = this.getLocalStoredComponents.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleDecrement = this.handleDecrement.bind(this);
+        this.selectAllAndReturn = this.selectAllAndReturn.bind(this);
         this.handleIncrement = this.handleIncrement.bind(this);
         this.handleModalList = this.handleModalList.bind(this);
         this.handleShow = this.handleShow.bind(this);
@@ -270,6 +271,17 @@ class ReturningModal extends Component {
             )
         } 
     }
+
+    selectAllAndReturn(){
+        const currentComponents = this.state.components;
+        const localComponents = this.getLocalStoredComponents();
+        currentComponents.forEach( (component, index) => {
+            component.quantity = localComponents[index].quantity;
+        })
+        this.setState({ components: currentComponents });
+        console.log(this.state.components);
+        this.returnComponents();
+    }
     
     /*
     * This method works when user clicks the button in the modal to return components, at the end modal closes
@@ -329,7 +341,7 @@ class ReturningModal extends Component {
                         <Row className="justify-content-center container button-row">
                                 <Col xs={3} className='offset-6'>
                                     <Button className='checkout-button return-all'
-                                    onClick={ () => this.handleClose() }>
+                                    onClick={ () => this.selectAllAndReturn() }>
                                         Return All
                                     </Button>                
                                 </Col>
