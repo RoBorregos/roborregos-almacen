@@ -30,6 +30,8 @@ class ReturningModal extends Component {
         /** @type { number } */
         this.user_index_returned = props.user_index_returned;
         
+        this.checkComponentLimit = this.checkComponentLimit.bind(this);
+
         this.getLocalStoredComponents = this.getLocalStoredComponents.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleDecrement = this.handleDecrement.bind(this);
@@ -50,6 +52,11 @@ class ReturningModal extends Component {
             /** @type {!Array<{componentID:String, quantity: number}>} */
             components: this.user_components
         }
+    }
+
+    checkComponentLimit( index ){
+        const localComponents = this.getLocalStoredComponents();
+        return localComponents[index].quantity > this.state.components[index].quantity;
     }
 
     /*
@@ -188,11 +195,10 @@ class ReturningModal extends Component {
         
         this.state.components.forEach((component, index) => {
             componentsList.push(
-                <Row className='container bottom-buffer' key={ index }>
+                <Row className='container bottom-buffer' key={ index } style={{ userSelect: 'none' }}>
                         <Col className='container pad-left5'>
                             <Col className={'container pad-left5'+
-                            (this.state.components[index].quantity? ' blue-letters' : '')
-                            }>
+                            (this.state.components[index].quantity? ' blue-letters' : '')}>
                                 { component.componentID }
                             </Col>
                         </Col>
@@ -202,13 +208,16 @@ class ReturningModal extends Component {
                             </Col>
                             <Col className='item-counter col-pd ver-center hor-center container pad-left5'>
                                 <Col xs={4}>
-                                    <FontAwesomeIcon icon={ faMinus } style={{ color: '#33e1ff' }} onClick={ () => this.handleDecrement( index ) }></FontAwesomeIcon> 
+                                    <FontAwesomeIcon icon={ faMinus } 
+                                    style={{ color: this.state.components[index].quantity>0? '#33e1ff' : '#2d2d2d' }} 
+                                    onClick={ () => this.handleDecrement( index ) }></FontAwesomeIcon> 
                                 </Col>
                                 <Col xs={2} className='no-hor-padding'>
                                     { this.state.components[index].quantity }
                                 </Col>
                                 <Col xs={4}>
-                                    <FontAwesomeIcon icon={ faPlus } style={{ color: '#fd7e14' }} onClick={ () => this.handleIncrement( index ) }></FontAwesomeIcon>
+                                    <FontAwesomeIcon icon={ faPlus } style={{ color: this.checkComponentLimit( index )? '#fd7e14' : '#2d2d2d' }} 
+                                    onClick={ () => this.handleIncrement( index ) }></FontAwesomeIcon>
                                 </Col>
                             </Col>
                         </Col>
@@ -236,9 +245,9 @@ class ReturningModal extends Component {
         }
         if (this.active_user_index === -1 || this.user_components.length === 0){
             return (
-                <div>
-                    <h3> You have not active reserved components currently </h3>
-                </div>
+                <div className='pad-hor-15'>
+                    <h3 className='text-justify'> You have not active reserved components currently </h3>
+                </div>  
             )
         } else {
             return (
@@ -308,7 +317,7 @@ class ReturningModal extends Component {
                 <Modal className='returning-modal'
                 show={ this.state.show }
                 onHide={ this.handleClose }
-                closeButton={ true }
+                closeButton
                 >
                     <ModalHeader className='returning_head' closeButton>
                         <Col xs={ 6 } className='offset-3'>
@@ -319,18 +328,19 @@ class ReturningModal extends Component {
                         { this.checkComponents() }
                         <Row className="justify-content-center container button-row">
                                 <Col xs={3} className='offset-6'>
+                                    <Button className='checkout-button return-all'
+                                    onClick={ () => this.handleClose() }>
+                                        Return All
+                                    </Button>                
+                                </Col>
+                                <Col xs={3}>
                                     <Button className='checkout-button' 
                                     disabled={ this.state.disabledButton } 
                                     onClick={ () => this.returnComponents() }>
                                         Return
                                     </Button>  
                                 </Col>
-                                <Col xs={3}>
-                                     <Button className='checkout-button'
-                                    onClick={ () => this.handleClose() }>
-                                        Back
-                                    </Button>                
-                                </Col>
+                                
                         </Row>
                     </ModalBody>
                 </Modal>
