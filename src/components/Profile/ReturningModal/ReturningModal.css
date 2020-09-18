@@ -68,6 +68,10 @@
     background-color: darkgray;
 }
 
+.head-row {
+    font-size: 1.33em;
+}
+
 .modal-content {
     border-radius: 16px;
     background: #000;
@@ -139,16 +143,20 @@
 }
 
 @media (max-width: 360px) {
+    .checkout-button {
+        width: 95px;
+        font-size: 16px;
+    }
+
+    .head-row {
+        font-size: 1em;
+    }
+    
     .pad-left10 {
         padding-left: 0;
     }
 
     .pad-left5 {
         padding-left: 0;
-    }
-
-    .checkout-button {
-        width: 95px;
-        font-size: 16px;
     }
 }

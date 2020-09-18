@@ -272,7 +272,7 @@ class ReturningModal extends Component {
         } else {
             return (
                 <div>
-                    <Row className="justify-content-center container bottom-buffer">
+                    <Row className="justify-content-center container bottom-buffer head-row">
                             <Col xs={ 4 } sm={ 6 } className="align-left container pad-left10">
                                 Component
                             </Col>
