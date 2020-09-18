@@ -272,7 +272,7 @@ class ReturningModal extends Component {
         } else {
             return (
                 <div>
-                    <Row className="justify-content-center container bottom-buffer head-row">
+                    <Row className="justify-content-center container bottom-buffer title-row">
                             <Col xs={ 4 } sm={ 6 } className="align-left container pad-left10">
                                 Component
                             </Col>
@@ -356,7 +356,7 @@ class ReturningModal extends Component {
                 >
                     <ModalHeader className='returning_head' closeButton>
                         <Col xs={ 6 } className='offset-3'>
-                            <h2 className='title-row'>Return</h2>
+                            <h2 className='blue-letters'>Return</h2>
                         </Col>
                     </ModalHeader>
                     <ModalBody>

@@ -68,10 +68,6 @@
     background-color: darkgray;
 }
 
-.head-row {
-    font-size: 1.33em;
-}
-
 .modal-content {
     border-radius: 16px;
     background: #000;
@@ -139,7 +135,7 @@
 }
 
 .title-row {
-    color: #33E1FF;
+    font-size: 1.33em;
 }
 
 @media (max-width: 360px) {
@@ -148,15 +144,15 @@
         font-size: 16px;
     }
 
-    .head-row {
-        font-size: 1em;
-    }
-    
     .pad-left10 {
         padding-left: 0;
     }
 
     .pad-left5 {
         padding-left: 0;
+    }
+    
+    .title-row {
+        font-size: 1em;
     }
 }
