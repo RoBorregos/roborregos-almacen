@@ -215,26 +215,26 @@ class ReturningModal extends Component {
         this.state.components.forEach((component, index) => {
             componentsList.push(
                 <Row className='container bottom-buffer' key={ index } style={{ userSelect: 'none' }}>
-                        <Col className='container pad-left5'>
+                        <Col xs={ 4 } sm={ 6 } className='container pad-left5'>
                             <Col className={'container pad-left5'+
                             (this.state.components[index].quantity? ' blue-letters' : '')}>
                                 { component.componentID }
                             </Col>
                         </Col>
-                        <Col className='container'>
-                            <Col className='item-counter col-pd ver-center hor-center container pad-left5'>
+                        <Col xs={ 8 } sm={ 6 } className='container'>
+                            <Col xs={ 6 } className='item-counter col-pd ver-center hor-center container pad-left5'>
                                 { localStorageComponents[index].quantity }
                             </Col>
-                            <Col className='item-counter col-pd ver-center hor-center container pad-left5'>
-                                <Col xs={4}>
+                            <Col xs={ 6 } className='item-counter col-pd ver-center hor-center container pad-left5'>
+                                <Col xs={ 4 } className='no-hor-padding'>
                                     <FontAwesomeIcon icon={ faMinus } 
                                     style={{ color: (this.state.components[index].quantity > 0? '#33e1ff' : '#2d2d2d') }} 
                                     onClick={ () => this.handleDecrement(index) }></FontAwesomeIcon> 
                                 </Col>
-                                <Col xs={2} className='no-hor-padding'>
+                                <Col xs={ 2 } className='no-hor-padding'>
                                     { this.state.components[index].quantity }
                                 </Col>
-                                <Col xs={4}>
+                                <Col xs={ 4 }>
                                     <FontAwesomeIcon icon={ faPlus } 
                                     style={{ color: this.checkComponentLimit(index)? '#fd7e14' : '#2d2d2d' }} 
                                     onClick={ () => this.handleIncrement(index) }></FontAwesomeIcon>
@@ -273,15 +273,15 @@ class ReturningModal extends Component {
             return (
                 <div>
                     <Row className="justify-content-center container bottom-buffer">
-                            <Col className="align-left container pad-left10">
-                                <h4 className="quit-bottom">Component</h4>
+                            <Col xs={ 4 } sm={ 6 } className="align-left container pad-left10">
+                                Component
                             </Col>
-                            <Col className="align-left container pad-left5">
+                            <Col xs={ 8 } sm={ 6 } className="align-left container pad-left5">
                                 <Col className="align-left container pad-left5 col-text-centered">
-                                    <h4 className="quit-bottom">Reserved</h4>
+                                    Reserved
                                 </Col>
                                 <Col className="align-left container pad-left5 col-text-centered">
-                                    <h4 className="quit-bottom">Quantity</h4>
+                                    Quantity
                                 </Col>
                             </Col>
                     </Row>

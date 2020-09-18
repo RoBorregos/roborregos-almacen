@@ -137,3 +137,18 @@
 .title-row {
     color: #33E1FF;
 }
+
+@media (max-width: 360px) {
+    .pad-left10 {
+        padding-left: 0;
+    }
+
+    .pad-left5 {
+        padding-left: 0;
+    }
+
+    .checkout-button {
+        width: 95px;
+        font-size: 16px;
+    }
+}
