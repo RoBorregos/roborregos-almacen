@@ -9,6 +9,7 @@ import ActiveComponents from '../../data/active_components.json';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MockReservation from '../../data/mock_reservations.json';
 import QrCode from '../QrCode/QrCode.js';
+import componentsData from '../../data/components.json';
 import { connect } from 'react-redux';
 import placeholder from 'images/placeholder-rectangle.png';
 
@@ -23,7 +24,7 @@ class SelectionCart extends Component {
         this.doAPICall = this.doAPICall.bind(this);
         this.handleClose = this.props.handleClose;
         this.components = props.components;
-        this.userID= props.userID;
+        this.userID = props.userID;
 
         this.state = {
             handleChange: false,
@@ -102,7 +103,6 @@ class SelectionCart extends Component {
                 this.setState({ showQR: true, idQR: 'Hola Mundo.' })
                 return;
             default:
-
                 break;
         }
         this.setState({ handleChange: !this.state.handleChange });
@@ -146,7 +146,7 @@ class SelectionCart extends Component {
                             </Col>
                             <Col xs='3' className='col-pd hor-center'>
                                 <FontAwesomeIcon icon={ faPlus } 
-                                style={{ /*color: this.checkComponentLimit(index)? '#fd7e14' : '#2d2d2d'*/ }} 
+                                style={{ color: (this.props.addedItems[component].quantity < this.props.components[section_][component].stock? '#fd7e14' : '#2d2d2d') }}
                                 onClick={ () => this.handleAction(types.ADD_QUANTITY, component) }></FontAwesomeIcon>
                             </Col>
                             <Col xs='3' className='col-pd hor-center'>
