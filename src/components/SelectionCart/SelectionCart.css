@@ -34,12 +34,12 @@
     padding: 5px 5px 5px 5px;
 }
 
-.sin_comp_backg_r{
+.sin_comp_backg_r {
     height: -webkit-max-content;
     height: -moz-max-content;
     height: max-content;
     width: 100%;
-    padding: 5px 5px 5px 5px;
+    padding: 0px 5px 0px 5px;
     border-radius: 12px;
 }
 
@@ -140,6 +140,10 @@
     padding-right: 10px;
     text-align: center;
     justify-content: center;
+}
+
+.operation-btn{
+    font-size: 1.5em;
 }
 
 @media (min-width: 600px){

@@ -1,6 +1,6 @@
 import './NavBar.css';
 
-import { Modal, ModalBody } from 'react-bootstrap';
+import { Col, Modal, ModalBody } from 'react-bootstrap';
 import { Nav, Navbar } from 'react-bootstrap';
 import React, { Component } from 'react';
 import { faShoppingCart, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
@@ -101,20 +101,24 @@ class NavBar extends Component {
         </Navbar.Collapse>
 
         <Nav.Link className='shopping-cart'>
-          <div onClick={this.handleShow}>
+          <div onClick={ this.handleShow }>
             <div className='shoping-cart-icon'>
-              <FontAwesomeIcon icon={faShoppingCart} className='mr-2' />
+              <FontAwesomeIcon icon={ faShoppingCart } className='mr-2' />
             </div>
-            <div onClick={e => e.stopPropagation()}>
-              <Modal
-                show={this.state.show}
-                onHide={this.handleClose}
+            <div onClick={ e => e.stopPropagation() }>
+              <Modal className='cart-modal'
+                show={ this.state.show }
+                onHide={ this.handleClose }
               >
-                <ModalHeader className='cart-head' closeButton><h3>Cart</h3></ModalHeader>
+                <ModalHeader className='cart-head' closeButton>
+                  <Col xs={ 6 } className='offset-3'>
+                    <h2>Cart</h2>
+                  </Col>
+                </ModalHeader>
                 <ModalBody>
                   <SelectionCart 
-                    userID = {this.userID}
-                    handleClose={this.handleClose}
+                    userID = { this.userID }
+                    handleClose={ this.handleClose }
                   />
                 </ModalBody>
               </Modal>

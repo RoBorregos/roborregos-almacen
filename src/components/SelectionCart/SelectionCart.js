@@ -3,13 +3,12 @@ import './SelectionCart.css';
 import { Button, Col, Row } from 'react-bootstrap';
 import React, { Component } from 'react';
 import { addQuantity, clearCart, removeItem, subtractQuantity, types } from '../../scripts/cartReducer';
-import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faMinus, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import ActiveComponents from '../../data/active_components.json';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MockReservation from '../../data/mock_reservations.json';
 import QrCode from '../QrCode/QrCode.js';
-import componentsData from '../../data/components.json';
 import { connect } from 'react-redux';
 import placeholder from 'images/placeholder-rectangle.png';
 
@@ -125,32 +124,34 @@ class SelectionCart extends Component {
                 continue;
             }
             res.push(
-                <Row key={ component } className='bottom-buffer sin_comp_backg_r'>
+                <Row key={ component } className='sin_comp_backg_r'>
                     <Col xs='2' className='ver-center resp'>
                         <div className='sin_comp_backg_sc hor-center'>
                             <img className='component-img' alt={ component } src={ this.tryRequire(section_, item.img_path) } />
                         </div>
                     </Col>
-                    <Col xs='5' className={'col-pd ver-center resp' + (this.props.addedItems[component].quantity > 0? ' orange-letters' : '')}>
+                    <Col xs='6' className={'col-pd ver-center resp' + (this.props.addedItems[component].quantity > 0? ' orange-letters' : '')}>
                         { item.name }
                     </Col>
-                    <Col xs='5' className='col-pd ver-center justify-content-center'>
-                        <Row className='resp-just'>
-                            <Col xs='3' className='col-pd hor-center'>
-                                <FontAwesomeIcon icon={ faMinus } 
+                    <Col xs='3' className='col-pd ver-center justify-content-center'>
+                        <Row className='resp-just ver-center'>
+                            <Col xs={ 3 } className='col-pd hor-center ver-center'>
+                                <FontAwesomeIcon icon={ faMinus } className='operation-btn'
                                 style={{ color: (this.props.addedItems[component].quantity > 0? '#33e1ff' : '#2d2d2d') }} 
                                 onClick={ () => this.handleAction(types.SUB_QUANTITY, component) }></FontAwesomeIcon>
                             </Col>
-                            <Col xs='3' className='item-counter col-pd ver-center hor-center'>
+                            <Col xs={ 3 } className='item-counter col-pd ver-center hor-center'>
                                 { this.props.addedItems[component].quantity } 
                             </Col>
-                            <Col xs='3' className='col-pd hor-center'>
-                                <FontAwesomeIcon icon={ faPlus } 
+                            <Col xs={ 3 } className='col-pd hor-center ver-center'>
+                                <FontAwesomeIcon icon={ faPlus } className='operation-btn'
                                 style={{ color: (this.props.addedItems[component].quantity < this.props.components[section_][component].stock? '#fd7e14' : '#2d2d2d') }}
                                 onClick={ () => this.handleAction(types.ADD_QUANTITY, component) }></FontAwesomeIcon>
                             </Col>
-                            <Col xs='3' className='col-pd hor-center'>
-                                <Button className='rem-button' onClick={ () => this.handleAction(types.REMOVE_COMPONENT, component) }>x</Button>
+                            <Col xs={ 3 } className='col-pd hor-center ver-center'>
+                                <FontAwesomeIcon icon={ faTimes } className='operation-btn'
+                                style={{ color: 'red'}}
+                                onClick={ () => this.handleAction(types.REMOVE_COMPONENT, component) }></FontAwesomeIcon>
                             </Col>
                         </Row>
                     </Col>
@@ -180,13 +181,21 @@ class SelectionCart extends Component {
                         { (Object.keys(this.props.addedItems).length === 0) ? "Your cart is empty!" : "" }
                     </Row>
                     <Row className='cart-collection justify-content-center'>
+                        <Row style={{ width: '100%' }}>
+                            <Col xs={ 8 }>
+                                <h4 style={{ paddingLeft: '7px' }}>Component</h4>
+                            </Col>
+                            <Col xs={ 3 } style={{ paddingLeft: '0px' }}>
+                                <h4>Quantity</h4>
+                            </Col>
+                        </Row>
                         { this.getItems() }
                     </Row>
                     <Row className='justify-content-center'>
                         <Button className='checkout-button'
                             disabled={ (Object.keys(this.props.addedItems).length === 0) }
                             onClick={ () => { this.handleAction(types.CLEAR_CART) } }>
-                            Checkout
+                            Reserve
                         </Button>
                     </Row>
                 </Col>

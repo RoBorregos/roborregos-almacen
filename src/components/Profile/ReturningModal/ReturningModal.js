@@ -361,20 +361,19 @@ class ReturningModal extends Component {
                     <ModalBody>
                         { this.checkComponents() }
                         <Row className="justify-content-center container button-row">
-                                <Col xs={3} className='offset-6'>
-                                    <Button className='checkout-button return-all'
-                                    onClick={ () => this.selectAllAndReturn() }>
-                                        Return All
-                                    </Button>                
-                                </Col>
-                                <Col xs={3}>
-                                    <Button className='checkout-button' 
-                                    disabled={ this.state.disabledButton } 
-                                    onClick={ () => this.returnComponents() }>
-                                        Return
-                                    </Button>  
-                                </Col>
-                                
+                            <Col xs={3} className='offset-6'>
+                                <Button className='checkout-button return-all'
+                                onClick={ () => this.selectAllAndReturn() }>
+                                    Return All
+                                </Button>                
+                            </Col>
+                            <Col xs={3}>
+                                <Button className='checkout-button' 
+                                disabled={ this.state.disabledButton } 
+                                onClick={ () => this.returnComponents() }>
+                                    Return
+                                </Button>  
+                            </Col>
                         </Row>
                     </ModalBody>
                 </Modal>
