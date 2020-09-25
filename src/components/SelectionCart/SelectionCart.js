@@ -61,6 +61,7 @@ class SelectionCart extends Component {
             ]
         };
         for (let id in addedItems) {
+            if(addedItems[id].quantity === 0) continue;
             data.reservation.push({
                 'componentID' : id,
                 'quantity' : addedItems[id].quantity,

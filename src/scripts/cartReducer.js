@@ -100,7 +100,7 @@ const cartReducer = (state = initState, action) => {
         break;
         case types.SUB_QUANTITY:
             if (state.addedItems.hasOwnProperty(action.id)) {
-                if(state.addedItems[action.id].quantity !== 1)
+                if(state.addedItems[action.id].quantity !== 0)
                     state.addedItems[action.id].quantity -= 1;
             }
         break;
