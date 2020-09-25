@@ -35,7 +35,6 @@
 }
 
 .sin_comp_backg_r{
-    background: linear-gradient( 45deg, rgb(169, 214, 228) 1%, rgba(42, 88, 102, 0.849) 100%);
     height: -webkit-max-content;
     height: -moz-max-content;
     height: max-content;
@@ -129,6 +128,10 @@
 .item-counter{
     margin: 0;
     text-align: center;
+}
+
+.orange-letters {
+    color: #fd7e14;
 }
 
 .empty-title {

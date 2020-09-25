@@ -3,8 +3,10 @@ import './SelectionCart.css';
 import { Button, Col, Row } from 'react-bootstrap';
 import React, { Component } from 'react';
 import { addQuantity, clearCart, removeItem, subtractQuantity, types } from '../../scripts/cartReducer';
+import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import ActiveComponents from '../../data/active_components.json';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MockReservation from '../../data/mock_reservations.json';
 import QrCode from '../QrCode/QrCode.js';
 import { connect } from 'react-redux';
@@ -129,19 +131,23 @@ class SelectionCart extends Component {
                             <img className='component-img' alt={ component } src={ this.tryRequire(section_, item.img_path) } />
                         </div>
                     </Col>
-                    <Col xs='5' className='col-pd ver-center resp'>
+                    <Col xs='5' className={'col-pd ver-center resp' + (this.props.addedItems[component].quantity > 0? ' orange-letters' : '')}>
                         { item.name }
                     </Col>
                     <Col xs='5' className='col-pd ver-center justify-content-center'>
                         <Row className='resp-just'>
                             <Col xs='3' className='col-pd hor-center'>
-                                <Button className='subt-button' onClick={ () => this.handleAction(types.SUB_QUANTITY, component) }>-</Button>
+                                <FontAwesomeIcon icon={ faMinus } 
+                                style={{ color: (this.props.addedItems[component].quantity > 0? '#33e1ff' : '#2d2d2d') }} 
+                                onClick={ () => this.handleAction(types.SUB_QUANTITY, component) }></FontAwesomeIcon>
                             </Col>
                             <Col xs='3' className='item-counter col-pd ver-center hor-center'>
-                                <div className="input-group-field" > { this.props.addedItems[component].quantity } </div>
+                                { this.props.addedItems[component].quantity } 
                             </Col>
                             <Col xs='3' className='col-pd hor-center'>
-                                <Button className='add-button' onClick={ () => this.handleAction(types.ADD_QUANTITY, component) }>+</Button>
+                                <FontAwesomeIcon icon={ faPlus } 
+                                style={{ /*color: this.checkComponentLimit(index)? '#fd7e14' : '#2d2d2d'*/ }} 
+                                onClick={ () => this.handleAction(types.ADD_QUANTITY, component) }></FontAwesomeIcon>
                             </Col>
                             <Col xs='3' className='col-pd hor-center'>
                                 <Button className='rem-button' onClick={ () => this.handleAction(types.REMOVE_COMPONENT, component) }>x</Button>
