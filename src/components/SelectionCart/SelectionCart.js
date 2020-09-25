@@ -185,7 +185,7 @@ class SelectionCart extends Component {
                             <Col xs={ 8 }>
                                 <h4 style={{ paddingLeft: '7px' }}>Component</h4>
                             </Col>
-                            <Col xs={ 3 } style={{ paddingLeft: '0px' }}>
+                            <Col xs={ 3 } style={{ paddingLeft: '0px', marginLeft: '-2px' }}>
                                 <h4>Quantity</h4>
                             </Col>
                         </Row>

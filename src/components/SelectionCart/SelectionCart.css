@@ -54,13 +54,6 @@
     linear-gradient(#7b4397, #dc2430);
 }
 
-.sin_comp_backg_r:hover{
-    -webkit-transform: scale(1.01);
-    transform: scale(1.01);
-    -webkit-box-shadow: 0 4px 2px black;
-    box-shadow: 0 4px 2px black;
-}
-
 .col-pd{
     padding-left: 5px;
     padding-right: 5px;
