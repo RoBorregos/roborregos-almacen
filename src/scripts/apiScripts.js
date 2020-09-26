@@ -111,5 +111,3 @@ export const getHistoryReservations = async (username) => {
   const withResponse=true;
   return await doFetch(queryString,methodValue,withResponse);
 };
-
-
