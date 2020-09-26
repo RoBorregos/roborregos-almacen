@@ -1,25 +1,75 @@
-.profile_container {
-    color: white;
-    min-height: 100%;
-    background: linear-gradient( 45deg, rgba(20, 18, 19, 0.9) 30%, rgba(0, 94, 105, 0.9) 100%);
-    padding-top: 55px;
-    font-size: 25px;
-}
-
-.reservations {
-    color: black;
-}
-
-.evenRow {
-    background-color: white;
-}
-
-.oddRow {
-    background-color: lightgray;
+.blue-title {
+    color: #00D9FF;
 }
 
 .first-row {
-    color: black;
-    background-color: darkgray;
+    padding-bottom: 1.5%;
 }
 
+.nav-tabs {
+    margin-bottom: 1px;
+    border-bottom: 0;
+}
+
+.profile_container {
+    min-height: 82%;
+    background: #1C2329;
+    padding-top: 55px;
+    font-size: 20px;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 8%;
+    padding-bottom: 5%;
+}
+
+.quit-hor-pads {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.rows-container {
+    background: #000;
+    color: #FFF;
+    padding-bottom: 3%;
+    padding-top: 20px;
+    border-radius: 0 20px 20px 20px;
+    padding-left: 20px;
+}
+
+.tab-link {
+    background: #000;
+    color: #FFF;
+    border-left: 1px solid red;
+    border-right: 1px solid red;
+}
+
+.tabs-container > a {
+    background: rgba(2,2,6,0.58);
+    color: #FFF;
+    border-color: transparent;
+}
+
+.tabs-container > a.nav-item.nav-link.active {
+    background: #000;
+    color: #FFF;
+    border-color: transparent;
+    z-index: 1000;
+}
+
+.tabs-container > a.nav-link {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    height: 36px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    min-width: 120px;
+    margin-left: -45px;
+}
+
+.tabs-container {
+    padding-top: 3%;
+    margin-left: 45px;
+}

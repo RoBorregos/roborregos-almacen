@@ -29,9 +29,9 @@ class Login extends Component {
 
     async handleLogin() {
         const sessionDetails = await loginAPI(this.state.userID,this.state.userPassword);
-        if(sessionDetails.username != ''){
+        if (sessionDetails.username != '') {
             this.onSuccess(sessionDetails.username,sessionDetails.token);
-        }else{
+        } else {
             alert("Username or Password Invalid");
         }
     }

@@ -1,5 +1,6 @@
 {
   "name": "roborregos-almacen",
+  "homepage": "http://localhost/roborregos-almacen/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -13,20 +14,25 @@
     "@testing-library/user-event": "^7.1.2",
     "bootstrap": "^4.4.1",
     "lodash.throttle": "^4.1.1",
+    "material-ui": "^0.20.2",
     "material-ui-icons": "^1.0.0-beta.36",
     "qrcode": "^1.4.4",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.0",
     "react-cookies": "^0.1.1",
+    "react-css-dropdown": "^1.1.2",
     "react-dom": "^16.13.1",
+    "react-dropdown": "^1.7.0",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^1.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "sh -ac .env; react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

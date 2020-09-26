@@ -10,9 +10,9 @@ import Profile from "./components/Profile/Profile.js";
 import SelectionCart from "./components/SelectionCart/SelectionCart.js";
 import Warehouse from "./components/Warehouse/Warehouse.js";
 import cookie from 'react-cookies';
+import { logoutAPI } from './scripts/apiScripts.js';
 import mock_reservations from './data/mock_reservations.json';
 import routesData from 'data/routes.json';
-import { logoutAPI } from './scripts/apiScripts.js';
 
 class App extends Component {
   constructor(props) {
@@ -46,15 +46,17 @@ class App extends Component {
     
     window.onbeforeunload = () => { window.scrollTo(0, 0); }
     
-    if(this.state.userId !== cookie.load('userId') && typeof cookie.load('userId') !== 'undefined' ) {
+    if (this.state.userId !== cookie.load('userId') && typeof cookie.load('userId') !== 'undefined' ) {
       this.setState({ userId:cookie.load('userId') });
     }
     
     if (!this.state.userId)
       return <Login onLogin={ this.onLogin } />;
-
+      
     return (
-      <Router>
+      <Router
+        basename={ process.env.PUBLIC_URL }
+        >
         <div className="app-container">
 
           <NavBar userId={ this.state.userId } onLogout={ this.onLogout } routes={ routesData.routes } />
@@ -65,7 +67,9 @@ class App extends Component {
           />
           <Route
             exact path='/profile'
-            component={ () => <Profile mock_reservations= { mock_reservations.reservations } memberID= { this.state.userId } /> }
+            component={ () => <Profile mock_reservations= { mock_reservations.reservations } 
+              memberID= { this.state.userID }
+              /> }
           />
           <Route
             exact path='/selectionCart'

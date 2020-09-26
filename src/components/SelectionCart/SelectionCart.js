@@ -6,7 +6,7 @@ import { addQuantity, clearCart, removeItem, subtractQuantity, types } from '../
 
 import ActiveComponents from '../../data/active_components.json';
 import MockReservation from '../../data/mock_reservations.json';
-import Qr_code from '../QR_code/QR_code.js';
+import QrCode from '../QrCode/QrCode.js';
 import { connect } from 'react-redux';
 import placeholder from 'images/placeholder-rectangle.png';
 
@@ -50,7 +50,7 @@ class SelectionCart extends Component {
     doAPICall(addedItems) {
         const data = {
             'reservation_key': Math.floor( Math.random() * 100 ), 
-            'member_ID': this.userID, 
+            'memberID': this.userID, 
             'date': this.getCurrentDate(),
             'reservation': [
             ]
@@ -161,11 +161,11 @@ class SelectionCart extends Component {
                         Save your QRcode!!
                     </Row>
                     <Row className='justify-content-center'>
-                        <Qr_code idQR={ this.state.idQR } />
+                        <QrCode idQR={ this.state.idQR } />
                     </Row>
                 </Col>
             );
-        } 
+        }
         else {
             return (
                 <Col className='cart-container'>

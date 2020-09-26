@@ -1,8 +1,45 @@
-/* Click here to return components button */
+.allRow {
+    text-align: center;
+    width: 100%;
+    color: white;
+    border-radius: 2px;
+    margin-left: 6px;
+    margin-right: 8px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
+}
 
-.button-row{
+.blue-letters {
+    color: #33E1FF;
+}
+
+.button-row {
     justify-content: center;
+    text-align: center;
     padding-top: 20px;
+}
+
+.checkout-button {
+    border-radius: 10px; 
+    background-color: #00d9ff;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
+    color: #000;
+    font-size: 20px;
+    width: 110px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
+}
+
+.checkout-button:disabled {
+    background-color: #FFF;
+    color: rgb(49, 49, 49);
+}
+
+.checkout-button:hover {
+    background-color: #FFF;
+    color: black;
+}
+
+.col-text-centered {
+    justify-content: center;
 }
 
 .container {       
@@ -11,9 +48,14 @@
     display: flex;
     margin-left: 0;
     margin-right: 0;
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
 }
 
-/* First column of modal */
+.current-gray {
+    color: #B0B0B0;
+}
 
 .headers {
     height: -webkit-max-content;
@@ -26,27 +68,79 @@
     background-color: darkgray;
 }
 
-/* Padding left 5 */
+.modal-content {
+    min-width: 600px;
+    border-radius: 16px;
+    background: #000;
+    color: white;
+    border: 0;
+}
+
+.no-hor-padding {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.pad-hor-15 {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.pad-left10 {
+    padding-left: 10px;
+}
 
 .pad-left5 {
     padding-left: 5px;
 }
 
-/* Header of returning modal */
-
-.returning_head {
-    border-color: transparent;
+.quit-bottom {
+    margin-bottom: 0;
 }
 
-/* Single row */
+.return-all {
+    background-color: #fd7e14;
+}
 
-.sin_comp_backg_r {
-    background: linear-gradient( 45deg, rgb(169, 214, 228) 1%, rgba(42, 88, 102, 0.849) 100%);
-    height: -webkit-max-content;
-    height: -moz-max-content;
-    height: max-content;
+.return-button {
+    border-radius: 8px; 
+    background-color: #000;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
+    color: white;
+    font-size: 20px;
+    width: 210px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
+    border: 0;
+}
+
+.return-button:hover {
+    background-color: #FFF;
+    color: black;
+}
+
+.returning_head .close {
+    color: #FFF;
+    text-shadow: none;
+    font-size: 2rem;
+}.returning_head {
+    width: 95%;
+    text-align: center;
+    align-self: center;
+    border-color: transparent;
+    justify-content: center;
+}
+
+.returning-modal {
+    background-color: rgba(121,134,136,0.59);
+}
+
+.title-row {
+    color: #33E1FF;
+}
+
+.topBlack {
+    height: 30px;
     width: 100%;
-    padding: 5px;
-    border-radius: 12px;
-    margin-bottom:10px; 
+    background: #000;
+    border-radius: 20px 20px 0 0;
 }

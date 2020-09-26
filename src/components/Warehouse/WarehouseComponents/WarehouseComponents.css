@@ -7,18 +7,21 @@
     padding-bottom: 30px;
 }
 
-.warehousecomponent-search-title{
-    margin-top: 5px;
-    font-size: 0.9em;
+.warehousecomponent-searchbox{
+    text-align: end;
+}
+
+.warehousecomponent-sortandsearch-icons{
+    color: rgb(0, 217, 255); 
+    font-size: 40px;
     padding-right: 10px;
-    text-align: center;
-    color: white;
+    padding-top: 12px;
 }
 
 .search_filter{
-    background: linear-gradient( 45deg, rgba(46, 204, 113, 1) 1%, rgba(28, 131, 172, 0.849) 100%);
+    background: white;
     border-radius: 10px;
-    padding: 8px 15px;
+    padding: 4px 15px;
 }
 
 .component_search_filter{

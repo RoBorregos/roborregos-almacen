@@ -1,32 +1,15 @@
-import React, { Component } from 'react';
-import { Row, Col, Container } from 'react-bootstrap';
-import IconButton from '@material-ui/core/IconButton';
-import GitHubIcon from '@material-ui/icons/GitHub';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import InstagramIcon from '@material-ui/icons/Instagram';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import logo from 'images/white_logo.png';
-import { MEDIUM_WIDTH, MOBILE_WIDTH } from 'constants.js';
 import './Footer.css';
 
-function sitemapLink(link, legend, big) {
-  if(big){
-    return (
-      <span>
-        <a href={ link } className='sitemap-link'>
-          { legend }
-        </a>
-        <br />
-      </span>
-    );
-  } else {
-    return (
-      <a href={ link } className='sitemap-link'>
-        { legend }
-      </a>
-    );
-  }
-}
+import { Col, Container, Row } from 'react-bootstrap';
+import { MEDIUM_WIDTH, MOBILE_WIDTH } from 'constants.js';
+import React, { Component } from 'react';
+
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import GitHubIcon from '@material-ui/icons/GitHub';
+import IconButton from '@material-ui/core/IconButton';
+import WhatsappIcon from '@material-ui/icons/WhatsApp';
+import logo from 'images/white_logo.png';
 
 function sitemapIconButton(link, icon) {
   return (
@@ -66,7 +49,7 @@ class Footer extends Component {
 
   setSizeAtributes(){
     this.setState({
-      icon_size : (window.innerWidth >= MOBILE_WIDTH) ? 40 : 35,
+      icon_size : (window.innerWidth >= MOBILE_WIDTH) ? 45 : 35,
       view_size_large: (window.innerWidth > MEDIUM_WIDTH) ? true : false,
     });
   }
@@ -76,17 +59,9 @@ class Footer extends Component {
       <div className='footer-container'>
         <Row className='footer-row'>
           <Col lg='4' className='col-logo'>
-            <img src={ logo } className='footer-logo' alt='logo' />
+            <img className='footer-logo' src={ logo } alt='logo' />
           </Col>
-          <Col lg='3' className='sitemap-container'>
-            <div className='sitemap-link'>
-              { sitemapLink('/Profile', 'Profile', true) }
-            </div>
-            <div className='sitemap-link'>
-              { sitemapLink('/', 'Warehouse', true) }
-            </div>
-          </Col>
-          <Col lg='5'>
+          <Col lg={{ span: 5, offset: 3 }}>
             <Row className= 'row-justify-right'>
               <div className='goback-button'>
                 <IconButton
@@ -95,7 +70,7 @@ class Footer extends Component {
                   color='inherit'
                   className='sitemap-link'
                 >
-                  <ExpandLessIcon />
+                  <ExpandLessIcon style={{color: "#f083ab", width: 42, height: 42}} />
                   <div className='goback-text'>
                     Back to top
                   </div>
@@ -104,11 +79,11 @@ class Footer extends Component {
             </Row>
             <Row className= 'row-justify-right'>
               <div className='row-socialMedia'>
-                { sitemapIconButton('https://www.instagram.com/roborregos/', <InstagramIcon style={{ fontSize: this.state.icon_size }} />) }
-                { sitemapIconButton('https://www.facebook.com/RoBorregos/', <FacebookIcon style={{ fontSize: this.state.icon_size }} />) }
-                { sitemapIconButton('https://github.com/RoBorregos/', <GitHubIcon style={{ fontSize: this.state.icon_size - 5 }} />) }
+                { sitemapIconButton('https://www.instagram.com/roborregos/', <WhatsappIcon style={{ fontSize: this.state.icon_size, color: "#4c6ef5" }} />) }
+                { sitemapIconButton('https://www.facebook.com/RoBorregos/', <FacebookIcon style={{ fontSize: this.state.icon_size, color: "#4eb39b" }} />) }
+                { sitemapIconButton('https://github.com/RoBorregos/', <GitHubIcon style={{ fontSize: this.state.icon_size - 5, color: "#4f72b8" }} />) }
                 <div className='mark-text'>
-                  @2020 <a className='roborregos-link' href = 'http://roborregos.com'>RoBorregos</a>
+                  <a className='roborregos-link' href = 'http://roborregos.com'>RoBorregos 2020</a>
                 </div>
               </div>
             </Row>
@@ -134,7 +109,7 @@ class Footer extends Component {
                   color='inherit'
                   className='sitemap-link'
                 >
-                  <ExpandLessIcon />
+                  <ExpandLessIcon style={{color: "#f083ab"}}/>
                   <div className='goback-text'>
                     Back to top
                   </div>
@@ -142,18 +117,14 @@ class Footer extends Component {
               </div>
             </Row>
             <Row noGutters className='sitemap-container'>
-              <div>
-                { sitemapLink('/Profile', 'Profile', false) }
-                { sitemapLink('/', 'Warehouse', false) }
-                <div className='mark-text'>
-                  @2020 RoBorregos
-                </div>
+              <div className='mark-text'>
+                  <a className='roborregos-link' href = 'http://roborregos.com'>RoBorregos 2020</a>
               </div>
             </Row>
             <Row className='row-socialMedia'>
-              { sitemapIconButton('https://www.instagram.com/roborregos/', <InstagramIcon style={{ fontSize: this.state.icon_size }} />) }
-              { sitemapIconButton('https://www.facebook.com/RoBorregos/', <FacebookIcon style={{ fontSize: this.state.icon_size }} />) }
-              { sitemapIconButton('https://github.com/RoBorregos/', <GitHubIcon style={{ fontSize: this.state.icon_size - 2, paddingBottom: '0.5vh' }} />) }
+              { sitemapIconButton('https://www.instagram.com/roborregos/', <WhatsappIcon style={{ fontSize: this.state.icon_size, color: "#4c6ef5" }} />) }
+              { sitemapIconButton('https://www.facebook.com/RoBorregos/', <FacebookIcon style={{ fontSize: this.state.icon_size, color: "#4eb39b" }} />) }
+              { sitemapIconButton('https://github.com/RoBorregos/', <GitHubIcon style={{ fontSize: this.state.icon_size - 5, color: "#4f72b8" }} />) }
             </Row>
           </Col>
         </Row>

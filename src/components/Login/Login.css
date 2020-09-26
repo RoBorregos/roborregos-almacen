@@ -2,7 +2,7 @@
     height: 100%;
     padding-top: 10%;
     justify-content: center;
-    background: linear-gradient( 45deg, rgba(20, 18, 19, 0.9) 30%, rgba(0, 94, 105, 0.9) 100%);
+    background: rgba(11,15,19);
 }
 
 .login_roborregos_image{
@@ -14,6 +14,15 @@
 }
 .login_button{
     margin-top: 40px;
+    color: rgba(0,217,255);
+    background: rgba(2,2,6);
+    border: none;
+}
+
+.login_button:hover{
+    margin-top: 40px;
+    color: rgba(2,2,6);
+    background: rgba(0,217,255);
 }
 
 .login_input_ID:focus{
@@ -25,19 +34,20 @@
 
 .login_input_ID{
     margin-top: 40px;
+    color: white;
 	position:relative;
 	font-size: 1.5em;
-	background: white;
+	background: rgba(2,2,6);
 	padding: 8px 15px;
 	display: inline-block;
     border-radius: 9999em;
 }
 .login_input_Password{
     margin-top: 20px;
-    color:black;
+    color:white;
 	position:relative;
 	font-size: 1.5em;
-	background: white;
+	background: rgba(2,2,6);
 	padding: 8px 15px;
 	display: inline-block;
     border-radius: 9999em;
