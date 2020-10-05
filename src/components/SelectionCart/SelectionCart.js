@@ -174,12 +174,25 @@ class SelectionCart extends Component {
                 </Col>
             );
         }
-        else {
+        else if(Object.keys(this.props.addedItems).length === 0) {
             return (
                 <Col className='cart-container'>
                     <Row className='cart-header empty-title'>
-                        { (Object.keys(this.props.addedItems).length === 0) ? "Your cart is empty!" : "" }
+                        Your cart is empty!
                     </Row>
+                    <Row className='justify-content-center'>
+                        <Button className='checkout-button'
+                            disabled={ (Object.keys(this.props.addedItems).length === 0) }
+                            onClick={ () => { this.handleAction(types.CLEAR_CART) } }>
+                            Reserve
+                        </Button>
+                    </Row>
+                </Col>
+            );
+        } else {
+            return (
+                <Col className='cart-container'>
+                    
                     <Row className='cart-collection justify-content-center'>
                         <Row style={{ width: '100%' }}>
                             <Col xs={ 8 }>
