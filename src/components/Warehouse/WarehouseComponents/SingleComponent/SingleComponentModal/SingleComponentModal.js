@@ -1,11 +1,13 @@
-import React, { Component } from 'react';
-import { Row, Col, Button } from 'react-bootstrap';
-import placeholder from 'images/placeholder-rectangle.png';
 import './SingleComponentModal.css';
-import { connect } from 'react-redux';
-import { addToCart } from './../../../../../scripts/cartReducer';
+
+import { Button, Col, Row } from 'react-bootstrap';
+import React, { Component } from 'react';
+import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { addToCart } from './../../../../../scripts/cartReducer';
+import { connect } from 'react-redux';
+import placeholder from 'images/placeholder-rectangle.png';
 
 class SingleComponentModal extends Component {
     constructor(props) {
@@ -106,7 +108,7 @@ class SingleComponentModal extends Component {
                         </div>
                     </Col>
                     <Button
-                        className="reserve_button"
+                        className="checkout-button add-button"
                         onClick={ this.handleChange }
                         disabled={ this.reserveDisabledButton() } >
                         Agregar al Carrito

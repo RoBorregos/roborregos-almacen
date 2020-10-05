@@ -1,3 +1,8 @@
+.add-button {
+    width: 200px;
+    height: 40px;
+}
+
 .singleComponentModal_container{
     color: white;
    
@@ -35,24 +40,13 @@
     margin-inline-start: auto;
 }
 .reserve_button{
-    margin-top: 50px;
-    align-self: center;
-    background-color: rgba(0, 217, 255, 0.5);
-    border: rgb(0, 217, 255);
+    font-size: 1rem;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    border-width: 0px;
+    border-radius: 5px;
 }
 
 .reserve_button:hover{
-    background-color: rgba(0, 217, 255, 0.8);
-}
-
-.reserve_button:disabled{
-    background-color: rgba(0, 217, 255, 0.5)
-}
-
-.minus_button:hover{
-    background-color: rgba(0, 217, 255, 0.8);
-}
-
-.plus_button:hover{
-    background-color: rgba(0, 217, 255, 0.8);
+    cursor: pointer;
 }
