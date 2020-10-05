@@ -1,9 +1,14 @@
+.component-col {
+    display: inline-grid;
+}
+
 .singlecomponent_container{
     height: 300px;
     min-width: min-content;
     text-align: center;
     font-size: 10px; /*Fix to fit dinamically*/
     color: white;
+    justify-self: center;
 }
 
 .single_component_back{
