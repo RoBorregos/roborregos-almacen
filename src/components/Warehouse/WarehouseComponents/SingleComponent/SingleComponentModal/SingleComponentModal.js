@@ -39,15 +39,7 @@ class SingleComponentModal extends Component {
     }
 
     handleIncrement() {
-        let quantityInCart = 0;
-
-        if (this.props.addedItems) {
-            if (this.props.addedItems.hasOwnProperty(this.component.id)) {
-                quantityInCart = this.props.addedItems[this.component.id].quantity;
-            }
-        }
-
-        if (this.state.quantity === this.component.stock - quantityInCart) return;
+        if (this.state.quantity === this.component.stock - this.getAlreadyInCart()) return;
 
         this.setState({ quantity: this.state.quantity + 1 })
     }
@@ -103,7 +95,8 @@ class SingleComponentModal extends Component {
                                 </Col>
                                 <Col xs={ 3 } className='col-pd hor-center ver-center'>
                                     <FontAwesomeIcon icon={ faPlus } className='operation-btn' onClick={ this.handleIncrement }
-                                    style={{ color: (this.state.quantity < this.component.stock? '#fd7e14' : '#2d2d2d') }}
+                                    style={{ color: (
+                                        this.state.quantity < this.component.stock - this.getAlreadyInCart()? '#fd7e14' : '#2d2d2d') }}
                                     ></FontAwesomeIcon>
                                 </Col>
                             </Row>
