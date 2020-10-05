@@ -71,7 +71,7 @@ class SingleComponentModal extends Component {
         return (
             <div className="singleComponentModal_container" onClick={ e => e.stopPropagation() }>
                 <Row className="justify-content-sm-center ">
-                    <Col sm='6'>
+                    <Col sm='6' className='img-col'>
                         <img
                             className="single_component_image"
                             src={ this.tryRequire(this.component.img_path) }
