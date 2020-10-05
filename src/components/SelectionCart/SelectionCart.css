@@ -72,7 +72,6 @@
 }
 
 .ver-center{
-    -ms-flex-item-align: center;
     align-self: center;
 }
 
