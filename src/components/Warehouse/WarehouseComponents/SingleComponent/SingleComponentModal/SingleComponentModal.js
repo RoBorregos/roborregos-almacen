@@ -84,20 +84,24 @@ class SingleComponentModal extends Component {
                             <p>
                                 Already in Cart : { this.getAlreadyInCart() }
                             </p>
-                            <Row className='resp-just ver-center'>
-                                <Col xs={ 3 } className='col-pd hor-center ver-center'>
-                                    <FontAwesomeIcon icon={ faMinus } className='operation-btn' onClick={ this.handleDecrement }
-                                    style={{ color: (this.state.quantity > 0? '#33e1ff' : '#2d2d2d') }} 
-                                    ></FontAwesomeIcon>
-                                </Col>
-                                <Col xs={ 3 } className='item-counter col-pd ver-center hor-center'>
-                                    { this.state.quantity }
-                                </Col>
-                                <Col xs={ 3 } className='col-pd hor-center ver-center'>
-                                    <FontAwesomeIcon icon={ faPlus } className='operation-btn' onClick={ this.handleIncrement }
-                                    style={{ color: (
-                                        this.state.quantity < this.component.stock - this.getAlreadyInCart()? '#fd7e14' : '#2d2d2d') }}
-                                    ></FontAwesomeIcon>
+                            <Row>
+                                <Col xs={ 6 } style={{ marginLeft: "5px" }}>
+                                    <Row className='resp-just ver-center'>
+                                        <Col xs={ 3 } className='col-pd hor-center ver-center'>
+                                            <FontAwesomeIcon icon={ faMinus } className='operation-btn' onClick={ this.handleDecrement }
+                                            style={{ color: (this.state.quantity > 0? '#33e1ff' : '#2d2d2d') }} 
+                                            ></FontAwesomeIcon>
+                                        </Col>
+                                        <Col xs={ 3 } className='item-counter col-pd ver-center hor-center'>
+                                            { this.state.quantity }
+                                        </Col>
+                                        <Col xs={ 3 } className='col-pd hor-center ver-center'>
+                                            <FontAwesomeIcon icon={ faPlus } className='operation-btn' onClick={ this.handleIncrement }
+                                            style={{ color: (
+                                                this.state.quantity < this.component.stock - this.getAlreadyInCart()? '#fd7e14' : '#2d2d2d') }}
+                                            ></FontAwesomeIcon>
+                                        </Col>
+                                    </Row>
                                 </Col>
                             </Row>
                         </div>
