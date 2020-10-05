@@ -2,7 +2,7 @@
     display: inline-grid;
 }
 
-.singlecomponent_container{
+.singlecomponent_container {
     height: 300px;
     min-width: min-content;
     text-align: center;
@@ -11,7 +11,7 @@
     justify-self: center;
 }
 
-.single_component_back{
+.single_component_back {
     background: linear-gradient( 45deg, rgb(11, 15, 19) 1%, rgb(11, 15, 19) 100%), url(../../../../images/github_pattern.svg) top left/auto repeat fixed;
     height: max-content;
     width: min-content;
@@ -19,24 +19,24 @@
     border-radius: 12px;
 }
 
-.single_component_back:hover{
+.single_component_back:hover {
     transform: scale(1.01);
     box-shadow: 0 6px 4px black;
 }
 
-.single_component_back:active{
+.single_component_back:active {
     transform: scale(1.05);
 }
 
-.single_component_image{
+.single_component_image {
    height: 170px;
    width: 170px;
 }
- .single_component_modal{
+ .single_component_modal {
     background-color: rgba(121,134,136,0.59);
  }
 
- .modal-content{
+ .modal-content {
     background: rgb(0,0,0);
  }
 
@@ -44,7 +44,7 @@
     border-bottom: 0 none;
     color: rgb(0, 217, 255);
 }
-.single_component_modal .modal-header .close{
+.single_component_modal .modal-header .close {
     outline: none;
 }
 

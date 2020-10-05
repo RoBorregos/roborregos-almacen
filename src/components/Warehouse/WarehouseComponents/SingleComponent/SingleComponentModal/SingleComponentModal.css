@@ -3,14 +3,14 @@
     height: 40px;
 }
 
-.singleComponentModal_container{
+.singleComponentModal_container {
     color: white;
    
 }
-.component_data{
+.component_data {
     align-items: center;
 }
-.input-group-field{
+.input-group-field {
     border-radius: 8px;
     text-align: center;
     flex-grow: 0.9;
@@ -23,7 +23,7 @@
     text-align: center;
 }
 
-.minus_button{ 
+.minus_button { 
     width: 32px;
     height: 32px;
     padding-left: 10px;
@@ -34,7 +34,7 @@
     padding: 0.25em;
     margin-inline-end: auto;
 }
-.plus_button{
+.plus_button {
     width: 32px;
     height: 32px;
     padding-left: 10px;
@@ -45,7 +45,7 @@
     padding: 0.25em;
     margin-inline-start: auto;
 }
-.reserve_button{
+.reserve_button {
     font-size: 1rem;
     margin-top: 30px;
     margin-bottom: 10px;
@@ -53,6 +53,6 @@
     border-radius: 5px;
 }
 
-.reserve_button:hover{
+.reserve_button:hover {
     cursor: pointer;
 }

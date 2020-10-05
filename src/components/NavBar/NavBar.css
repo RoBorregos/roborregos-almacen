@@ -95,28 +95,28 @@
   justify-content: center;
 }
 
-.shoping-cart-icon{
+.shoping-cart-icon {
   font-size: 30px;
   color: white;
 }
 
-.shopping-cart{
+.shopping-cart {
   position: absolute;
   right: 60px;
 }
 
-.sign-out{
+.sign-out {
   position: absolute;
   right: 10px;
   font-size: 30px;
   color: white;
 }
 
-.sign-out:hover{
+.sign-out:hover {
   color: white;
 }
 
-.navbar-toggler{
+.navbar-toggler {
   position: absolute;
   right: 110px;
 }
