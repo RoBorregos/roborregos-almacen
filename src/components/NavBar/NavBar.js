@@ -58,7 +58,7 @@ class NavBar extends Component {
       <Navbar
       collapseOnSelect
       expand='lg'
-      variant='light'
+      variant='dark'
       fixed='top'
       id='app-navbar'
       className='navbar-color'

@@ -69,11 +69,11 @@
 }
 
 .modal-content {
-    min-width: 600px;
     border-radius: 16px;
     background: #000;
     color: white;
     border: 0;
+    margin-top: 30px;
 }
 
 .no-hor-padding {
@@ -135,12 +135,24 @@
 }
 
 .title-row {
-    color: #33E1FF;
+    font-size: 1.33em;
 }
 
-.topBlack {
-    height: 30px;
-    width: 100%;
-    background: #000;
-    border-radius: 20px 20px 0 0;
+@media (max-width: 360px) {
+    .checkout-button {
+        width: 95px;
+        font-size: 16px;
+    }
+
+    .pad-left10 {
+        padding-left: 0;
+    }
+
+    .pad-left5 {
+        padding-left: 0;
+    }
+    
+    .title-row {
+        font-size: 1em;
+    }
 }
