@@ -1,10 +1,11 @@
 import cookie from 'react-cookies'
 
-const BACK_AVAILABLE = ( process.env.REACT_APP_BACK_API_AVAILABLE === 'true' ? true : false ); 
-const API_KEY = process.env.REACT_APP_BACK_API_KEY;
+const BACK_AVAILABLE = ( process.env.REACT_APP_BACK_AVAILABLE === 'true' ? true : false ); 
+const SESSION_TOKEN = process.env.REACT_APP_BACK_SESSION_TOKEN;
+const ACCESS_TOKEN = process.env.REACT_APP_BACK_ACCESS_TOKEN;
 const BACK_HOST_NAME = process.env.REACT_APP_BACK_API_HOST_NAME;
               
-const doFetch = async (queryString,methodValue,withResponse) => {
+const doFetch = async (queryString,methodValue,params) => {
   const USER_TOKEN = typeof cookie.load('userToken') === 'undefined' ? '' : cookie.load('userToken');
   
   if (!BACK_AVAILABLE || !USER_TOKEN) {
@@ -14,16 +15,17 @@ const doFetch = async (queryString,methodValue,withResponse) => {
   return fetch(BACK_HOST_NAME+queryString, {
     method: methodValue,
     headers: {
-      'Authorization':`Token token=${API_KEY},member_token=${USER_TOKEN}`
+      'Authorization':`Token token=${ACCESS_TOKEN},member_token=${USER_TOKEN}`,
+      'Content-Type': 'application/json'
+    },
+    body: {
+      params
     }
   }).then((response) => {
       if (response.status !== 200) {
         return false;
       } else {
-        if (withResponse) {
-          return response.json();
-        }
-        return true;
+        return response.json();
       }
   }).then((responseData) => {
     if (!responseData) {
@@ -34,7 +36,7 @@ const doFetch = async (queryString,methodValue,withResponse) => {
   });
 };
 
-const doLoginFetch = async (queryString,methodValue,withResponse) => {
+const doLoginFetch = async (queryString,methodValue,params) => {
   const defaultData={username:'User',token:''};
   if (!BACK_AVAILABLE) {
     return {status:false,msg:'Backend not Available.',data:defaultData};
@@ -43,71 +45,220 @@ const doLoginFetch = async (queryString,methodValue,withResponse) => {
   return fetch(BACK_HOST_NAME+queryString, {
     method: methodValue,
     headers: {
-      'Authorization':`Token token=${API_KEY}`
-    }
+      'Authorization':`Token token=${SESSION_TOKEN}`,
+      'Content-Type': 'application/json'
+    },
+    body: params
   }).then((response) => {
       if (response.status !== 200) {
         return false;
       } else {
-        if (withResponse) {
-          return response.json();
-        }
-        return true;
+        return response.json();
       }
   }).then((responseData) => {
     if (!responseData) {
       return {status:false,msg:'Failed.',data:defaultData};
     } else {
-      return {status:true,msg:'Successful.',data:responseData};
+      return responseData;
     }
   });
 };
 
+const doLogoutFetch = async (queryString,methodValue) => {
+  const USER_TOKEN = typeof cookie.load('userToken') === 'undefined' ? '' : cookie.load('userToken');
+  
+  if (!BACK_AVAILABLE || !USER_TOKEN) {
+    return {status:false,msg:'Backend not Available.',data:{}};
+  }
+
+  return fetch(BACK_HOST_NAME+queryString, {
+    method: methodValue,
+    headers: {
+      'Authorization':`Token token=${ACCESS_TOKEN},member_token=${USER_TOKEN}`
+    }
+  }).then((response) => {
+      if (response.status !== 200) {
+        return false;
+      } else {
+        return true;
+      }
+  })
+};
+
 export const loginAPI = async (username,password) => {
-  const queryString=`sign_in?username=${username}&password=${password}`;
+  const queryString='sign_in';
   const methodValue='POST';
-  const withResponse=true;
-  return await doLoginFetch(queryString,methodValue,withResponse);
+  const params={
+    "username":username,
+    "password":password
+  }
+  return await doLoginFetch(queryString,methodValue,params);
 };
 
 export const logoutAPI = async (username) => {
   const queryString=`sign_out?username=${username}`;
   const methodValue='POST';
-  const withResponse=false;
-  return await doFetch(queryString,methodValue,withResponse);
+  return await doFetch(queryString,methodValue);
 };
 
-export const getMemberInfo = async (username) => {
-  const queryString=`members/actions/showByUsername?username=${username}`;
+/* Member */
+export const getMembers = async () => {
+  const queryString='members';
   const methodValue='GET';
-  const withResponse=true;
-  return await doFetch(queryString,methodValue,withResponse);
+  const params={
+    "showAll":1
+  }
+  return await doFetch(queryString,methodValue,params);
 };
 
+export const getMemberInfo = async () => {
+  const queryString='members';
+  const methodValue='GET';
+  const params=false;
+  return await doFetch(queryString,methodValue,params);
+};
+
+export const getMemberId = async (id) => {
+  const queryString=`members/${id}`;
+  const methodValue='GET';
+  const params=false;
+  return await doFetch(queryString,methodValue,params);
+};
+
+/* ComponentCategory */
 export const getCategories = async () => {
   const queryString='component_categories';
   const methodValue='GET';
-  const withResponse=true;
-  return await doFetch(queryString,methodValue,withResponse);
+  const params=false;
+  return await doFetch(queryString,methodValue,params);
 };
 
+export const getCategoryId = async (id) => {
+  const queryString=`component_categories/${id}`;
+  const methodValue='GET';
+  const params=false;
+  return await doFetch(queryString,methodValue,params);
+};
+
+export const createCategory = async (name, description) => {
+  const queryString='component_categories';
+  const methodValue='POST';
+  const params={
+    "name":name,
+    "description":description
+  };
+  return await doFetch(queryString,methodValue,params);
+};
+
+export const deleteCategory = async (id) => {
+  const queryString=`component_categories/${id}`;
+  const methodValue='DELETE';
+  const params=false;
+  return await doFetch(queryString,methodValue,params);
+};
+
+/* Component */
 export const getComponents = async () => {
   const queryString='components';
   const methodValue='GET';
-  const withResponse=true;
-  return await doFetch(queryString,methodValue,withResponse);
+  const params=false;
+  return await doFetch(queryString,methodValue,params);
 };
 
-export const getCurrentReservations = async (username) => {
-  const queryString=`reservations/actions/showCurrentByUsername?username=${username}`;
+export const getComponentsSuffix = async (suffix) => {
+  const queryString='components';
   const methodValue='GET';
-  const withResponse=true;
-  return await doFetch(queryString,methodValue,withResponse);
+  const params={
+    "suffix":suffix
+  };
+  return await doFetch(queryString,methodValue,params);
 };
 
-export const getHistoryReservations = async (username) => {
-  const queryString=`reservations/actions/showHistoryByUsername?username=${username}`;
+export const getComponentId = async (id) => {
+  const queryString=`components/${id}`;
   const methodValue='GET';
-  const withResponse=true;
-  return await doFetch(queryString,methodValue,withResponse);
+  const params=false;
+  return await doFetch(queryString,methodValue,params);
+};
+
+export const createComponent = async (name, category, img_path, stock) => {
+  const queryString='components';
+  const methodValue='POST';
+  const params={
+    "name": name,
+    "category": category,
+    "img_path": img_path,
+    "stock": stock
+  };
+  return await doFetch(queryString,methodValue,params);
+};
+
+export const updateComponent = async (id, stock, add) => {
+  const queryString=`components/${id}`;
+  const methodValue='PUT';
+  const params={
+    "stock": stock,
+    "add": add,
+  };
+  return await doFetch(queryString,methodValue,params);
+};
+
+export const deleteComponent = async (id, stock, add) => {
+  const queryString=`components/${id}`;
+  const methodValue='DELETE';
+  const params=false;
+  return await doFetch(queryString,methodValue,params);
+};
+
+/*Reservation*/
+export const createReservation = async (details) => {
+  const queryString='reservations';
+  const methodValue='POST';
+  const params={
+    "details": details
+  };
+  return await doFetch(queryString,methodValue,params);
+};
+
+export const showHistory = async () => {
+  const queryString='reservations';
+  const methodValue='GET';
+  const params={
+    "showValue": 1
+  };
+  return await doFetch(queryString,methodValue,params);
+};
+
+export const showReturned = async () => {
+  const queryString='reservations';
+  const methodValue='GET';
+  const params={
+    "showValue": 2
+  };
+  return await doFetch(queryString,methodValue,params);
+};
+
+export const showCurrent = async () => {
+  const queryString='reservations';
+  const methodValue='GET';
+  const params={
+    "showValue": 3
+  };
+  return await doFetch(queryString,methodValue,params);
+};
+
+export const uuidActions = async (uuid) => {
+  const queryString=`reservations/${id}`;
+  const methodValue='GET';
+  const params=false;
+  return await doFetch(queryString,methodValue,params);
+};
+
+export const updateReservation = async (details) => {
+  const queryString=`reservations/1`;
+  const methodValue='GET';
+  const params={
+    "details":details
+  };
+  return await doFetch(queryString,methodValue,params);
 };
