@@ -1,11 +1,13 @@
-import React, { Component } from 'react';
-import { Row, Col, Button } from 'react-bootstrap';
-import placeholder from 'images/placeholder-rectangle.png';
 import './SingleComponentModal.css';
-import { connect } from 'react-redux';
-import { addToCart } from './../../../../../scripts/cartReducer';
+
+import { Button, Col, Row } from 'react-bootstrap';
+import React, { Component } from 'react';
+import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { addToCart } from './../../../../../scripts/cartReducer';
+import { connect } from 'react-redux';
+import placeholder from 'images/placeholder-rectangle.png';
 
 class SingleComponentModal extends Component {
     constructor(props) {
@@ -37,15 +39,7 @@ class SingleComponentModal extends Component {
     }
 
     handleIncrement() {
-        let quantityInCart = 0;
-
-        if (this.props.addedItems) {
-            if (this.props.addedItems.hasOwnProperty(this.component.id)) {
-                quantityInCart = this.props.addedItems[this.component.id].quantity;
-            }
-        }
-
-        if (this.state.quantity === this.component.stock - quantityInCart) return;
+        if (this.state.quantity === this.component.stock - this.getAlreadyInCart()) return;
 
         this.setState({ quantity: this.state.quantity + 1 })
     }
@@ -77,7 +71,7 @@ class SingleComponentModal extends Component {
         return (
             <div className="singleComponentModal_container" onClick={ e => e.stopPropagation() }>
                 <Row className="justify-content-sm-center ">
-                    <Col sm='6'>
+                    <Col sm='6' className='img-col'>
                         <img
                             className="single_component_image"
                             src={ this.tryRequire(this.component.img_path) }
@@ -90,23 +84,30 @@ class SingleComponentModal extends Component {
                             <p>
                                 Already in Cart : { this.getAlreadyInCart() }
                             </p>
-                            <div className="inline_section d-flex justify-content-center">
-                                <Button 
-                                    className='minus_button' 
-                                    onClick={this.handleDecrement }>
-                                    <FontAwesomeIcon icon={faMinus} className='mr-2' />
-                                </Button>
-                                <div className="input-group-field" > { this.state.quantity }</div>
-                                <Button
-                                    className="plus_button"
-                                    onClick={ this.handleIncrement }> 
-                                    <FontAwesomeIcon icon={faPlus} className='mr-2' />
-                                </Button>
-                            </div>
+                            <Row>
+                                <Col xs={ 6 } style={{ marginLeft: "5px" }}>
+                                    <Row className='resp-just ver-center'>
+                                        <Col xs={ 3 } className='col-pd hor-center ver-center'>
+                                            <FontAwesomeIcon icon={ faMinus } className='operation-btn' onClick={ this.handleDecrement }
+                                            style={{ color: (this.state.quantity > 0? '#33e1ff' : '#2d2d2d') }} 
+                                            ></FontAwesomeIcon>
+                                        </Col>
+                                        <Col xs={ 3 } className='item-counter col-pd ver-center hor-center'>
+                                            { this.state.quantity }
+                                        </Col>
+                                        <Col xs={ 3 } className='col-pd hor-center ver-center'>
+                                            <FontAwesomeIcon icon={ faPlus } className='operation-btn' onClick={ this.handleIncrement }
+                                            style={{ color: (
+                                                this.state.quantity < this.component.stock - this.getAlreadyInCart()? '#fd7e14' : '#2d2d2d') }}
+                                            ></FontAwesomeIcon>
+                                        </Col>
+                                    </Row>
+                                </Col>
+                            </Row>
                         </div>
                     </Col>
                     <Button
-                        className="reserve_button"
+                        className="checkout-button add-button"
                         onClick={ this.handleChange }
                         disabled={ this.reserveDisabledButton() } >
                         Agregar al Carrito

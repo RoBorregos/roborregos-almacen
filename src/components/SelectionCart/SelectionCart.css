@@ -1,30 +1,30 @@
-.SelectionCart_container{
+.SelectionCart_container {
     margin-top: 55px;
 }
 
-.cart-container{
+.cart-container {
     display: contents;
     justify-content: center;
 }
 
-.hor-center{
+.hor-center {
     display: inline-grid;
     justify-content: center;
 }
 
-.cart-collection{
+.cart-collection {
     margin-left: 0;
     margin-right: 0;
     width: 100%;
 }
 
-.component-img{
+.component-img {
     width: 40px;
     height: 40px;
     border-radius: 10%;
 }
 
-.sin_comp_backg_sc{
+.sin_comp_backg_sc {
     height: -webkit-max-content;
     height: -moz-max-content;
     height: max-content;
@@ -34,17 +34,16 @@
     padding: 5px 5px 5px 5px;
 }
 
-.sin_comp_backg_r{
-    background: linear-gradient( 45deg, rgb(169, 214, 228) 1%, rgba(42, 88, 102, 0.849) 100%);
+.sin_comp_backg_r {
     height: -webkit-max-content;
     height: -moz-max-content;
     height: max-content;
     width: 100%;
-    padding: 5px 5px 5px 5px;
+    padding: 0px 5px 0px 5px;
     border-radius: 12px;
 }
 
-.input-group-field{
+.input-group-field {
     width: 4em;
     border-radius: 6px;
     text-align: center;
@@ -55,19 +54,12 @@
     linear-gradient(#7b4397, #dc2430);
 }
 
-.sin_comp_backg_r:hover{
-    -webkit-transform: scale(1.01);
-    transform: scale(1.01);
-    -webkit-box-shadow: 0 4px 2px black;
-    box-shadow: 0 4px 2px black;
-}
-
-.col-pd{
+.col-pd {
     padding-left: 5px;
     padding-right: 5px;
 }
 
-.checkout-button{
+.checkout-button {
     font-size: 1rem;
     margin-top: 30px;
     margin-bottom: 10px;
@@ -75,20 +67,19 @@
     border-radius: 5px;
 }
 
-.checkout-button:hover{
+.checkout-button:hover {
     cursor: pointer;
 }
 
-.ver-center{
-    -ms-flex-item-align: center;
+.ver-center {
     align-self: center;
 }
 
-.bottom-buffer{
+.bottom-buffer {
      margin-bottom:10px; 
 }
 
-.subt-button{
+.subt-button {
     padding: 0;
     line-height: 15px;
     text-align: center;
@@ -99,7 +90,7 @@
     cursor: pointer;
 }
 
-.add-button{
+.add-button {
     padding: 0;
     line-height: 15px;
     text-align: center;
@@ -110,7 +101,7 @@
     cursor: pointer;
 }
 
-.rem-button{
+.rem-button {
     padding: 0;
     line-height: 15px;
     text-align: center;
@@ -122,13 +113,17 @@
     cursor: pointer;
 }
 
-.rem-button:hover{
+.rem-button:hover {
     background-color: rgb(161, 2, 2);
 }
 
-.item-counter{
+.item-counter {
     margin: 0;
     text-align: center;
+}
+
+.orange-letters {
+    color: #fd7e14;
 }
 
 .empty-title {
@@ -139,81 +134,85 @@
     justify-content: center;
 }
 
-@media (min-width: 600px){
+.operation-btn {
+    font-size: 1.5em;
+}
+
+@media (min-width: 600px) {
     .modal-dialog {
         max-width: 570px;
         margin-top: 1.75rem auto;
     }
 }
 
-@media (max-width: 490px){
+@media (max-width: 490px) {
     .modal-dialog {
         max-width: 550px;
         margin-top: 1.75rem auto;
     }
-    .cart-container{
+    .cart-container {
         margin-right: -1rem;
         padding-left: 0;
         padding-right: 0;
     }
-    .component-img{
+    .component-img {
         width: 30px;
         height: 30px;
         border-radius: 10%;
     }
-    .resp{
+    .resp {
         padding-right: 0;
         padding-left: 0;
         display: inline-grid;
         justify-content: center;
         font-size: 0.9rem;
     }
-    .subt-button{
+    .subt-button {
         width: 22px;
         height: 22px;
     }
-    .add-button{
+    .add-button {
         width: 22px;
         height: 22px;
     }
-    .rem-button{
+    .rem-button {
         width: 22px;
         height: 22px;
     }
     
-    .input-group-field{
+    .input-group-field {
         width: 2rem;
         text-align: center;
         font-size: 0.9rem;
     }
 
-    .resp-just{
+    .resp-just {
         width: max-content;
     }
 }
 
 @media (max-width: 350px){
-    .col-pd{
+    .col-pd {
         padding-left: 3px;
         padding-right: 3px;
     }
-    .resp{
+    .resp {
         text-align: center;
         font-size: 0.7rem;
     }
-    .subt-button{
+    .subt-button {
         width: 20px;
         height: 20px;
     }
-    .add-button{
+    .add-button {
         width: 20px;
         height: 20px;
     }
-    .rem-button{
+    .rem-button {
         width: 20px;
         height: 20px;
     }
-    .input-group-field{
+    .input-group-field {
         width: 1.7rem;
         text-align: center;
         font-size: 0.7rem;

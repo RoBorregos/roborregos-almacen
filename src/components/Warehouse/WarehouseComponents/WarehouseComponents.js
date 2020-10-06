@@ -1,10 +1,12 @@
+import './WarehouseComponents.css';
+
+import { Col, Row } from 'react-bootstrap';
 import React, { Component } from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { faSearch, faSort } from '@fortawesome/free-solid-svg-icons';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SingleComponent from './SingleComponent/SingleComponent.js';
 import { connect } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSort, faSearch } from '@fortawesome/free-solid-svg-icons';
-import './WarehouseComponents.css';
 
 class WarehouseComponents extends Component {
     constructor(props) {
@@ -32,7 +34,7 @@ class WarehouseComponents extends Component {
                         let componentName = this.props.components[section_][id]["name"].toLowerCase();
                         if (componentName.indexOf(searchedComponent) > -1) {
                             componentsList.push(
-                                <Col xs='12' sm='6' md='4' lg='3' key={ id } className='component-col'>
+                                <Col xs={ 12 } sm={ 6 } md={ 4 } lg= { 3 } key={ id } className='component-col'>
                                     <SingleComponent
                                         component={ this.props.components[section_][id] }
                                         section={ section_ }
@@ -48,7 +50,7 @@ class WarehouseComponents extends Component {
                     for (let id in this.props.components[section_]) {
                         this.props.components[section_][id]["id"] = id;
                         componentsList.push(
-                            <Col xs='12' sm='6' md='4' lg='3' key={ id } className='component-col'>
+                            <Col xs={ 12 } sm={ 6 } md={ 4 } lg={ 3 } key={ id } className='component-col'>
                                 <SingleComponent
                                     component={ this.props.components[section_][id] }
                                     section={ section_ }
@@ -108,19 +110,19 @@ class WarehouseComponents extends Component {
 
     render() {
         return (
-            <Row className='justify-content-center mr-0 ml-0'>
-                <Col xs='10' sm='10' md='10' lg='10' xl='10'>
+            <Row className='justify-content-center mr-0 ml-0' style={{ display: 'inline-flex' }}>
+                <Col xs='12' sm='12' md='12' lg='12' xl='12'>
                     <Row className='warehousecomponent-search' >
                         <Col>
                             <div>
                                 <FontAwesomeIcon icon={faSort} className='warehousecomponent-sortandsearch-icons' />
-                            <select className="search_filter" onChange={ this.handleChange } value={ this.state.value }>
-                                <option value="All"> All </option>
-                                <option value="component"> Circuit Component </option>
-                                <option value="sensors"> Sensors </option>
-                                <option value="motors"> Motors </option>
-                                <option value="microcontrollers"> Microcontrollers </option>
-                            </select>
+                                <select className="search_filter" onChange={ this.handleChange } value={ this.state.value }>
+                                    <option value="All"> All </option>
+                                    <option value="component"> Circuit Component </option>
+                                    <option value="sensors"> Sensors </option>
+                                    <option value="motors"> Motors </option>
+                                    <option value="microcontrollers"> Microcontrollers </option>
+                                </select>
                             </div>
                         </Col>
                         <Col>

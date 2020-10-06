@@ -1,4 +1,4 @@
-#app-navbar {
+ #app-navbar {
     height: 48px;
     padding: 0 1px 0 0;
   }
@@ -73,36 +73,50 @@
     color: rgb(0, 225, 250);
   }
 
-.modal-content{
+.modal-content {
     background: rgb(11, 15, 19);
- }
-
-.cart-head {
-  border-color: transparent;
 }
 
-.shoping-cart-icon{
+.cart-modal {
+    background-color: rgba(121,134,136,0.59);
+}
+
+.cart-head .close {
+  color: #FFF;
+  text-shadow: none;
+  font-size: 2rem;
+}.cart-head {
+  padding-top: 20px;
+  color: #00d9ff;
+  width: 95%;
+  text-align: center;
+  align-self: center;
+  border-color: transparent;
+  justify-content: center;
+}
+
+.shoping-cart-icon {
   font-size: 30px;
   color: white;
 }
 
-.shopping-cart{
+.shopping-cart {
   position: absolute;
   right: 60px;
 }
 
-.sign-out{
+.sign-out {
   position: absolute;
   right: 10px;
   font-size: 30px;
   color: white;
 }
 
-.sign-out:hover{
+.sign-out:hover {
   color: white;
 }
 
-.navbar-toggler{
+.navbar-toggler {
   position: absolute;
   right: 110px;
 }

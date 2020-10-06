@@ -1,5 +1,4 @@
 import './ReturningModal.css';
-import 'react-dropdown/style.css';
 
 import { Button, Col, Row } from 'react-bootstrap';
 import { Modal, ModalBody } from 'react-bootstrap';
