@@ -11,16 +11,13 @@ const doFetch = async (queryString,methodValue,params) => {
   if (!BACK_AVAILABLE || !USER_TOKEN) {
     return {status:false,msg:'Backend not Available.',data:{}};
   }
-
   return fetch(BACK_HOST_NAME+queryString, {
     method: methodValue,
     headers: {
       'Authorization':`Token token=${ACCESS_TOKEN},member_token=${USER_TOKEN}`,
       'Content-Type': 'application/json'
     },
-    body: {
-      params
-    }
+    body: (params ? JSON.stringify(params) : null)
   }).then((response) => {
       if (response.status !== 200) {
         return false;
@@ -37,7 +34,7 @@ const doFetch = async (queryString,methodValue,params) => {
 };
 
 const doLoginFetch = async (queryString,methodValue,params) => {
-  const defaultData={username:'User',token:''};
+  const defaultData={username:'',token:''};
   if (!BACK_AVAILABLE) {
     return {status:false,msg:'Backend not Available.',data:defaultData};
   }
@@ -48,7 +45,7 @@ const doLoginFetch = async (queryString,methodValue,params) => {
       'Authorization':`Token token=${SESSION_TOKEN}`,
       'Content-Type': 'application/json'
     },
-    body: params
+    body: JSON.stringify(params)
   }).then((response) => {
       if (response.status !== 200) {
         return false;
@@ -64,27 +61,6 @@ const doLoginFetch = async (queryString,methodValue,params) => {
   });
 };
 
-const doLogoutFetch = async (queryString,methodValue) => {
-  const USER_TOKEN = typeof cookie.load('userToken') === 'undefined' ? '' : cookie.load('userToken');
-  
-  if (!BACK_AVAILABLE || !USER_TOKEN) {
-    return {status:false,msg:'Backend not Available.',data:{}};
-  }
-
-  return fetch(BACK_HOST_NAME+queryString, {
-    method: methodValue,
-    headers: {
-      'Authorization':`Token token=${ACCESS_TOKEN},member_token=${USER_TOKEN}`
-    }
-  }).then((response) => {
-      if (response.status !== 200) {
-        return false;
-      } else {
-        return true;
-      }
-  })
-};
-
 export const loginAPI = async (username,password) => {
   const queryString='sign_in';
   const methodValue='POST';
@@ -96,32 +72,33 @@ export const loginAPI = async (username,password) => {
 };
 
 export const logoutAPI = async (username) => {
-  const queryString=`sign_out?username=${username}`;
+  const queryString=`sign_out`;
   const methodValue='POST';
-  return await doFetch(queryString,methodValue);
+  const params={
+    "username":username
+  }
+  return await doFetch(queryString,methodValue,params);
 };
 
 /* Member */
 export const getMembers = async () => {
-  const queryString='members';
+  const queryString='members?showAll=1';
   const methodValue='GET';
-  const params={
-    "showAll":1
-  }
+  const params=null;
   return await doFetch(queryString,methodValue,params);
 };
 
 export const getMemberInfo = async () => {
   const queryString='members';
   const methodValue='GET';
-  const params=false;
+  const params=null;
   return await doFetch(queryString,methodValue,params);
 };
 
 export const getMemberId = async (id) => {
   const queryString=`members/${id}`;
   const methodValue='GET';
-  const params=false;
+  const params=null;
   return await doFetch(queryString,methodValue,params);
 };
 
@@ -129,14 +106,14 @@ export const getMemberId = async (id) => {
 export const getCategories = async () => {
   const queryString='component_categories';
   const methodValue='GET';
-  const params=false;
+  const params=null;
   return await doFetch(queryString,methodValue,params);
 };
 
 export const getCategoryId = async (id) => {
   const queryString=`component_categories/${id}`;
   const methodValue='GET';
-  const params=false;
+  const params=null;
   return await doFetch(queryString,methodValue,params);
 };
 
@@ -153,7 +130,7 @@ export const createCategory = async (name, description) => {
 export const deleteCategory = async (id) => {
   const queryString=`component_categories/${id}`;
   const methodValue='DELETE';
-  const params=false;
+  const params=null;
   return await doFetch(queryString,methodValue,params);
 };
 
@@ -161,23 +138,21 @@ export const deleteCategory = async (id) => {
 export const getComponents = async () => {
   const queryString='components';
   const methodValue='GET';
-  const params=false;
+  const params=null;
   return await doFetch(queryString,methodValue,params);
 };
 
 export const getComponentsSuffix = async (suffix) => {
-  const queryString='components';
+  const queryString=`components?suffix=${suffix}`;
   const methodValue='GET';
-  const params={
-    "suffix":suffix
-  };
+  const params=null;
   return await doFetch(queryString,methodValue,params);
 };
 
 export const getComponentId = async (id) => {
   const queryString=`components/${id}`;
   const methodValue='GET';
-  const params=false;
+  const params=null;
   return await doFetch(queryString,methodValue,params);
 };
 
@@ -206,7 +181,7 @@ export const updateComponent = async (id, stock, add) => {
 export const deleteComponent = async (id, stock, add) => {
   const queryString=`components/${id}`;
   const methodValue='DELETE';
-  const params=false;
+  const params=null;
   return await doFetch(queryString,methodValue,params);
 };
 
@@ -221,42 +196,36 @@ export const createReservation = async (details) => {
 };
 
 export const showHistory = async () => {
-  const queryString='reservations';
+  const queryString=`reservations?showValue=1`;
   const methodValue='GET';
-  const params={
-    "showValue": 1
-  };
+  const params=null;
   return await doFetch(queryString,methodValue,params);
 };
 
 export const showReturned = async () => {
-  const queryString='reservations';
+  const queryString=`reservations?showValue=2`;
   const methodValue='GET';
-  const params={
-    "showValue": 2
-  };
+  const params=null;
   return await doFetch(queryString,methodValue,params);
 };
 
 export const showCurrent = async () => {
-  const queryString='reservations';
+  const queryString=`reservations?showValue=3`;
   const methodValue='GET';
-  const params={
-    "showValue": 3
-  };
+  const params=null;
   return await doFetch(queryString,methodValue,params);
 };
 
 export const uuidActions = async (uuid) => {
-  const queryString=`reservations/${id}`;
+  const queryString=`reservations/${uuid}`;
   const methodValue='GET';
-  const params=false;
+  const params=null;
   return await doFetch(queryString,methodValue,params);
 };
 
 export const updateReservation = async (details) => {
   const queryString=`reservations/1`;
-  const methodValue='GET';
+  const methodValue='PUT';
   const params={
     "details":details
   };

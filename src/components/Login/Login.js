@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Col, Row, Button } from 'react-bootstrap';
-import RoBorregosLogo from '../../images/white_logo.png';
-import { loginAPI } from '../../scripts/apiScripts.js';
+import RoBorregosLogo from 'images/white_logo.png';
+import { loginAPI } from 'scripts/apiScripts.js';
 
 import './Login.css';
 
@@ -29,7 +29,7 @@ class Login extends Component {
 
     async handleLogin() {
         const sessionDetails = await loginAPI(this.state.userID,this.state.userPassword);
-        if (sessionDetails.username != '') {
+        if (typeof(sessionDetails.username) !== 'undefined' && sessionDetails.username !== '') {
             this.onSuccess(sessionDetails.username,sessionDetails.token);
         } else {
             alert("Username or Password Invalid");
