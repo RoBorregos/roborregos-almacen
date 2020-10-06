@@ -1,9 +1,8 @@
 import cv2
-
+from signin import *
 cap = cv2.VideoCapture(0)
-
+signinpy()
 detector = cv2.QRCodeDetector()
-
 while True:
     _, img = cap.read()
     data, bbox, _ = detector.detectAndDecode(img)
@@ -16,6 +15,11 @@ while True:
                     0.5, (0, 255, 0), 2)
         if data:
             print("data found: ", data)
+            response = showdelrevpy(data)
+            if(response.json().get('data')):
+                print("Success, opening warehouse")
+            else:
+                print('unvalid')
     cv2.imshow("code detector", img)
     if(cv2.waitKey(1) == ord("q")):
         break
