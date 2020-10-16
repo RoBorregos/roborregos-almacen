@@ -1,9 +1,11 @@
+import './SingleComponent.css';
+
+import { Col, Modal, ModalBody } from 'react-bootstrap';
 import React, { Component } from 'react';
-import { Modal, ModalBody} from 'react-bootstrap';
+
 import ModalHeader from 'react-bootstrap/ModalHeader';
 import SingleComponentModal from './SingleComponentModal/SingleComponentModal.js';
 import placeholder from 'images/placeholder-rectangle.png';
-import './SingleComponent.css';
 
 class SingleComponent extends Component{
   constructor(props) {
@@ -54,7 +56,11 @@ class SingleComponent extends Component{
             show = { this.state.show } 
             onHide = { this.handleClose}
           >
-            <ModalHeader closeButton><h1>{ this.component.name }</h1></ModalHeader>
+            <ModalHeader className='cart-head' closeButton>
+                  <Col xs={ 8 } className='offset-2'>
+                    <h2>{ this.component.name }</h2>
+                  </Col>
+                </ModalHeader>
             <ModalBody>
               <SingleComponentModal 
                 handleClose = { this.handleClose }

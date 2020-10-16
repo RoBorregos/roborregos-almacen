@@ -1,40 +1,50 @@
-.singlecomponent_container{
-    height: 300px;
-    width: 100px;
-
-    font-size: 10px; /*Fix to fit dinamically*/
-    color: white;
+.component-col {
+    display: inline-grid;
 }
 
-.single_component_back{
+.singlecomponent_container {
+    height: 300px;
+    min-width: min-content;
+    text-align: center;
+    font-size: 10px; /*Fix to fit dinamically*/
+    color: white;
+    justify-self: center;
+}
+
+.single_component_back {
     background: linear-gradient( 45deg, rgb(11, 15, 19) 1%, rgb(11, 15, 19) 100%), url(../../../../images/github_pattern.svg) top left/auto repeat fixed;
     height: max-content;
-    width: max-content;
+    width: min-content;
     padding: 20px 20px 20px 20px;
     border-radius: 12px;
 }
 
-.single_component_back:hover{
+.single_component_back:hover {
     transform: scale(1.01);
     box-shadow: 0 6px 4px black;
 }
 
-.single_component_back:active{
+.single_component_back:active {
     transform: scale(1.05);
 }
 
-.single_component_image{
-   height: 200px;
-   width: 200px;
+.single_component_image {
+   height: 170px;
+   width: 170px;
 }
- .single_component_modal .modal-content{
-    background: rgb(11, 15, 19);
+ .single_component_modal {
+    background-color: rgba(121,134,136,0.59);
  }
+
+ .modal-content {
+    background: rgb(0,0,0);
+ }
+
  .single_component_modal .modal-header {
     border-bottom: 0 none;
     color: rgb(0, 217, 255);
 }
-.single_component_modal .modal-header .close{
+.single_component_modal .modal-header .close {
     outline: none;
 }
 

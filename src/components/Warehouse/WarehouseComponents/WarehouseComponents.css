@@ -1,30 +1,30 @@
-.WareHouseComponent_container{
+.WareHouseComponent_container {
     display: flex;
     justify-content: center;
 }
 
-.warehousecomponent-search{
+.warehousecomponent-search {
     padding-bottom: 30px;
 }
 
-.warehousecomponent-searchbox{
+.warehousecomponent-searchbox {
     text-align: end;
 }
 
-.warehousecomponent-sortandsearch-icons{
+.warehousecomponent-sortandsearch-icons {
     color: rgb(0, 217, 255); 
     font-size: 40px;
     padding-right: 10px;
     padding-top: 12px;
 }
 
-.search_filter{
+.search_filter {
     background: white;
     border-radius: 10px;
     padding: 4px 15px;
 }
 
-.component_search_filter{
+.component_search_filter {
     position:relative;
 	font-size: 0.9em;
 	background: white;
@@ -32,10 +32,10 @@
     border-radius: 5px;
 }
 
-.search_filter:focus{
+.search_filter:focus {
     outline: none;
 }
 
-.component_search_filter:focus{
+.component_search_filter:focus {
     outline: none;
 }

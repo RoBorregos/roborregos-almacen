@@ -11,25 +11,6 @@ import IconButton from '@material-ui/core/IconButton';
 import WhatsappIcon from '@material-ui/icons/WhatsApp';
 import logo from 'images/white_logo.png';
 
-function sitemapLink(link, legend, big) {
-  if(big){
-    return (
-      <span>
-        <a href={ link } className='sitemap-link'>
-          { legend }
-        </a>
-        <br />
-      </span>
-    );
-  } else {
-    return (
-      <a href={ link } className='sitemap-link'>
-        { legend }
-      </a>
-    );
-  }
-}
-
 function sitemapIconButton(link, icon) {
   return (
     <a
