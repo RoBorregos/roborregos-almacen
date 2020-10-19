@@ -36,6 +36,13 @@
     background-color: rgba(121,134,136,0.59);
  }
 
+ .single_component_name {
+     text-align: center;
+     font-family: Arial;
+     font-size: 1.3rem;
+     margin-bottom: 0;
+ }
+
  .modal-content {
     background: rgb(0,0,0);
  }

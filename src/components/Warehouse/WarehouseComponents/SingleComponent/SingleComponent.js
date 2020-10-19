@@ -76,10 +76,7 @@ class SingleComponent extends Component{
               src={ this.tryRequire(this.component.img_path) }
               alt={ this.component.id }
           />
-          <p 
-            className = "text-center"
-            style={{ fontFamily: "Arial", fontSize:"1.3rem", marginBottom: 0 }}
-          >
+          <p className = "single_component_name">
           { this.component.name }
           </p>
         </div>
