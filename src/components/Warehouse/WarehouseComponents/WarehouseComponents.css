@@ -1,3 +1,8 @@
+.component-col {
+    height: initial;
+    padding-bottom: 30px;
+}
+
 .component_search_filter {
     position:relative;
 	font-size: 0.9em;

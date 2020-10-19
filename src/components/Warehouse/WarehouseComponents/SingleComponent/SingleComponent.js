@@ -78,7 +78,7 @@ class SingleComponent extends Component{
           />
           <p 
             className = "text-center"
-            style = {{ fontFamily: "Arial", fontSize:"1.3rem" }}
+            style={{ fontFamily: "Arial", fontSize:"1.3rem", marginBottom: 0 }}
           >
           { this.component.name }
           </p>
