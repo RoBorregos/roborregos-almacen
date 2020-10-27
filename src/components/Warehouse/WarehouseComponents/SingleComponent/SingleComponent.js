@@ -27,7 +27,7 @@ class SingleComponent extends Component{
 
   tryRequire(img_path) {
     try {
-        return require('images/' + this.section + '/' + img_path);
+        return img_path;
     } catch (err) {
         return placeholder;
     }

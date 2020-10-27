@@ -5,7 +5,8 @@ export const types = {
     CLEAR_CART: 'CLEAR_CART',
     REMOVE_COMPONENT: 'REMOVE_COMPONENT',
     SUB_QUANTITY: 'SUB_QUANTITY',
-    ADD_QUANTITY: 'ADD_QUANTITY'
+    ADD_QUANTITY: 'ADD_QUANTITY',
+    LOAD_COMPONENTS: 'LOAD_COMPONENTS'
 };
 
 export const addToCart = (id, quantity, section) => {
@@ -44,8 +45,15 @@ export const addQuantity = (id) => {
     }
 }
 
+export const loadComponents = (components) => {
+    return {
+        type: types.LOAD_COMPONENTS,
+        components
+    }
+}
+
 const defaultState = {
-    components: componentsData.components,
+    components: {},
     addedItems: {},
 }
 
@@ -110,6 +118,10 @@ const cartReducer = (state = initState, action) => {
                 if(state.addedItems[action.id].quantity !== state.components[section_][action.id].stock)
                     state.addedItems[action.id].quantity += 1;
             }
+        break;
+        case types.LOAD_COMPONENTS:
+            state.components = action.components;
+            console.log(action);
         break;
         default:
         break;
