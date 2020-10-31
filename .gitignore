@@ -28,9 +28,9 @@ yarn-error.log*
 .env
 
 #credentials
-/src/qrcode_scripts/signin.py
+*/src/qrcode_scripts/signin.py
 
 #environments
 qrenv/
 
-__pycache__/
+signin.py
