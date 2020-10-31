@@ -31,6 +31,6 @@ yarn-error.log*
 /src/qrcode_scripts/signin.py
 
 #environments
-/src/qrcode_scripts/qrenv/
+qrenv/
 
-/src/qrcode_scripts/__pycache__/
+__pycache__/
