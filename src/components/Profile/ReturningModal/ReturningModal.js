@@ -177,7 +177,7 @@ class ReturningModal extends Component {
         this.setLocalStorage(nextActiveComponents);
         this.props.handleChangeReturned();
         this.setState({
-            show: false,
+            show: true,
             disabledButton: true,
             showQR:true,
             idQR:'Test return',
@@ -350,16 +350,30 @@ class ReturningModal extends Component {
     render() {
         if (this.state.showQR) {
             return (
-                <Col className='qrcode-container'>
-                    <Row className='justify-content-center mb-4'>
-                        Save your QRcode!!
-                    </Row>
-                    <Row className='justify-content-center'>
-                        <QrCode idQR={ this.state.idQR } />
-                    </Row>
-                </Col>
+                    <Modal className='returning-modal'
+                    show={ this.state.show }
+                    onHide={ this.handleClose }
+                    >
+                        <ModalHeader className='returning_head' closeButton>
+                            <Col xs={ 6 } className='offset-3'>
+                                <h2 className='blue-letters'>Save return QR</h2>
+                            </Col>
+                        </ModalHeader>
+                        <ModalBody>
+                            {/* { this.checkComponents() } */}
+                            <Col className='qrcode-container'>
+                                <Row className='justify-content-center mb-4'>
+                                    Save your QRcode!!
+                                </Row>
+                                <Row className='justify-content-center'>
+                                    <QrCode idQR={ this.state.idQR } />
+                                </Row>
+                            </Col>
+                        </ModalBody>
+                    </Modal>
             );
         } else{
+            
             return(
                 <div onClick={ e => e.stopPropagation() }>
                     <Row className='button-row'>
