@@ -35,7 +35,7 @@ class WarehouseComponents extends Component {
     }
 
     getOptions(){
-        let arrayOfCategories = []
+        const arrayOfCategories = []
         arrayOfCategories.push( <option value="All"> All </option> )
         for(let index = 0; index < this.state.categories.length; index++){
             arrayOfCategories.push(
@@ -50,7 +50,6 @@ class WarehouseComponents extends Component {
     }
 
     resolveFilter(section) {
-
         let componentsList = [];
         let searchedComponent = this.state.searchedComponentValue.toLowerCase();
         if (section === "All") {
