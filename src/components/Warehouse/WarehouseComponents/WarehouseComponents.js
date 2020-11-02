@@ -39,7 +39,7 @@ class WarehouseComponents extends Component {
         arrayOfCategories.push( <option value="All"> All </option> )
         for(let index = 0; index < this.state.categories.length; index++){
             arrayOfCategories.push(
-                <option value='`this.state.categories[index]`'> {this.state.categories[index]} </option>
+                <option value={this.state.categories[index]}> {this.state.categories[index]} </option>
             )
         }
         return (
