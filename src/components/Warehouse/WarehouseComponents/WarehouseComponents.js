@@ -5,8 +5,9 @@ import React, { Component } from 'react';
 import { faSearch, faSort } from '@fortawesome/free-solid-svg-icons';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import SingleComponent from './SingleComponent/SingleComponent.js';
+import SingleComponent from './SingleComponent/SingleComponent';
 import { connect } from 'react-redux';
+import { getCategories } from 'scripts/apiScripts';
 
 class WarehouseComponents extends Component {
     constructor(props) {
@@ -15,11 +16,37 @@ class WarehouseComponents extends Component {
         this.resolveFilter = this.resolveFilter.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleComponentSearch = this.handleComponentSearch.bind(this);
+        this.getOptions = this.getOptions.bind(this);
 
         this.state = {
             value: 'All',
-            searchedComponentValue: ''
+            searchedComponentValue: '',
+            categories: []
         }
+    }
+
+    async componentDidMount() {
+        const categories = await getCategories();
+        const categoriesNamed = []
+        categories.data.forEach(element => {
+            categoriesNamed.push(element.name)
+        });
+        this.setState({ categories: categoriesNamed })
+    }
+
+    getOptions(){
+        let arrayOfCategories = []
+        arrayOfCategories.push( <option value="All"> All </option> )
+        for(let index = 0; index < this.state.categories.length; index++){
+            arrayOfCategories.push(
+                <option value='`this.state.categories[index]`'> {this.state.categories[index]} </option>
+            )
+        }
+        return (
+            <select className="search_filter" onChange={ this.handleChange } value={ this.state.value }>
+                { arrayOfCategories }
+            </select>
+        )
     }
 
     resolveFilter(section) {
@@ -116,13 +143,8 @@ class WarehouseComponents extends Component {
                         <Col>
                             <div>
                                 <FontAwesomeIcon icon={faSort} className='warehousecomponent-sortandsearch-icons' />
-                                <select className="search_filter" onChange={ this.handleChange } value={ this.state.value }>
-                                    <option value="All"> All </option>
-                                    <option value="component"> Circuit Component </option>
-                                    <option value="sensors"> Sensors </option>
-                                    <option value="motors"> Motors </option>
-                                    <option value="microcontrollers"> Microcontrollers </option>
-                                </select>
+                                
+                                    { this.getOptions() }
                             </div>
                         </Col>
                         <Col>
