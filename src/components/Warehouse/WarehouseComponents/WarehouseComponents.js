@@ -137,7 +137,7 @@ class WarehouseComponents extends Component {
 
     render() {
         return (
-            <Row className='justify-content-center mr-0 ml-0' style={{ display: 'inline-flex' }}>
+            <Row className='warehouse-component-container'>
                 <Col xs='12' sm='12' md='12' lg='12' xl='12'>
                     <Row className='warehousecomponent-search' >
                         <Col>
