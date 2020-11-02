@@ -6,11 +6,7 @@ import { getComponents } from 'scripts/apiScripts.js';
 import { connect } from 'react-redux';
 import './Warehouse.css';
 
-class Warehouse extends Component { 
-    constructor(props) {
-        super(props);
-        
-    }
+class Warehouse extends Component {
 
     async componentDidMount(){
         if(Object.entries(this.props.components).length === 0){
