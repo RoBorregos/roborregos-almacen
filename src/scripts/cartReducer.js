@@ -1,5 +1,3 @@
-import componentsData from '../data/components.json';
-
 export const types = {
     ADD_TO_CART: 'ADD_TO_CART',
     CLEAR_CART: 'CLEAR_CART',
