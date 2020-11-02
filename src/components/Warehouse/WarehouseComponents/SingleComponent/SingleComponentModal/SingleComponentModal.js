@@ -32,11 +32,11 @@ class SingleComponentModal extends Component {
 
     tryRequire(img_path) {
         try {
-            return require('images/' + this.section + '/' + img_path);
+            return img_path;
         } catch (err) {
             return placeholder;
         }
-    }
+      }
 
     handleIncrement() {
         if (this.state.quantity === this.component.stock - this.getAlreadyInCart()) return;
