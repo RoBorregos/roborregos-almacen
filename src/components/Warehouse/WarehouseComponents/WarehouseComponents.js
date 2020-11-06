@@ -3,16 +3,15 @@ import './WarehouseComponents.css';
 import { Col, Row } from 'react-bootstrap';
 import React, { Component } from 'react';
 import { faSearch, faSort } from '@fortawesome/free-solid-svg-icons';
-
+import { loadComponents } from '../../../scripts/cartReducer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SingleComponent from './SingleComponent/SingleComponent';
 import { connect } from 'react-redux';
-import { getCategories } from 'scripts/apiScripts';
+import { getCategories, getComponentsSuffix } from 'scripts/apiScripts';
 
 class WarehouseComponents extends Component {
     constructor(props) {
         super(props);
-
         this.resolveFilter = this.resolveFilter.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleComponentSearch = this.handleComponentSearch.bind(this);
@@ -34,6 +33,12 @@ class WarehouseComponents extends Component {
         this.setState({ categories: categoriesNamed })
     }
 
+    async shouldComponentUpdate(nextState) {
+        if(nextState.searchedComponentValue !== this.state.searchedComponentValue) return;
+        const components = await getComponentsSuffix(this.state.searchedComponentValue);
+        this.props.loadComponents(components.data);
+    }
+
     getOptions(){
         const arrayOfCategories = []
         arrayOfCategories.push( <option value="All"> All </option> )
@@ -53,30 +58,12 @@ class WarehouseComponents extends Component {
         let componentsList = [];
         let searchedComponent = this.state.searchedComponentValue.toLowerCase();
         if (section === "All") {
-            if (this.state.searchedComponentValue !== '') {
-                for (let section_ in this.props.components) {
-                    for (let id in this.props.components[section_]) {
-
-                        let componentName = this.props.components[section_][id]["name"].toLowerCase();
-                        if (componentName.indexOf(searchedComponent) > -1) {
-                            componentsList.push(
-                                <Col xs={ 12 } sm={ 6 } md={ 4 } lg= { 3 } key={ id } className='component-col'>
-                                    <SingleComponent
-                                        component={ this.props.components[section_][id] }
-                                        section={ section_ }
-                                    />
-                                </Col>
-                            );
-                        }
-                    }
-                }
-            }
-            else {
-                for (let section_ in this.props.components) {
-                    for (let id in this.props.components[section_]) {
-                        this.props.components[section_][id]["id"] = id;
+            for (let section_ in this.props.components) {
+                for (let id in this.props.components[section_]) {
+                    let componentName = this.props.components[section_][id]["name"].toLowerCase();
+                    if (componentName.indexOf(searchedComponent) > -1) {
                         componentsList.push(
-                            <Col xs={ 12 } sm={ 6 } md={ 4 } lg={ 3 } key={ id } className='component-col'>
+                            <Col xs={ 12 } sm={ 6 } md={ 4 } lg= { 3 } key={ id } className='component-col'>
                                 <SingleComponent
                                     component={ this.props.components[section_][id] }
                                     section={ section_ }
@@ -86,34 +73,17 @@ class WarehouseComponents extends Component {
                     }
                 }
             }
-        }
-        else {
+        } else {
             if (!this.props.components.hasOwnProperty(section)) {
                 return componentsList;
             }
 
-            if (this.state.searchedComponentValue !== '') {
-                for (let id in this.props.components[section]) {
-
-                    this.props.components[section][id]["id"] = id;
-                    let componentName = this.props.components[section][id]["name"].toLowerCase();
-                    if (componentName.indexOf(searchedComponent) > -1) {
-                        componentsList.push(
-                            <Col xs='12' sm='6' md='4' lg='3' key={id} className='component-col'>
-                                <SingleComponent
-                                    component={ this.props.components[section][id] }
-                                    section={ section }
-                                />
-                            </Col>
-                        );
-                    }
-                }
-            }
-            else {
-                for (let id in this.props.components[section]) {
-                    this.props.components[section][id]["id"] = id;
+            for (let id in this.props.components[section]) {
+                this.props.components[section][id]["id"] = id;
+                let componentName = this.props.components[section][id]["name"].toLowerCase();
+                if (componentName.indexOf(searchedComponent) > -1) {
                     componentsList.push(
-                        <Col xs='12' sm='6' md='4' lg='3' key={ id } className='component-col'>
+                        <Col xs='12' sm='6' md='4' lg='3' key={id} className='component-col'>
                             <SingleComponent
                                 component={ this.props.components[section][id] }
                                 section={ section }
@@ -142,8 +112,7 @@ class WarehouseComponents extends Component {
                         <Col>
                             <div>
                                 <FontAwesomeIcon icon={faSort} className='warehousecomponent-sortandsearch-icons' />
-                                
-                                    { this.getOptions() }
+                                { this.getOptions() }
                             </div>
                         </Col>
                         <Col>
@@ -174,4 +143,10 @@ const mapStateToProps = (state) => {
         components: state.components
     }
 }
-export default connect(mapStateToProps, null)(WarehouseComponents);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        loadComponents: (components) => { dispatch(loadComponents(components)) }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(WarehouseComponents);
