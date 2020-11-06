@@ -56,7 +56,6 @@ class WarehouseComponents extends Component {
 
     resolveFilter(section) {
         let componentsList = [];
-        let searchedComponent = this.state.searchedComponentValue.toLowerCase();
         if (section === "All") {
             for (let section_ in this.props.components) {
                 for (let id in this.props.components[section_]) {
@@ -76,17 +75,14 @@ class WarehouseComponents extends Component {
             }
             for (let id in this.props.components[section]) {
                 this.props.components[section][id]["id"] = id;
-                let componentName = this.props.components[section][id]["name"].toLowerCase();
-                if (componentName.indexOf(searchedComponent) > -1) {
-                    componentsList.push(
-                        <Col xs='12' sm='6' md='4' lg='3' key={id} className='component-col'>
-                            <SingleComponent
-                                component={ this.props.components[section][id] }
-                                section={ section }
-                            />
-                        </Col>
-                    );
-                }
+                componentsList.push(
+                    <Col xs='12' sm='6' md='4' lg='3' key={id} className='component-col'>
+                        <SingleComponent
+                            component={ this.props.components[section][id] }
+                            section={ section }
+                        />
+                    </Col>
+                );
             }
         }
         return componentsList;
