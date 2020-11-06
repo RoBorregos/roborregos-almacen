@@ -55,7 +55,7 @@ class WarehouseComponents extends Component {
     }
 
     resolveFilter(section) {
-        let componentsList = [];
+        const componentsList = [];
         if (section === "All") {
             for (let section_ in this.props.components) {
                 for (let id in this.props.components[section_]) {
