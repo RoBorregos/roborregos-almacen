@@ -119,7 +119,6 @@ const cartReducer = (state = initState, action) => {
         break;
         case types.LOAD_COMPONENTS:
             state.components = action.components;
-            console.log(action);
         break;
         default:
         break;
