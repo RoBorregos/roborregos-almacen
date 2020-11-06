@@ -33,7 +33,7 @@ class WarehouseComponents extends Component {
         this.setState({ categories: categoriesNamed })
     }
 
-    async shouldComponentUpdate(nextState) {
+    async shouldComponentUpdate(nextProps, nextState) {
         if(nextState.searchedComponentValue !== this.state.searchedComponentValue) return;
         const components = await getComponentsSuffix(this.state.searchedComponentValue);
         this.props.loadComponents(components.data);
@@ -60,24 +60,20 @@ class WarehouseComponents extends Component {
         if (section === "All") {
             for (let section_ in this.props.components) {
                 for (let id in this.props.components[section_]) {
-                    let componentName = this.props.components[section_][id]["name"].toLowerCase();
-                    if (componentName.indexOf(searchedComponent) > -1) {
-                        componentsList.push(
-                            <Col xs={ 12 } sm={ 6 } md={ 4 } lg= { 3 } key={ id } className='component-col'>
-                                <SingleComponent
-                                    component={ this.props.components[section_][id] }
-                                    section={ section_ }
-                                />
-                            </Col>
-                        );
-                    }
+                    componentsList.push(
+                        <Col xs={ 12 } sm={ 6 } md={ 4 } lg= { 3 } key={ id } className='component-col'>
+                            <SingleComponent
+                                component={ this.props.components[section_][id] }
+                                section={ section_ }
+                            />
+                        </Col>
+                    );
                 }
             }
         } else {
             if (!this.props.components.hasOwnProperty(section)) {
                 return componentsList;
             }
-
             for (let id in this.props.components[section]) {
                 this.props.components[section][id]["id"] = id;
                 let componentName = this.props.components[section][id]["name"].toLowerCase();
