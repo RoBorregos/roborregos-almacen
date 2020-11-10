@@ -179,7 +179,7 @@ class ReturningModal extends Component {
         this.setState({
             show: true,
             disabledButton: true,
-            showQR:true,
+            showQR: true,
             idQR:'Test return',
             components: this.user_components
             
@@ -373,7 +373,6 @@ class ReturningModal extends Component {
                     </Modal>
             );
         } else{
-            
             return(
                 <div onClick={ e => e.stopPropagation() }>
                     <Row className='button-row'>
