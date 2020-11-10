@@ -54,7 +54,7 @@ class SingleComponent extends Component{
           <Modal 
             className = "single_component_modal" 
             show = { this.state.show } 
-            onHide = { this.handleClose}
+            onHide = { this.handleClose }
           >
             <ModalHeader className='cart-head' closeButton>
                   <Col xs={ 8 } className='offset-2'>
@@ -76,10 +76,7 @@ class SingleComponent extends Component{
               src={ this.tryRequire(this.component.img_path) }
               alt={ this.component.id }
           />
-          <p 
-            className = "text-center"
-            style = { { fontFamily: "Arial", fontSize:"1.3rem" } }
-          >
+          <p className = "single_component_name">
           { this.component.name }
           </p>
         </div>
