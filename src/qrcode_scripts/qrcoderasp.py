@@ -6,20 +6,20 @@ videoCapturer = cv2.VideoCapture(0)
 signinpy()
 #detect QR in current video capture
 QRdetector = cv2.QRCodeDetector()
-VideoOn =True
+VideoOn = True
 while VideoOn:
     
     #detect and box the QR code detection
     _, QRImage = videoCapturer.read()
-    QRdata, bbox, _ = QRdetector.detectAndDecode(QRImage)
+    QRdata, QR, _ = QRdetector.detectAndDecode(QRImage)
     
     #only if QR code was finded
-    if(bbox is not None):
+    if(QR is not None):
         #label output
-        for i in range(len(bbox)):
-            cv2.line(QRImage, tuple(bbox[i][0]), tuple(bbox[(i+1) % len(bbox)][0]), color=(255,
+        for i in range(len(QR)):
+            cv2.line(QRImage, tuple(QR[i][0]), tuple(QR[(i+1) % len(QR)][0]), color=(255,
                      0, 255), thickness=2)
-        cv2.putText(QRImage, QRdata, (int(bbox[0][0][0]), int(bbox[0][0][1]) - 10), cv2.FONT_HERSHEY_SIMPLEX,
+        cv2.putText(QRImage, QRdata, (int(QR[0][0][0]), int(QR[0][0][1]) - 10), cv2.FONT_HERSHEY_SIMPLEX,
                     0.5, (0, 255, 0), 2)
         #if data was find for the current QRCODE
         if QRdata:
