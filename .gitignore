@@ -26,3 +26,11 @@ yarn-error.log*
 
 # environment variables
 .env
+
+#credentials
+*/src/qrcode_scripts/signin.py
+
+#environments
+qrenv/
+
+signin.py

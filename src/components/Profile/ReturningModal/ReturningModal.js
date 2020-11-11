@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ModalHeader from 'react-bootstrap/ModalHeader';
 import ReturnedComponents from '../../../data/returned_components.json'
 import { connect } from 'react-redux';
+import QrCode from '../../QrCode/QrCode.js';
 
 class ReturningModal extends Component { 
     constructor(props) {
@@ -43,6 +44,8 @@ class ReturningModal extends Component {
         this.setLocalStorage = this.setLocalStorage.bind(this);
         
         this.state = {
+            showQR: false,
+            idQR: '',
             /** @type { number } */
             user_index_returned: this.user_index_returned,
             /** @type { boolean } */
@@ -174,9 +177,12 @@ class ReturningModal extends Component {
         this.setLocalStorage(nextActiveComponents);
         this.props.handleChangeReturned();
         this.setState({
-            show: false,
+            show: true,
             disabledButton: true,
+            showQR: true,
+            idQR:'Test return',
             components: this.user_components
+            
         });
     }
 
@@ -342,43 +348,69 @@ class ReturningModal extends Component {
     }
 
     render() {
-        return(
-            <div onClick={ e => e.stopPropagation() }>
-                <Row className='button-row'>
-                    <Button className="return-button" onClick={ () => this.handleShow() }> 
-                        Return components 
-                    </Button>
-                </Row>
-                <Modal className='returning-modal'
-                show={ this.state.show }
-                onHide={ this.handleClose }
-                >
-                    <ModalHeader className='returning_head' closeButton>
-                        <Col xs={ 6 } className='offset-3'>
-                            <h2 className='blue-letters'>Return</h2>
-                        </Col>
-                    </ModalHeader>
-                    <ModalBody>
-                        { this.checkComponents() }
-                        <Row className="justify-content-center container button-row">
-                            <Col xs={ 6 } sm={ 3 } className='offset-sm-6'>
-                                <Button className='checkout-button return-all'
-                                onClick={ () => this.selectAllAndReturn() }>
-                                    Return All
-                                </Button>                
+        if (this.state.showQR) {
+            return (
+                    <Modal className='returning-modal'
+                    show={ this.state.show }
+                    onHide={ this.handleClose }
+                    >
+                        <ModalHeader className='returning_head' closeButton>
+                            <Col xs={ 6 } className='offset-3'>
+                                <h2 className='blue-letters'>Save return QR</h2>
                             </Col>
-                            <Col xs={ 6 } sm={ 3 }>
-                                <Button className='checkout-button' 
-                                disabled={ this.state.disabledButton } 
-                                onClick={ () => this.returnComponents() }>
-                                    Return
-                                </Button>  
+                        </ModalHeader>
+                        <ModalBody>
+                            {/* { this.checkComponents() } */}
+                            <Col className='qrcode-container'>
+                                <Row className='justify-content-center mb-4'>
+                                    Save your QRcode!!
+                                </Row>
+                                <Row className='justify-content-center'>
+                                    <QrCode idQR={ this.state.idQR } />
+                                </Row>
                             </Col>
-                        </Row>
-                    </ModalBody>
-                </Modal>
-            </div>   
-        )
+                        </ModalBody>
+                    </Modal>
+            );
+        } else{
+            return(
+                <div onClick={ e => e.stopPropagation() }>
+                    <Row className='button-row'>
+                        <Button className="return-button" onClick={ () => this.handleShow() }> 
+                            Return components 
+                        </Button>
+                    </Row>
+                    <Modal className='returning-modal'
+                    show={ this.state.show }
+                    onHide={ this.handleClose }
+                    >
+                        <ModalHeader className='returning_head' closeButton>
+                            <Col xs={ 6 } className='offset-3'>
+                                <h2 className='blue-letters'>Return</h2>
+                            </Col>
+                        </ModalHeader>
+                        <ModalBody>
+                            { this.checkComponents() }
+                            <Row className="justify-content-center container button-row">
+                                <Col xs={ 6 } sm={ 3 } className='offset-sm-6'>
+                                    <Button className='checkout-button return-all'
+                                    onClick={ () => this.selectAllAndReturn() }>
+                                        Return All
+                                    </Button>                
+                                </Col>
+                                <Col xs={ 6 } sm={ 3 }>
+                                    <Button className='checkout-button' 
+                                    disabled={ this.state.disabledButton } 
+                                    onClick={ () => this.returnComponents() }>
+                                        Return
+                                    </Button>  
+                                </Col>
+                            </Row>
+                        </ModalBody>
+                    </Modal>
+                </div>   
+            )
+        }
     }
 }
 
