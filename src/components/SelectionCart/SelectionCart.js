@@ -32,6 +32,10 @@ class SelectionCart extends Component {
         }
     }
 
+    shouldComponentUpdate(nextProps, nextState){
+        return (nextProps.addedItems !== this.props.addedItems)
+    }
+
     tryRequire(section, img_path) {
         try {
             return require('images/' + section + '/' + img_path);
@@ -113,25 +117,28 @@ class SelectionCart extends Component {
             return;
 
         let res = [];
-        let item = null, section_ = null;
+        let section_ = null;
         for (let component in this.props.addedItems) {
+            console.log(this.props.addedItems[component])
+            var componente = null;
+            const categorieComponents = this.props.components[this.props.addedItems[component].section];
+            for(var key in categorieComponents){
+                if (categorieComponents[key].id === component) 
+                    componente = categorieComponents[key];
+            }
             section_ = this.props.addedItems[component].section;
             if (!this.props.components.hasOwnProperty(section_)) {
-                continue;
-            }
-            item = this.props.components[section_][component];
-            if (typeof item === 'undefined') {
                 continue;
             }
             res.push(
                 <Row key={ component } className='sin_comp_backg_r'>
                     <Col xs='2' className='ver-center resp'>
                         <div className='sin_comp_backg_sc hor-center'>
-                            <img className='component-img' alt={ component } src={ this.tryRequire(section_, item.img_path) } />
+                            <img className='component-img' alt={ component } src={ /*this.tryRequire(section_, componente.img_path)*/ componente.img_path } />
                         </div>
                     </Col>
                     <Col xs='6' className={'col-pd ver-center resp' + (this.props.addedItems[component].quantity > 0? ' orange-letters' : '')}>
-                        { item.name }
+                        { componente.name }
                     </Col>
                     <Col xs='3' className='col-pd ver-center justify-content-center'>
                         <Row className='resp-just ver-center'>
@@ -145,7 +152,7 @@ class SelectionCart extends Component {
                             </Col>
                             <Col xs={ 3 } className='col-pd hor-center ver-center'>
                                 <FontAwesomeIcon icon={ faPlus } className='operation-btn'
-                                style={{ color: (this.props.addedItems[component].quantity < this.props.components[section_][component].stock? '#fd7e14' : '#2d2d2d') }}
+                                style={{ color: (this.props.addedItems[component].quantity < componente.stock? '#fd7e14' : '#2d2d2d') }}
                                 onClick={ () => this.handleAction(types.ADD_QUANTITY, component) }></FontAwesomeIcon>
                             </Col>
                             <Col xs={ 3 } className='col-pd hor-center ver-center'>

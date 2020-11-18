@@ -58,11 +58,12 @@ class WarehouseComponents extends Component {
         const componentsList = [];
         if (section === "All") {
             for (let section_ in this.props.components) {
-                for (let id in this.props.components[section_]) {
+                for (let key in this.props.components[section_]) {
                     componentsList.push(
-                        <Col xs={ 12 } sm={ 6 } md={ 4 } lg= { 3 } key={ id } className='component-col'>
+                        <Col xs={ 12 } sm={ 6 } md={ 4 } lg= { 3 } key={ key } className='component-col'>
                             <SingleComponent
-                                component={ this.props.components[section_][id] }
+                                componentKey={ key }
+                                component={ this.props.components[section_][key] }
                                 section={ section_ }
                             />
                         </Col>
@@ -73,12 +74,13 @@ class WarehouseComponents extends Component {
             if (!this.props.components.hasOwnProperty(section)) {
                 return componentsList;
             }
-            for (let id in this.props.components[section]) {
-                this.props.components[section][id]["id"] = id;
+            for (let key in this.props.components[section]) {
+                console.log(key)
                 componentsList.push(
-                    <Col xs='12' sm='6' md='4' lg='3' key={id} className='component-col'>
+                    <Col xs='12' sm='6' md='4' lg='3' key={key} className='component-col'>
                         <SingleComponent
-                            component={ this.props.components[section][id] }
+                            key={ key } 
+                            component={ this.props.components[section][key] }
                             section={ section }
                         />
                     </Col>

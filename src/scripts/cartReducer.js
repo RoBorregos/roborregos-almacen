@@ -7,9 +7,10 @@ export const types = {
     LOAD_COMPONENTS: 'LOAD_COMPONENTS'
 };
 
-export const addToCart = (id, quantity, section) => {
+export const addToCart = (key, id, quantity, section) => {
     return {
         type: types.ADD_TO_CART,
+        key,
         id,
         quantity,
         section
@@ -90,7 +91,9 @@ const cartReducer = (state = initState, action) => {
                     delete state.addedItems[action.id];
                 }
             } else {
+                console.log("done")
                 state.addedItems[action.id] = {
+                    "key": action.key,
                     "section": action.section,
                     "quantity": action.quantity,
                 };
