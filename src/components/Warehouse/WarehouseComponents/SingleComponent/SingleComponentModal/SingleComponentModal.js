@@ -50,7 +50,7 @@ class SingleComponentModal extends Component {
     }
 
     handleChange() {
-        this.props.addToCart(this.key, this.component.id, this.state.quantity, this.section);
+        this.props.addToCart(this.componentKey, this.component.id, this.state.quantity, this.section);
         this.handleClose();
     }
 

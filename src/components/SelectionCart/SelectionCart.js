@@ -119,7 +119,7 @@ class SelectionCart extends Component {
         let res = [];
         let section_ = null;
         for (let component in this.props.addedItems) {
-            console.log(this.props.addedItems[component])
+            console.log(this.props.addedItems)
             var componente = null;
             const categorieComponents = this.props.components[this.props.addedItems[component].section];
             for(var key in categorieComponents){
