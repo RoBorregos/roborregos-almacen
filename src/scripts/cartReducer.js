@@ -37,10 +37,11 @@ export const subtractQuantity = (id) => {
     }
 }
 
-export const addQuantity = (id) => {
+export const addQuantity = (id, key) => {
     return {
         type: types.ADD_QUANTITY,
-        id
+        id,
+        key
     }
 }
 
@@ -91,7 +92,6 @@ const cartReducer = (state = initState, action) => {
                     delete state.addedItems[action.id];
                 }
             } else {
-                console.log("done")
                 state.addedItems[action.id] = {
                     "key": action.key,
                     "section": action.section,
@@ -116,7 +116,7 @@ const cartReducer = (state = initState, action) => {
         case types.ADD_QUANTITY:
             if (state.addedItems.hasOwnProperty(action.id)) {
                 const section_ = state.addedItems[action.id].section;
-                if(state.addedItems[action.id].quantity !== state.components[section_][action.id].stock)
+                if(state.addedItems[action.id].quantity !== state.components[section_][action.key].stock)
                     state.addedItems[action.id].quantity += 1;
             }
         break;
