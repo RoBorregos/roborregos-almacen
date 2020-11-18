@@ -75,7 +75,6 @@ class WarehouseComponents extends Component {
                 return componentsList;
             }
             for (let key in this.props.components[section]) {
-                console.log(key)
                 componentsList.push(
                     <Col xs='12' sm='6' md='4' lg='3' key={key} className='component-col'>
                         <SingleComponent

@@ -163,7 +163,6 @@ class SelectionCart extends Component {
     }
 
     render() {
-        console.log("F")
         if (this.state.showQR) {
             return (
                 <Col className='qrcode-container'>
