@@ -9,7 +9,7 @@ import './Warehouse.css';
 class Warehouse extends Component {
 
     async componentDidMount(){
-        if(Object.entries(this.props.components).length === 0){
+        if(this.props.components === undefined || Object.entries(this.props.components).length === 0){
             const components = await getComponents();
             this.props.loadComponents(components.data);
         }

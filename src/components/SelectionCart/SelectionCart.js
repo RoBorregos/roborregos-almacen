@@ -26,6 +26,7 @@ class SelectionCart extends Component {
         this.userID = props.userID;
 
         this.state = {
+            actionRender: false,
             handleChange: false,
             showQR: false,
             idQR: '',
@@ -38,10 +39,6 @@ class SelectionCart extends Component {
         } catch (err) {
             return placeholder;
         }
-    }
-
-    shouldComponentUpdate(nextProps, nextState){
-        return (nextProps.addedItems === this.props.addedItems)
     }
 
     getCurrentDate() {
@@ -111,6 +108,9 @@ class SelectionCart extends Component {
         this.setState({ handleChange: !this.state.handleChange });
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        return this.props.addedItems !== nextProps.addedItems || this.state.actionRender !== nextState.actionRender;
+    }
 
     getItems() {
         if (typeof this.props.addedItems === undefined)
@@ -139,7 +139,8 @@ class SelectionCart extends Component {
                             <Col xs={ 3 } className='col-pd hor-center ver-center'>
                                 <FontAwesomeIcon icon={ faMinus } className='operation-btn'
                                 style={{ color: (this.props.addedItems[component].quantity > 0? '#33e1ff' : '#2d2d2d') }} 
-                                onClick={ () => this.handleAction(types.SUB_QUANTITY, singleComponent.id) }></FontAwesomeIcon>
+                                onClick={ () => { this.handleAction(types.SUB_QUANTITY, singleComponent.id);
+                                this.setState({ actionRender: !this.state.actionRender })} }></FontAwesomeIcon>
                             </Col>
                             <Col xs={ 3 } className='item-counter col-pd ver-center hor-center'>
                                 { this.props.addedItems[component].quantity } 
@@ -147,12 +148,14 @@ class SelectionCart extends Component {
                             <Col xs={ 3 } className='col-pd hor-center ver-center'>
                                 <FontAwesomeIcon icon={ faPlus } className='operation-btn'
                                 style={{ color: (this.props.addedItems[component].quantity < singleComponent.stock? '#fd7e14' : '#2d2d2d') }}
-                                onClick={ () => this.handleAction(types.ADD_QUANTITY, singleComponent.id, this.props.addedItems[component].key) }></FontAwesomeIcon>
+                                onClick={ () => { this.handleAction(types.ADD_QUANTITY, singleComponent.id, this.props.addedItems[component].key); 
+                                this.setState({  actionRender: !this.state.actionRender }) }  }></FontAwesomeIcon>
                             </Col>
                             <Col xs={ 3 } className='col-pd hor-center ver-center'>
                                 <FontAwesomeIcon icon={ faTimes } className='operation-btn'
                                 style={{ color: 'red'}}
-                                onClick={ () => this.handleAction(types.REMOVE_COMPONENT, singleComponent.id) }></FontAwesomeIcon>
+                                onClick={ () => { this.handleAction(types.REMOVE_COMPONENT, singleComponent.id); 
+                                this.setState({ actionRender: !this.state.actionRender })}}></FontAwesomeIcon>
                             </Col>
                         </Row>
                     </Col>
