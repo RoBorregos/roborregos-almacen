@@ -4,10 +4,9 @@ import { Button, Col, Row } from 'react-bootstrap';
 import React, { Component } from 'react';
 import { addQuantity, clearCart, removeItem, subtractQuantity, types } from '../../scripts/cartReducer';
 import { faMinus, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { createReservation } from 'scripts/apiScripts.js';
 
-import ActiveComponents from '../../data/active_components.json';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import MockReservation from '../../data/mock_reservations.json';
 import QrCode from '../QrCode/QrCode.js';
 import { connect } from 'react-redux';
 import placeholder from 'images/placeholder-rectangle.png';
@@ -50,43 +49,30 @@ class SelectionCart extends Component {
         return dd + '-' + mm + '-' + yyyy;
     }
 
-    doAPICall(addedItems) {
-        const data = {
-            'reservation_key': Math.floor( Math.random() * 100 ), 
-            'memberID': this.userID, 
-            'date': this.getCurrentDate(),
-            'reservation': [
-            ]
-        };
-        const reservedComponents = {
-            'memberID': this.userID,
-            'activeComponents': [
-            ]
-        };
-        for (let id in addedItems) {
-            if(addedItems[id].quantity === 0) continue;
-            data.reservation.push({
-                'componentID' : id,
-                'quantity' : addedItems[id].quantity,
-            })
-            reservedComponents.activeComponents.push({
-                'componentID' : id,
-                'quantity' : addedItems[id].quantity,
-            })
+    /**
+     * Function that performs that creates a reservation with the requested
+     * componentes
+     * @param {!Array<{key: string, component: string, section: string}>} addedItems 
+     * @return {UUID: string}
+     */
+    async doAPICall(addedItems) {
+        let reservationDetails = [];
+
+        for (let componentToReserve in addedItems) {
+            if (addedItems[componentToReserve].quantity === 0) continue;
+            else {
+                reservationDetails.push({
+                    'component': componentToReserve,
+                    'quantity': addedItems[componentToReserve].quantity
+                });
+            }
         }
-        MockReservation.reservations.push(data);
-        const reserveIndex = ActiveComponents.reservations.findIndex(item => item.memberID === this.userID);
-        if (reserveIndex >= 0 ) {
-            reservedComponents.activeComponents.forEach(e => {
-                    ActiveComponents.reservations[reserveIndex].activeComponents.push(e);
-            })
-        }
-        else {
-            ActiveComponents.reservations.push(reservedComponents);  
-        }
+
+        const reservationRespone = await createReservation(reservationDetails);
+        return reservationRespone.data.uuid;
     }
 
-    handleAction(action, component, key) {
+    async handleAction(action, component, key) {
         switch (action) {
             case types.ADD_QUANTITY:
                 this.props.addQuantity(component, key);
@@ -98,9 +84,9 @@ class SelectionCart extends Component {
                 this.props.removeItem(component);
                 break;
             case types.CLEAR_CART:
-                this.doAPICall(this.props.addedItems);
+                const reservationUUID = await this.doAPICall(this.props.addedItems);
                 this.props.clearCart();
-                this.setState({ showQR: true, idQR: 'Hola Mundo.' })
+                this.setState({ showQR: true, idQR: reservationUUID })
                 return;
             default:
                 break;
