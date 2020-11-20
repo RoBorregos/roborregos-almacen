@@ -1,9 +1,9 @@
 {
     "routes": [
         {
-          "path": "/profile",
-          "legend": "Profile",
-          "component": "Profile"
+          "path": "/myReservations",
+          "legend": "MyReservations",
+          "component": "MyReservations"
         },
         {
           "path": "/",

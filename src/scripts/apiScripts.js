@@ -26,9 +26,9 @@ const doFetch = async (queryString,methodValue,params) => {
       }
   }).then((responseData) => {
     if (!responseData) {
-      return {status:false,msg:'Failed.',data:{}};
+      return {};
     } else {
-      return {status:true,msg:'Successful.',data:responseData};
+      return responseData;
     }
   });
 };

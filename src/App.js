@@ -6,12 +6,11 @@ import { Route, BrowserRouter as Router } from 'react-router-dom';
 import Footer from 'components/Footer/Footer.js';
 import Login from "./components/Login/Login.js";
 import NavBar from "./components/NavBar/NavBar.js";
-import Profile from "./components/Profile/Profile.js";
+import MyReservations from "./components/MyReservations/MyReservations.js";
 import SelectionCart from "./components/SelectionCart/SelectionCart.js";
 import Warehouse from "./components/Warehouse/Warehouse.js";
 import cookie from 'react-cookies';
 import { logoutAPI } from './scripts/apiScripts.js';
-import mock_reservations from './data/mock_reservations.json';
 import routesData from 'data/routes.json';
 
 class App extends Component {
@@ -66,8 +65,8 @@ class App extends Component {
             component={ () => <Warehouse /> }
           />
           <Route
-            exact path='/profile'
-            component={ () => <Profile mock_reservations= { mock_reservations.reservations } 
+            exact path='/myReservations'
+            component={ () => <MyReservations 
               memberID= { this.state.userID }
               /> }
           />

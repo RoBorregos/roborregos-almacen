@@ -4,7 +4,6 @@ import { Col, Modal, ModalBody } from 'react-bootstrap';
 import { Nav, Navbar } from 'react-bootstrap';
 import React, { Component } from 'react';
 import { faShoppingCart, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import ModalHeader from 'react-bootstrap/ModalHeader';

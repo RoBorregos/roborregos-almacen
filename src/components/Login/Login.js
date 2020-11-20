@@ -28,6 +28,12 @@ class Login extends Component {
         this.setState({ userPassword: event.target.value });
     }
 
+    handleKeyPress = (event) => {
+        if(event.key === 'Enter'){
+            this.handleLogin();
+        }
+    }
+
     async handleLogin() {
         const sessionDetails = await loginAPI(this.state.userID,this.state.userPassword);
         if (typeof(sessionDetails.username) !== 'undefined' && sessionDetails.username !== '') {
@@ -69,6 +75,7 @@ class Login extends Component {
                         type="password"
                         placeholder="Password"
                         onChange={this.handleUserPassword}
+                        onKeyPress={this.handleKeyPress}
                     />
                 </Row>
                 <Row className='justify-content-sm-center'>

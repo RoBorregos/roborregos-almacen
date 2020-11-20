@@ -24,7 +24,7 @@
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
     color: #000;
     font-size: 20px;
-    width: 110px;
+    width: auto;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
 }
 
@@ -155,4 +155,9 @@
     .title-row {
         font-size: 1em;
     }
+}
+
+.return-all-container {
+    display: flex;
+    justify-content: flex-end !important;
 }
