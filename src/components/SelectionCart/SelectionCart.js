@@ -40,9 +40,7 @@ class SelectionCart extends Component {
         }
     }
 
-    shouldComponentUpdate(nextProps, nextState){
-        return (nextProps.addedItems === this.props.addedItems)
-    }
+    
 
     getCurrentDate() {
         const today = new Date();
