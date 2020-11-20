@@ -25,7 +25,6 @@ class App extends Component {
       userId: '',
       userToken: ''
     };
-    
   }
 
   onLogin(userId,userToken) {

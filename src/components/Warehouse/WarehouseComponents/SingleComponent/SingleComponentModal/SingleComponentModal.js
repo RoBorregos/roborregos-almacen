@@ -21,7 +21,7 @@ class SingleComponentModal extends Component {
         this.handleClose = props.handleClose;
         this.component = props.component;
         this.section = props.section;
-
+        this.componentKey = this.props.componentKey;
         this.stock = this.component.stock;
 
         this.state = {
@@ -32,11 +32,11 @@ class SingleComponentModal extends Component {
 
     tryRequire(img_path) {
         try {
-            return require('images/' + this.section + '/' + img_path);
+            return img_path;
         } catch (err) {
             return placeholder;
         }
-    }
+      }
 
     handleIncrement() {
         if (this.state.quantity === this.component.stock - this.getAlreadyInCart()) return;
@@ -50,7 +50,7 @@ class SingleComponentModal extends Component {
     }
 
     handleChange() {
-        this.props.addToCart(this.component.id, this.state.quantity, this.section);
+        this.props.addToCart(this.componentKey, this.component.id, this.state.quantity, this.section);
         this.handleClose();
     }
 
@@ -125,7 +125,7 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        addToCart: (id, quantity, section) => { dispatch(addToCart(id, quantity, section)) }
+        addToCart: (key, id, quantity, section) => { dispatch(addToCart(key, id, quantity, section)) }
     }
 }
 
