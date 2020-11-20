@@ -15,7 +15,7 @@ class SingleComponent extends Component{
     this.componentDidMount = this.componentDidMount.bind(this);
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
-
+    this.componentKey = props.key;
     this.id = props.id;
     this.component = props.component;
     this.section = props.section;
@@ -27,13 +27,14 @@ class SingleComponent extends Component{
 
   tryRequire(img_path) {
     try {
-        return require('images/' + this.section + '/' + img_path);
+        return img_path;
     } catch (err) {
         return placeholder;
     }
   }
 
   componentDidMount() {
+    this.componentKey = this.props.componentKey;
     this.component = this.props.component;
     this.section = this.props.section;
   }
@@ -63,6 +64,7 @@ class SingleComponent extends Component{
                 </ModalHeader>
             <ModalBody>
               <SingleComponentModal 
+                componentKey={ this.componentKey }
                 handleClose = { this.handleClose }
                 component = { this.component }
                 section = { this.section }

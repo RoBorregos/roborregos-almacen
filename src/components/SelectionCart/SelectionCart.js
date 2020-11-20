@@ -32,12 +32,16 @@ class SelectionCart extends Component {
         }
     }
 
-    tryRequire(section, img_path) {
+    tryRequire(img_path) {
         try {
-            return require('images/' + section + '/' + img_path);
+            return img_path;
         } catch (err) {
             return placeholder;
         }
+    }
+
+    shouldComponentUpdate(nextProps, nextState){
+        return (nextProps.addedItems === this.props.addedItems)
     }
 
     getCurrentDate() {
@@ -85,10 +89,10 @@ class SelectionCart extends Component {
         }
     }
 
-    handleAction(action, component) {
+    handleAction(action, component, key) {
         switch (action) {
             case types.ADD_QUANTITY:
-                this.props.addQuantity(component);
+                this.props.addQuantity(component, key);
                 break;
             case types.SUB_QUANTITY:
                 this.props.subtractQuantity(component);
@@ -113,45 +117,42 @@ class SelectionCart extends Component {
             return;
 
         let res = [];
-        let item = null, section_ = null;
+        let section_ = null;
         for (let component in this.props.addedItems) {
             section_ = this.props.addedItems[component].section;
             if (!this.props.components.hasOwnProperty(section_)) {
                 continue;
             }
-            item = this.props.components[section_][component];
-            if (typeof item === 'undefined') {
-                continue;
-            }
+            const singleComponent = this.props.components[section_][this.props.addedItems[component].key];
             res.push(
                 <Row key={ component } className='sin_comp_backg_r'>
                     <Col xs='2' className='ver-center resp'>
                         <div className='sin_comp_backg_sc hor-center'>
-                            <img className='component-img' alt={ component } src={ this.tryRequire(section_, item.img_path) } />
+                            <img className='component-img' alt={ component } src={ this.tryRequire(singleComponent.img_path) } />
                         </div>
                     </Col>
                     <Col xs='6' className={'col-pd ver-center resp' + (this.props.addedItems[component].quantity > 0? ' orange-letters' : '')}>
-                        { item.name }
+                        { singleComponent.name }
                     </Col>
                     <Col xs='3' className='col-pd ver-center justify-content-center'>
                         <Row className='resp-just ver-center'>
                             <Col xs={ 3 } className='col-pd hor-center ver-center'>
                                 <FontAwesomeIcon icon={ faMinus } className='operation-btn'
                                 style={{ color: (this.props.addedItems[component].quantity > 0? '#33e1ff' : '#2d2d2d') }} 
-                                onClick={ () => this.handleAction(types.SUB_QUANTITY, component) }></FontAwesomeIcon>
+                                onClick={ () => this.handleAction(types.SUB_QUANTITY, singleComponent.id) }></FontAwesomeIcon>
                             </Col>
                             <Col xs={ 3 } className='item-counter col-pd ver-center hor-center'>
                                 { this.props.addedItems[component].quantity } 
                             </Col>
                             <Col xs={ 3 } className='col-pd hor-center ver-center'>
                                 <FontAwesomeIcon icon={ faPlus } className='operation-btn'
-                                style={{ color: (this.props.addedItems[component].quantity < this.props.components[section_][component].stock? '#fd7e14' : '#2d2d2d') }}
-                                onClick={ () => this.handleAction(types.ADD_QUANTITY, component) }></FontAwesomeIcon>
+                                style={{ color: (this.props.addedItems[component].quantity < singleComponent.stock? '#fd7e14' : '#2d2d2d') }}
+                                onClick={ () => this.handleAction(types.ADD_QUANTITY, singleComponent.id, this.props.addedItems[component].key) }></FontAwesomeIcon>
                             </Col>
                             <Col xs={ 3 } className='col-pd hor-center ver-center'>
                                 <FontAwesomeIcon icon={ faTimes } className='operation-btn'
                                 style={{ color: 'red'}}
-                                onClick={ () => this.handleAction(types.REMOVE_COMPONENT, component) }></FontAwesomeIcon>
+                                onClick={ () => this.handleAction(types.REMOVE_COMPONENT, singleComponent.id) }></FontAwesomeIcon>
                             </Col>
                         </Row>
                     </Col>
@@ -227,7 +228,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         subtractQuantity: (id) => { dispatch(subtractQuantity(id)) },
-        addQuantity: (id) => { dispatch(addQuantity(id)) },
+        addQuantity: (id, key) => { dispatch(addQuantity(id, key)) },
         removeItem: (id) => { dispatch(removeItem(id)) },
         clearCart: () => { dispatch(clearCart()) }
     }
