@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { showReturned, showHistory} from 'scripts/apiScripts.js';
 import { faAngleUp, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ContactSupportOutlined } from '@material-ui/icons';
 import ReturningModal from './ReturningModal/ReturningModal';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
@@ -66,6 +67,7 @@ class MyReservations extends Component {
     *  Returns the table that contains reservations history
     */
     loadHistory() {
+        let keyDetails = 0;
         if (this.state.historyComponents.length !== 0 ) {
             return(
                 <div className="rows-container">
@@ -82,7 +84,7 @@ class MyReservations extends Component {
                                             <FontAwesomeIcon icon={ faAngleDown } className='angle-icon-down fa-2x' />
                                         </Col>
                                     </Row>
-                                    <div className='reservation-details' key={ reservation.id }>
+                                    <div className='reservation-details' key={ reservation.id + "-H" }>
                                         <Row className="first-row justify-content-center">
                                             <Col className="justify-content-center">
                                                 Component
@@ -98,8 +100,9 @@ class MyReservations extends Component {
                                             </Col>
                                         </Row>
                                         { reservation.details.map((component) => {
+                                            keyDetails++;
                                             return (
-                                                <Row key={ component.component_uuid }>
+                                                <Row key={ keyDetails+ "-H" }>
                                                 <Col>{ component.component_name }</Col>
                                                 <Col>{ component.quantity }</Col>
                                                 <Col>{ component.status.charAt(0).toUpperCase() + component.status.slice(1) }</Col>
@@ -127,6 +130,7 @@ class MyReservations extends Component {
     *  Returns the table that contains returned components
     */
     loadReturned()  {
+        let keyDetails = 0;
         if (this.state.returnedComponents.length !== 0 ) {
             return (
                 <div className="rows-container">
@@ -143,7 +147,7 @@ class MyReservations extends Component {
                                             <FontAwesomeIcon icon={ faAngleDown } className='angle-icon-down fa-2x' />
                                         </Col>
                                     </Row>
-                                    <div className='reservation-details' key={ reservation.id }>
+                                    <div className='reservation-details' key={ reservation.id + "-R" }>
                                         <Row className="first-row justify-content-center">
                                             <Col className="justify-content-center">
                                                 Component
@@ -156,8 +160,9 @@ class MyReservations extends Component {
                                             </Col>
                                         </Row>
                                         { reservation.details.map((component) => {
+                                            keyDetails++;
                                             return (
-                                                <Row key={ component.component_uuid }>
+                                                <Row key={ keyDetails+"-R" }>
                                                 <Col>{ component.component_name }</Col>
                                                 <Col>{ component.quantity }</Col>
                                                 <Col>{ component.returned_date }</Col>

@@ -4,10 +4,9 @@ import { Button, Col, Row } from 'react-bootstrap';
 import React, { Component } from 'react';
 import { addQuantity, clearCart, removeItem, subtractQuantity, types } from '../../scripts/cartReducer';
 import { faMinus, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { createReservation } from 'scripts/apiScripts.js';
 
-import ActiveComponents from '../../data/active_components.json';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import MockReservation from '../../data/mock_reservations.json';
 import QrCode from '../QrCode/QrCode.js';
 import { connect } from 'react-redux';
 import placeholder from 'images/placeholder-rectangle.png';
@@ -26,15 +25,16 @@ class SelectionCart extends Component {
         this.userID = props.userID;
 
         this.state = {
+            actionRender: false,
             handleChange: false,
             showQR: false,
             idQR: '',
         }
     }
 
-    tryRequire(section, img_path) {
+    tryRequire(img_path) {
         try {
-            return require('images/' + section + '/' + img_path);
+            return img_path;
         } catch (err) {
             return placeholder;
         }
@@ -49,46 +49,33 @@ class SelectionCart extends Component {
         return dd + '-' + mm + '-' + yyyy;
     }
 
-    doAPICall(addedItems) {
-        const data = {
-            'reservation_key': Math.floor( Math.random() * 100 ), 
-            'memberID': this.userID, 
-            'date': this.getCurrentDate(),
-            'reservation': [
-            ]
-        };
-        const reservedComponents = {
-            'memberID': this.userID,
-            'activeComponents': [
-            ]
-        };
-        for (let id in addedItems) {
-            if(addedItems[id].quantity === 0) continue;
-            data.reservation.push({
-                'componentID' : id,
-                'quantity' : addedItems[id].quantity,
-            })
-            reservedComponents.activeComponents.push({
-                'componentID' : id,
-                'quantity' : addedItems[id].quantity,
-            })
+    /**
+     * Function that performs that creates a reservation with the requested
+     * componentes
+     * @param {!Array<{key: string, component: string, section: string}>} addedItems 
+     * @return {UUID: string}
+     */
+    async doAPICall(addedItems) {
+        let reservationDetails = [];
+
+        for (let componentToReserve in addedItems) {
+            if (addedItems[componentToReserve].quantity === 0) continue;
+            else {
+                reservationDetails.push({
+                    'component': componentToReserve,
+                    'quantity': addedItems[componentToReserve].quantity
+                });
+            }
         }
-        MockReservation.reservations.push(data);
-        const reserveIndex = ActiveComponents.reservations.findIndex(item => item.memberID === this.userID);
-        if (reserveIndex >= 0 ) {
-            reservedComponents.activeComponents.forEach(e => {
-                    ActiveComponents.reservations[reserveIndex].activeComponents.push(e);
-            })
-        }
-        else {
-            ActiveComponents.reservations.push(reservedComponents);  
-        }
+
+        const reservationRespone = await createReservation(reservationDetails);
+        return reservationRespone.data.uuid;
     }
 
-    handleAction(action, component) {
+    async handleAction(action, component, key) {
         switch (action) {
             case types.ADD_QUANTITY:
-                this.props.addQuantity(component);
+                this.props.addQuantity(component, key);
                 break;
             case types.SUB_QUANTITY:
                 this.props.subtractQuantity(component);
@@ -97,9 +84,9 @@ class SelectionCart extends Component {
                 this.props.removeItem(component);
                 break;
             case types.CLEAR_CART:
-                this.doAPICall(this.props.addedItems);
+                const reservationUUID = await this.doAPICall(this.props.addedItems);
                 this.props.clearCart();
-                this.setState({ showQR: true, idQR: 'Hola Mundo.' })
+                this.setState({ showQR: true, idQR: reservationUUID })
                 return;
             default:
                 break;
@@ -107,51 +94,54 @@ class SelectionCart extends Component {
         this.setState({ handleChange: !this.state.handleChange });
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        return this.props.addedItems !== nextProps.addedItems || this.state.actionRender !== nextState.actionRender;
+    }
 
     getItems() {
         if (typeof this.props.addedItems === undefined)
             return;
 
         let res = [];
-        let item = null, section_ = null;
+        let section_ = null;
         for (let component in this.props.addedItems) {
             section_ = this.props.addedItems[component].section;
             if (!this.props.components.hasOwnProperty(section_)) {
                 continue;
             }
-            item = this.props.components[section_][component];
-            if (typeof item === 'undefined') {
-                continue;
-            }
+            const singleComponent = this.props.components[section_][this.props.addedItems[component].key];
             res.push(
                 <Row key={ component } className='sin_comp_backg_r'>
                     <Col xs='2' className='ver-center resp'>
                         <div className='sin_comp_backg_sc hor-center'>
-                            <img className='component-img' alt={ component } src={ this.tryRequire(section_, item.img_path) } />
+                            <img className='component-img' alt={ component } src={ this.tryRequire(singleComponent.img_path) } />
                         </div>
                     </Col>
                     <Col xs='6' className={'col-pd ver-center resp' + (this.props.addedItems[component].quantity > 0? ' orange-letters' : '')}>
-                        { item.name }
+                        { singleComponent.name }
                     </Col>
                     <Col xs='3' className='col-pd ver-center justify-content-center'>
                         <Row className='resp-just ver-center'>
                             <Col xs={ 3 } className='col-pd hor-center ver-center'>
                                 <FontAwesomeIcon icon={ faMinus } className='operation-btn'
                                 style={{ color: (this.props.addedItems[component].quantity > 0? '#33e1ff' : '#2d2d2d') }} 
-                                onClick={ () => this.handleAction(types.SUB_QUANTITY, component) }></FontAwesomeIcon>
+                                onClick={ () => { this.handleAction(types.SUB_QUANTITY, singleComponent.id);
+                                this.setState({ actionRender: !this.state.actionRender })} }></FontAwesomeIcon>
                             </Col>
                             <Col xs={ 3 } className='item-counter col-pd ver-center hor-center'>
                                 { this.props.addedItems[component].quantity } 
                             </Col>
                             <Col xs={ 3 } className='col-pd hor-center ver-center'>
                                 <FontAwesomeIcon icon={ faPlus } className='operation-btn'
-                                style={{ color: (this.props.addedItems[component].quantity < this.props.components[section_][component].stock? '#fd7e14' : '#2d2d2d') }}
-                                onClick={ () => this.handleAction(types.ADD_QUANTITY, component) }></FontAwesomeIcon>
+                                style={{ color: (this.props.addedItems[component].quantity < singleComponent.stock? '#fd7e14' : '#2d2d2d') }}
+                                onClick={ () => { this.handleAction(types.ADD_QUANTITY, singleComponent.id, this.props.addedItems[component].key); 
+                                this.setState({  actionRender: !this.state.actionRender }) }  }></FontAwesomeIcon>
                             </Col>
                             <Col xs={ 3 } className='col-pd hor-center ver-center'>
                                 <FontAwesomeIcon icon={ faTimes } className='operation-btn'
                                 style={{ color: 'red'}}
-                                onClick={ () => this.handleAction(types.REMOVE_COMPONENT, component) }></FontAwesomeIcon>
+                                onClick={ () => { this.handleAction(types.REMOVE_COMPONENT, singleComponent.id); 
+                                this.setState({ actionRender: !this.state.actionRender })}}></FontAwesomeIcon>
                             </Col>
                         </Row>
                     </Col>
@@ -227,7 +217,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         subtractQuantity: (id) => { dispatch(subtractQuantity(id)) },
-        addQuantity: (id) => { dispatch(addQuantity(id)) },
+        addQuantity: (id, key) => { dispatch(addQuantity(id, key)) },
         removeItem: (id) => { dispatch(removeItem(id)) },
         clearCart: () => { dispatch(clearCart()) }
     }

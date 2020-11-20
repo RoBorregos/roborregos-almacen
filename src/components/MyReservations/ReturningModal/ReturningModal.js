@@ -7,6 +7,7 @@ import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ModalHeader from 'react-bootstrap/ModalHeader';
 import { showCurrent, updateReservation } from 'scripts/apiScripts.js';
+import QrCode from 'components/QrCode/QrCode.js';
 
 class ReturningModal extends Component { 
     constructor(props) {
@@ -25,6 +26,8 @@ class ReturningModal extends Component {
         this.activeComponents = [];
         
         this.state = {
+            showQR: false,
+            idQR: '',
             /** @type {!Array<{id: number, details: {!Array<{component_id: number, component_uuid: String, quantity: number
              * , created_date: String, returned_date: String}}, created_date: String, returned_date: String}>} */
             components: [],
@@ -97,7 +100,7 @@ class ReturningModal extends Component {
     * In case of closing the modal, set state to hidden.
     */
     handleClose() {
-        this.setState({ show: false, disabledButton: true });
+        this.setState({ show: false, disabledButton: true, showQR: false, idQR : '' });
     }
 
 
@@ -105,7 +108,7 @@ class ReturningModal extends Component {
     * Set the state of the modal.
     */
     handleShow() {
-        this.setState({ show:true });
+        this.setState({ show:true, disabledButton: false });
     }
 
     /*
@@ -191,8 +194,9 @@ class ReturningModal extends Component {
             );
         }
         
-        await updateReservation(components);
-        
+        const returnData = await updateReservation(components);
+        const returnUUID = returnData.data.uuid;
+
         await this.handleChangeReturned();
 
         const currentComponents = await showCurrent();
@@ -200,49 +204,73 @@ class ReturningModal extends Component {
         for( let index = 0; index < currentComponents.data.length; ++index) {
             this.activeComponents.push(currentComponents.data[index].quantity);
         }
-        
-        this.setState({ components: currentComponents.data});
+        this.setState({ components: currentComponents.data, showQR: true, idQR:returnUUID});
     }
 
     render() {
-        
-        return(
-            <div onClick={ e => e.stopPropagation() }>
-                <Row className='button-row'>
-                    <Button className="return-button" onClick={ () => this.handleShow() }> 
-                        Return components 
-                    </Button>
-                </Row>
-                <Modal className='returning-modal'
-                show={ this.state.show }
-                onHide={ this.handleClose }
-                >
-                    <ModalHeader className='returning_head' closeButton>
-                        <Col xs={ 6 } className='offset-3'>
-                            <h2 className='blue-letters'>Return</h2>
-                        </Col>
-                    </ModalHeader>
-                    <ModalBody>
-                        { this.checkComponents() }
-                        <Row className="justify-content-center container button-row">
-                            <Col xs={ 6 } sm={ 5 } className='offset-sm-4 return-all-container'>
-                                <Button className='checkout-button return-all'
-                                onClick={ () => this.returnComponents(true) }>
-                                    Return All
-                                </Button>                
+        if (this.state.showQR) {
+            return (
+                    <Modal className='returning-modal'
+                    show={ this.state.show }
+                    onHide={ this.handleClose }
+                    >
+                        <ModalHeader className='returning_head' closeButton>
+                            <Col xs={ 6 } className='offset-3'>
+                                <h2 className='blue-letters'>Save return QR</h2>
                             </Col>
-                            <Col xs={ 6 } sm={ 3 }>
-                                <Button className='checkout-button' 
-                                disabled={ this.state.disabledButton } 
-                                onClick={ () => this.returnComponents(false) }>
-                                    Return
-                                </Button>  
+                        </ModalHeader>
+                        <ModalBody>
+                            {/* { this.checkComponents() } */}
+                            <Col className='qrcode-container'>
+                                <Row className='justify-content-center mb-4'>
+                                    Save your QRcode!!
+                                </Row>
+                                <Row className='justify-content-center'>
+                                    <QrCode idQR={ this.state.idQR } />
+                                </Row>
                             </Col>
-                        </Row>
-                    </ModalBody>
-                </Modal>
-            </div>   
-        )
+                        </ModalBody>
+                    </Modal>
+            );
+        } else{
+            return(
+                <div onClick={ e => e.stopPropagation() }>
+                    <Row className='button-row'>
+                        <Button className="return-button" onClick={ () => this.handleShow() }> 
+                            Return components 
+                        </Button>
+                    </Row>
+                    <Modal className='returning-modal'
+                    show={ this.state.show }
+                    onHide={ this.handleClose }
+                    >
+                        <ModalHeader className='returning_head' closeButton>
+                            <Col xs={ 6 } className='offset-3'>
+                                <h2 className='blue-letters'>Return</h2>
+                            </Col>
+                        </ModalHeader>
+                        <ModalBody>
+                            { this.checkComponents() }
+                            <Row className="justify-content-center container button-row">
+                                <Col xs={ 6 } sm={ 5 } className='offset-sm-4 return-all-container'>
+                                    <Button className='checkout-button return-all'
+                                    onClick={ () => this.returnComponents(true) }>
+                                        Return All
+                                    </Button>                
+                                </Col>
+                                <Col xs={ 6 } sm={ 3 }>
+                                    <Button className='checkout-button' 
+                                    disabled={ this.state.disabledButton } 
+                                    onClick={ () => this.returnComponents(false) }>
+                                        Return
+                                    </Button>  
+                                </Col>
+                            </Row>
+                        </ModalBody>
+                    </Modal>
+                </div>   
+            )
+        }
     }
 }
 

@@ -15,7 +15,7 @@ class SingleComponent extends Component{
     this.componentDidMount = this.componentDidMount.bind(this);
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
-
+    this.componentKey = props.key;
     this.id = props.id;
     this.component = props.component;
     this.section = props.section;
@@ -27,13 +27,14 @@ class SingleComponent extends Component{
 
   tryRequire(img_path) {
     try {
-        return require('images/' + this.section + '/' + img_path);
+        return img_path;
     } catch (err) {
         return placeholder;
     }
   }
 
   componentDidMount() {
+    this.componentKey = this.props.componentKey;
     this.component = this.props.component;
     this.section = this.props.section;
   }
@@ -54,7 +55,7 @@ class SingleComponent extends Component{
           <Modal 
             className = "single_component_modal" 
             show = { this.state.show } 
-            onHide = { this.handleClose}
+            onHide = { this.handleClose }
           >
             <ModalHeader className='cart-head' closeButton>
                   <Col xs={ 8 } className='offset-2'>
@@ -63,6 +64,7 @@ class SingleComponent extends Component{
                 </ModalHeader>
             <ModalBody>
               <SingleComponentModal 
+                componentKey={ this.componentKey }
                 handleClose = { this.handleClose }
                 component = { this.component }
                 section = { this.section }
@@ -76,10 +78,7 @@ class SingleComponent extends Component{
               src={ this.tryRequire(this.component.img_path) }
               alt={ this.component.id }
           />
-          <p 
-            className = "text-center"
-            style = { { fontFamily: "Arial", fontSize:"1.3rem" } }
-          >
+          <p className = "single_component_name">
           { this.component.name }
           </p>
         </div>

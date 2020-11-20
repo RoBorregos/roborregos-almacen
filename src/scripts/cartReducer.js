@@ -1,16 +1,16 @@
-import componentsData from '../data/components.json';
-
 export const types = {
     ADD_TO_CART: 'ADD_TO_CART',
     CLEAR_CART: 'CLEAR_CART',
     REMOVE_COMPONENT: 'REMOVE_COMPONENT',
     SUB_QUANTITY: 'SUB_QUANTITY',
-    ADD_QUANTITY: 'ADD_QUANTITY'
+    ADD_QUANTITY: 'ADD_QUANTITY',
+    LOAD_COMPONENTS: 'LOAD_COMPONENTS'
 };
 
-export const addToCart = (id, quantity, section) => {
+export const addToCart = (key, id, quantity, section) => {
     return {
         type: types.ADD_TO_CART,
+        key,
         id,
         quantity,
         section
@@ -37,15 +37,23 @@ export const subtractQuantity = (id) => {
     }
 }
 
-export const addQuantity = (id) => {
+export const addQuantity = (id, key) => {
     return {
         type: types.ADD_QUANTITY,
-        id
+        id,
+        key
+    }
+}
+
+export const loadComponents = (components) => {
+    return {
+        type: types.LOAD_COMPONENTS,
+        components
     }
 }
 
 const defaultState = {
-    components: componentsData.components,
+    components: {},
     addedItems: {},
 }
 
@@ -85,6 +93,7 @@ const cartReducer = (state = initState, action) => {
                 }
             } else {
                 state.addedItems[action.id] = {
+                    "key": action.key,
                     "section": action.section,
                     "quantity": action.quantity,
                 };
@@ -107,9 +116,12 @@ const cartReducer = (state = initState, action) => {
         case types.ADD_QUANTITY:
             if (state.addedItems.hasOwnProperty(action.id)) {
                 const section_ = state.addedItems[action.id].section;
-                if(state.addedItems[action.id].quantity !== state.components[section_][action.id].stock)
+                if(state.addedItems[action.id].quantity !== state.components[section_][action.key].stock)
                     state.addedItems[action.id].quantity += 1;
             }
+        break;
+        case types.LOAD_COMPONENTS:
+            state.components = action.components;
         break;
         default:
         break;
